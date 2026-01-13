@@ -98,7 +98,7 @@
       "name": "linc_luajit",
       "type": "git",
       "dir": null,
-      "ref": "master",
+      "ref": "main",
       "url": "https://github.com/kittycathy233/linc_luajit"
     }
   ]
