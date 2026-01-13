@@ -1,4 +1,3 @@
-#if DISCORD_ALLOWED
 package funkin.api;
 
 import Sys.sleep;
@@ -16,18 +15,22 @@ class DiscordClient
 
 	public static function check()
 	{
+		#if DISCORD_ALLOWED
 		if(ClientPrefs.data.discordRPC) initialize();
 		else if(isInitialized) shutdown();
+		#end
 	}
 	
 	public static function prepare()
 	{
+		#if DISCORD_ALLOWED
 		if (!isInitialized && ClientPrefs.data.discordRPC)
 			initialize();
 
 		Application.current.window.onClose.add(function() {
 			if(isInitialized) shutdown();
 		});
+		#end
 	}
 
 	public dynamic static function shutdown() {
@@ -36,6 +39,7 @@ class DiscordClient
 	}
 	
 	private static function onReady(request:cpp.RawConstPointer<DiscordUser>):Void {
+		#if DISCORD_ALLOWED
 		var requestPtr:cpp.Star<DiscordUser> = cpp.ConstPointer.fromRaw(request).ptr;
 
 		userId = cast(requestPtr.userId, String);
@@ -45,6 +49,7 @@ class DiscordClient
 		else //Old discriminators
 			trace('(Discord) Connected to User (${cast(requestPtr.username, String)})');
 		changePresence();
+		#end
 	}
 
 	private static function onError(errorCode:Int, message:cpp.ConstCharStar):Void {
@@ -57,6 +62,7 @@ class DiscordClient
 
 	public static function initialize()
 	{
+		#if DISCORD_ALLOWED
 		var discordHandlers:DiscordEventHandlers = new DiscordEventHandlers();
 		discordHandlers.ready = cpp.Function.fromStaticFunction(onReady);
 		discordHandlers.disconnected = cpp.Function.fromStaticFunction(onDisconnected);
@@ -79,10 +85,12 @@ class DiscordClient
 			}
 		});
 		isInitialized = true;
+		#end
 	}
 
 	public static function changePresence(?details:String = 'BFDI 26 - GREETINGS AND SALUATIONS', ?state:Null<String>, ?smallImageKey : String, ?hasStartTimestamp : Bool, ?endTimestamp: Float)
 	{
+		#if DISCORD_ALLOWED
 		var startTimestamp:Float = 0;
 		if (hasStartTimestamp) startTimestamp = Date.now().getTime();
 		if (endTimestamp > 0) endTimestamp = startTimestamp + endTimestamp;
@@ -96,18 +104,20 @@ class DiscordClient
 		presence.startTimestamp = Std.int(startTimestamp / 1000);
 		presence.endTimestamp = Std.int(endTimestamp / 1000);
 		updatePresence();
+		#end
 
 		//trace('Discord RPC Updated. Arguments: $details, $state, $smallImageKey, $hasStartTimestamp, $endTimestamp');
 	}
 
 	public static function updatePresence()
-		Discord.UpdatePresence(cpp.RawConstPointer.addressOf(presence));
+		#if DISCORD_ALLOWED Discord.UpdatePresence(cpp.RawConstPointer.addressOf(presence)); #end
 	
 	public static function resetClientID()
-		clientID = _defaultID;
+		#if DISCORD_ALLOWED clientID = _defaultID; #end
 
 	public static function set_clientID(newID:String)
 	{
+		#if DISCORD_ALLOWED
 		var change:Bool = (clientID != newID);
 		clientID = newID;
 
@@ -118,6 +128,7 @@ class DiscordClient
 			updatePresence();
 		}
 		return newID;
+		#end
 	}
 
 	#if MODS_ALLOWED
@@ -145,4 +156,3 @@ class DiscordClient
 	}
 	#end
 }
-#end
