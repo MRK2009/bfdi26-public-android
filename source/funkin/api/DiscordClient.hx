@@ -1,5 +1,6 @@
-package funkin.api;
 #if DISCORD_ALLOWED
+package funkin.api;
+
 import Sys.sleep;
 import lime.app.Application;
 import hxdiscord_rpc.Discord;
