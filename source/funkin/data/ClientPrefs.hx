@@ -84,7 +84,7 @@ import flixel.input.gamepad.FlxGamepadInputID;
 	public var badWindow:Int = 135;
 	public var safeFrames:Float = 10;
 	public var guitarHeroSustains:Bool = false; //die
-	public var discordRPC:Bool = true;
+	public var discordRPC:Bool = false;
 }
 
 class ClientPrefs 
