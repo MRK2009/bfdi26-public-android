@@ -22,9 +22,9 @@
 
 	<define name="MODS_ALLOWED" if="desktop || android" />
 	<define name="HSCRIPT_ALLOWED" if="desktop || android" />
+	<define name="DISCORD_ALLOWED" if="desktop" />
 
 	<section if="cpp">
-		<define name="DISCORD_ALLOWED"/>
 		<define name="VIDEOS_ALLOWED"/>
 		<define name="LUA_ALLOWED" />
 	</section>
