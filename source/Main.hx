@@ -155,6 +155,7 @@ class Main extends Sprite
 
 		loadBanList();
 
+		#if DISCORD_ALLOWED
 		if (banlist.contains(DiscordClient.userId))
 		{
 			FlxG.save.data.bannedhaha = true;
@@ -162,6 +163,7 @@ class Main extends Sprite
 			#if debug trace('ur banned'); #end
 		} #if debug else trace('ur not banned'); #end
 		trace(banlist);
+		#end
 
 		// shader coords fix
 		FlxG.signals.focusGained.add(function() {
