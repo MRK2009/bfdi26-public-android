@@ -1,6 +1,5 @@
-#if desktop
 package funkin.api;
-
+#if desktop
 import Sys.sleep;
 import lime.app.Application;
 import hxdiscord_rpc.Discord;
