@@ -109,11 +109,13 @@ class DiscordClient
 		//trace('Discord RPC Updated. Arguments: $details, $state, $smallImageKey, $hasStartTimestamp, $endTimestamp');
 	}
 
+	#if DISCORD_ALLOWED
 	public static function updatePresence()
-		#if DISCORD_ALLOWED Discord.UpdatePresence(cpp.RawConstPointer.addressOf(presence)); #end
+		Discord.UpdatePresence(cpp.RawConstPointer.addressOf(presence));
 	
 	public static function resetClientID()
-		#if DISCORD_ALLOWED clientID = _defaultID; #end
+		clientID = _defaultID; 
+	#end
 
 	public static function set_clientID(newID:String)
 	{
