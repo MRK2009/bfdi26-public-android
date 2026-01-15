@@ -38,6 +38,7 @@ import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
+import mobile.states.CopyState;
 
 #if cpp
 import cpp.vm.Gc;
@@ -109,7 +110,7 @@ class Main extends Sprite
 		Sys.setCwd(lime.system.System.applicationStorageDirectory);
 		#end*/
 
-		var _game = new FlxGame(game.width, game.height, game.firstState, game.fps, game.fps, game.skipSplash, game.startFullscreen);
+		var _game = new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) CopyState.checkExistingFiles() ? game.firstState : CopyState #else game.firstState #end, game.fps, game.fps, game.skipSplash, game.startFullscreen);
 		@:privateAccess _game._customSoundTray = funkin.objects.BFDISoundTray;
 		Setup.loadSave();
 		addChild(_game);
