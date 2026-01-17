@@ -33,8 +33,8 @@ class MobileUtil {
    */
 public static function getDirectory():String {
     #if android
-    var preferredPath = "/storage/emulated/0/.FunkinFPSPlus/";
-    var fallbackPath = "/storage/emulated/0/Android/media/com.rozebud.funkinfpsplus/";
+    var preferredPath = "/storage/emulated/0/.BFDI26/";
+    var fallbackPath = "/storage/emulated/0/Android/media/com.shadowmario.bfdi26/";
     
     if (FileSystem.exists(preferredPath + "assets") && FileSystem.isDirectory(preferredPath + "assets")) {
         useAlternativePath = false;
