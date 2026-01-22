@@ -32,9 +32,7 @@ enum FlxActionMode
 	B;
 	X;
 	A_B;
-	CONFIG_MENU;
 	A_B_C;
-	FREE_PLAY;
 	A_B_E;
 	A_B_X_Y;
 	A_B_C_X_Y;
@@ -67,7 +65,6 @@ class FlxVirtualPad extends FlxMobileInputManager
 	public var buttonC:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.C]);
 	public var buttonD:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.D]);
 	public var buttonE:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.E]);
-	public var buttonR:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.R]);
 	public var buttonV:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.V]);
 	public var buttonX:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.X]);
 	public var buttonY:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.Y]);
@@ -143,19 +140,7 @@ class FlxVirtualPad extends FlxMobileInputManager
 			case A_B:
 				add(buttonB = createButton(FlxG.width - 258, FlxG.height - 135, 'b', 0xFFCB00));
 				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
-			case CONFIG_MENU:
-				add(buttonLeft2 = createButton(FlxG.width - 86 * 3, FlxG.height - 85 * 3, 'left', 0xFD589D));
-				add(buttonRight2 = createButton(FlxG.width - 44 * 3, FlxG.height - 85 * 3, 'right', 0x654AF1));
-				add(buttonB = createButton(FlxG.width - 258, FlxG.height - 135, 'b', 0xFFCB00));
-				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
 			case A_B_C:
-				add(buttonC = createButton(FlxG.width - 384, FlxG.height - 135, 'c', 0x44FF00));
-				add(buttonB = createButton(FlxG.width - 258, FlxG.height - 135, 'b', 0xFFCB00));
-				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
-			case FREE_PLAY:
-				add(buttonR = createButton(FlxG.width - 44 * 3, FlxG.height - 85 * 4.4, 'r', 0x00D0FF));
-				add(buttonLeft2 = createButton(FlxG.width - 86 * 3, FlxG.height - 85 * 3, 'left', 0xFD589D));
-				add(buttonRight2 = createButton(FlxG.width - 44 * 3, FlxG.height - 85 * 3, 'right', 0x654AF1));
 				add(buttonC = createButton(FlxG.width - 384, FlxG.height - 135, 'c', 0x44FF00));
 				add(buttonB = createButton(FlxG.width - 258, FlxG.height - 135, 'b', 0xFFCB00));
 				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
@@ -222,7 +207,6 @@ class FlxVirtualPad extends FlxMobileInputManager
 		buttonC = FlxDestroyUtil.destroy(buttonC);
 		buttonD = FlxDestroyUtil.destroy(buttonD);
 		buttonE = FlxDestroyUtil.destroy(buttonE);
-		buttonR = FlxDestroyUtil.destroy(buttonR);
 		buttonV = FlxDestroyUtil.destroy(buttonV);
 		buttonX = FlxDestroyUtil.destroy(buttonX);
 		buttonY = FlxDestroyUtil.destroy(buttonY);
@@ -244,7 +228,7 @@ class FlxVirtualPad extends FlxMobileInputManager
 		button.immovable = true;
 		button.scrollFactor.set();
 		button.color = Color;
-		button.alpha = Config.padalpha;
+		button.alpha = ClientPrefs.data.padalpha;
 		#if FLX_DEBUG
 		button.ignoreDrawDebug = true;
 		#end
