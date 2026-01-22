@@ -12,7 +12,7 @@ import openfl.display.BitmapData;
 import openfl.utils.Assets;
 import mobile.flixel.input.FlxMobileInputManager;
 import mobile.flixel.input.FlxMobileInputID;
-import PlayState;
+import funkin.states.PlayState;
 import config.Config;
 enum FlxDPadMode
 {
