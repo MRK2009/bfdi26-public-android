@@ -3,7 +3,7 @@ package;
 import Type;
 
 #if android
-import android.content.Context;
+//import android.content.Context;
 #end
 
 import funkin.api.FPSCounter;
