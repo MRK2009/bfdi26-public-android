@@ -10,6 +10,9 @@ import funkin.api.DiscordClient;
 import openfl.net.URLLoader;
 import openfl.net.URLRequest;
 import openfl.events.Event;
+// mobile 
+import mobile.MobileControls;
+import mobile.flixel.FlxVirtualPad;
 
 class MusicBeatState extends FlxUIState
 {
@@ -26,6 +29,59 @@ class MusicBeatState extends FlxUIState
 
 	public var controls(get, never):Controls;
 
+	public static var instance:MusicBeatState;
+	public var mobileControls:MobileControls;
+	public var virtualPad:FlxVirtualPad;
+
+	public var vpadCam:FlxCamera;
+	public var camControls:FlxCamera;
+
+	
+    public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode)
+	{
+		if (virtualPad != null)
+			removeVirtualPad();
+
+		virtualPad = new FlxVirtualPad(DPad, Action);
+		add(virtualPad);
+	}
+
+	public function removeVirtualPad()
+	{
+		if (virtualPad != null)
+			remove(virtualPad);
+	}
+
+	public function addMobileControls(DefaultDrawTarget:Bool = false, SpaceButton:Int = 0)
+	{
+		mobileControls = new MobileControls(SpaceButton);
+
+		camControls = new FlxCamera();
+		camControls.bgColor.alpha = 0;
+		FlxG.cameras.add(camControls, DefaultDrawTarget);
+
+		mobileControls.cameras = [camControls];
+		mobileControls.visible = false;
+		add(mobileControls);
+	}
+
+	public function removeMobileControls()
+	{
+		if (mobileControls != null)
+			remove(mobileControls);
+	}
+
+	public function addVirtualPadCamera(DefaultDrawTarget:Bool = false)
+	{
+		if (virtualPad != null)
+		{
+			vpadCam = new FlxCamera();
+			FlxG.cameras.add(vpadCam, DefaultDrawTarget);
+			vpadCam.bgColor.alpha = 0;
+			virtualPad.cameras = [vpadCam];
+		}
+	}
+
 	private function get_controls()
 	{
 		return Controls.instance;
@@ -37,6 +93,7 @@ class MusicBeatState extends FlxUIState
 
 	override function create() 
 	{
+		instance = this;
 		var skip:Bool = FlxTransitionableState.skipNextTransOut;
 		#if MODS_ALLOWED Mods.updatedOnState = false; #end
 
