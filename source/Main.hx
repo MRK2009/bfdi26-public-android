@@ -40,7 +40,8 @@ import sys.io.File;
 import sys.io.Process;
 
 #if mobile
-import mobile.utils.*;
+import mobile.util.MobileUtil;
+import openfl.events.UncaughtErrorEvent;
 #end
 
 #if cpp
@@ -105,8 +106,8 @@ class Main extends Sprite
 		if (!MobileUtil.areAssetsCopied("assets/"))
 			MobileUtil.copyAssetsFromAPK("assets/");
 
-		if (!MobileUtil.areModsCopied("mods/"))
-			MobileUtil.copyModsFromAPK("mods/");
+		if (!MobileUtil.areAssetsCopied("assets/videos/"))
+			MobileUtil.copyAssetsFromAPK("assets/videos/");
 		#end
 
 		/* Credits to MAJigsaw77 (he's the og author for this code)
@@ -159,6 +160,8 @@ class Main extends Sprite
 		#end
 
 		Lib.application.window.resizable = false;
+
+		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
 
 		loadBanList();
 
