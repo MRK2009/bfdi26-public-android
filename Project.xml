@@ -64,6 +64,9 @@
 	<!-- Assets -->
 	<assets path="assets/embeds" rename= "assets" embed="true" if="release"/>
 	<assets path="assets/embeds" rename= "assets"  unless="release"/>
+	<assets path="assets/mobile" if="mobile"/>
+
+	<assets path="mobile/storageModes.txt" if="android"/>
 	
 	<assets path="assets/fonts" />
 	<assets path="assets/shared"        exclude="*.ogg" if="web"/>
