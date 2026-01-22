@@ -22,9 +22,7 @@ class FlxHitbox extends FlxMobileInputManager
 	public var buttonDown:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxDOWN, FlxMobileInputID.noteDOWN]);
 	public var buttonUp:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxUP, FlxMobileInputID.noteUP]);
 	public var buttonRight:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxRIGHT, FlxMobileInputID.noteRIGHT]);
-	public var buttonAction:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxSPACE, FlxMobileInputID.SPACE]);
-	public var buttonActionTwo:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxSHIFT, FlxMobileInputID.SHIFT);
-
+	
 	var AlphaThing:Float = 0.2;
 	var storedButtonsIDs:Map<String, Array<FlxMobileInputID>> = new Map<String, Array<FlxMobileInputID>>();
 
@@ -52,14 +50,6 @@ class FlxHitbox extends FlxMobileInputManager
 			add(buttonDown = createHint(FlxG.width / 4, hitboxY, Std.int(FlxG.width / 4), buttonHeight, 0x00FFFF));
 			add(buttonUp = createHint(FlxG.width / 2, hitboxY, Std.int(FlxG.width / 4), buttonHeight, 0x00FF00));
 			add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), hitboxY, Std.int(FlxG.width / 4), buttonHeight, 0xFF0000));
-    if (activateSpaceButton) {
-		    if (activateSpaceButtonTwo) {
-				add(buttonAction = createHint(0, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height * 0.25), 0xFFFF00));
-				add(buttonActionTwo = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height * 0.25), 0x800080));
-			} else {
-				add(buttonAction = createHint(0, 0, FlxG.width, Std.int(FlxG.height * 0.25), 0xFFFF00));
-			}
-		}
 		
 		for (button in Reflect.fields(this))
 		{
@@ -81,7 +71,6 @@ class FlxHitbox extends FlxMobileInputManager
 		buttonUp = FlxDestroyUtil.destroy(buttonUp);
 		buttonDown = FlxDestroyUtil.destroy(buttonDown);
 		buttonRight = FlxDestroyUtil.destroy(buttonRight);
-		buttonAction = FlxDestroyUtil.destroy(buttonAction);
 	}
 
 	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
