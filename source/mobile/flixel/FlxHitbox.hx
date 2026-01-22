@@ -1,146 +1,107 @@
 package mobile.flixel;
-/*
-import flixel.util.FlxGradient;
+
+import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxDestroyUtil;
-import mobile.flixel.FlxButton;
-import flixel.FlxSprite;
-import flixel.FlxG;
 import openfl.display.BitmapData;
 import openfl.display.Shape;
+import mobile.flixel.FlxButton;
+import mobile.flixel.input.FlxMobileInputManager;
+import mobile.flixel.input.FlxMobileInputID;
+import haxe.ds.Map;
+import config.Config;
 
-class FlxHitbox extends FlxSpriteGroup {
-	public var hitbox:FlxSpriteGroup;
-	public var hints:FlxSpriteGroup;
+/**
+ * A zone with 4 hint's (A hitbox).
+ * It's really easy to customize the layout.
+ *
+ * @author Mihai Alexandru (M.A. Jigsaw)
+ */
+class FlxHitbox extends FlxMobileInputManager
+{
+	public var buttonLeft:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxLEFT, FlxMobileInputID.noteLEFT]);
+	public var buttonDown:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxDOWN, FlxMobileInputID.noteDOWN]);
+	public var buttonUp:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxUP, FlxMobileInputID.noteUP]);
+	public var buttonRight:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxRIGHT, FlxMobileInputID.noteRIGHT]);
 
-	public var array:Array<FlxButton> = [];
+	var AlphaThing:Float = 0.2;
+	var storedButtonsIDs:Map<String, Array<FlxMobileInputID>> = new Map<String, Array<FlxMobileInputID>>();
 
-	var hitboxColor:Map<Int, Array<Int>> = [
-		1 => [0xffFFFFFF],
-		2 => [0xffE390E6, 0xffFF0000],
-		3 => [0xffE390E6, 0xffFFFFFF, 0xffFF0000],
-		4 => [0xffE390E6, 0xff00EDFF, 0xff00FF00, 0xffFF0000],
-		5 => [0xffE390E6, 0xff00EDFF, 0xffFFFFFF, 0xff00FF00, 0xffFF0000],
-		6 => [0xffE390E6, 0xff00FF00, 0xffFF0000, 0xffFFFF00, 0xff00EDFF, 0xff0000FF],
-		7 => [0xffE390E6, 0xff00FF00, 0xffFF0000, 0xffFFFFFF, 0xffFFFF00, 0xff00EDFF, 0xff0000FF],
-		8 => [0xffE390E6, 0xff00EDFF, 0xff00FF00, 0xffFF0000, 0xffFFFF00, 0xffBB00FF, 0xffFF0000, 0xff0000FF],
-		9 => [0xffE390E6, 0xff00EDFF, 0xff00FF00, 0xffFF0000, 0xffFFFFFF, 0xffFFFF00, 0xffBB00FF, 0xffFF0000, 0xff0000FF],
- 	];
-
-	public function new(?type:Int = 3) {
-		super();
-		hitbox = new FlxSpriteGroup();
-		hints = new FlxSpriteGroup();
-		
-		var keyCount:Int = type + 1;
-		var hitboxWidth:Int = Math.floor(FlxG.width / keyCount);
-		for (i in 0 ... keyCount) {
-			hitbox.add(add(array[i] = createhitbox(hitboxWidth * i, 0, hitboxWidth, FlxG.height, hitboxColor[keyCount][i])));
-      array[i].stringIDs = ['${type}_key_${keyCount}'];
-		if (ClientPrefs.ExtraHints && !ClientPrefs.hideHitboxHints)
-			    hints.add(add(createHints(hitboxWidth * i, 0, hitboxWidth, FlxG.height, hitboxColor[keyCount][i])));
-		}
-	}
-
-	public function createhitbox(x:Float = 0, y:Float = 0, width:Int, height:Int, color:Int) {
-
-		var hintTween:FlxTween = null;
-		var button:FlxButton = new FlxButton(x, y);
-		button.loadGraphic(createHintGraphic(width, height));
-		button.color = color;
-		button.updateHitbox();
-		button.alpha = 0.00001;
-
-		if (!ClientPrefs.hideHitboxHints)
-		{
-			button.onDown.callback = function()
-			{
-				if (hintTween != null)
-					hintTween.cancel();
-
-				hintTween = FlxTween.tween(button, {alpha: ClientPrefs.controlsAlpha}, ClientPrefs.controlsAlpha / 100, {
-					ease: FlxEase.circInOut,
-					onComplete: function(twn:FlxTween)
-					{
-						hintTween = null;
-					}
-				});
-			}
-			button.onUp.callback = function()
-			{
-				if (hintTween != null)
-					hintTween.cancel();
-
-				hintTween = FlxTween.tween(button, {alpha: 0.00001}, ClientPrefs.controlsAlpha / 10, {
-					ease: FlxEase.circInOut,
-					onComplete: function(twn:FlxTween)
-					{
-						hintTween = null;
-					}
-				});
-			}
-			button.onOut.callback = function()
-			{
-				if (hintTween != null)
-					hintTween.cancel();
-
-				hintTween = FlxTween.tween(button, {alpha: 0.00001}, ClientPrefs.controlsAlpha / 10, {
-					ease: FlxEase.circInOut,
-					onComplete: function(twn:FlxTween)
-					{
-						hintTween = null;
-					}
-				});
-			}
-		}
-		#if FLX_DEBUG
-		button.ignoreDrawDebug = true;
-		#end
-		return button;
-	}
-
-	override public function destroy():Void {
-		super.destroy();
-		for (hbox in array) {
-			hbox = null;
-		}
-	}
-	function createHintGraphic(Width:Int, Height:Int):BitmapData
+	/**
+	 * Create the zone.
+	 */
+	public function new():Void
 	{
-		var guh = ClientPrefs.controlsAlpha;
-		if (guh >= 0.9)
-			guh = ClientPrefs.controlsAlpha - 0.07;
+		super();
+
+		AlphaThing = Config.hitboxalpha;
+		for (button in Reflect.fields(this))
+		{
+			if (Std.isOfType(Reflect.field(this, button), FlxButton))
+				storedButtonsIDs.set(button, Reflect.getProperty(Reflect.field(this, button), 'IDs'));
+		}
+
+			add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), FlxG.height, 0xFF00FF));
+			add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), FlxG.height, 0x00FFFF));
+			add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), FlxG.height, 0x00FF00));
+			add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), FlxG.height, 0xFF0000));
+		
+		for (button in Reflect.fields(this))
+		{
+			if (Std.isOfType(Reflect.field(this, button), FlxButton))
+				Reflect.setProperty(Reflect.getProperty(this, button), 'IDs', storedButtonsIDs.get(button));
+		}
+		scrollFactor.set();
+		updateTrackedButtons();
+	}
+
+	/**
+	 * Clean up memory.
+	 */
+	override function destroy():Void
+	{
+		super.destroy();
+
+		buttonLeft = FlxDestroyUtil.destroy(buttonLeft);
+		buttonUp = FlxDestroyUtil.destroy(buttonUp);
+		buttonDown = FlxDestroyUtil.destroy(buttonDown);
+		buttonRight = FlxDestroyUtil.destroy(buttonRight);
+	}
+
+	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
+	{
 		var shape:Shape = new Shape();
-		shape.graphics.beginFill(0xFFFFFF);
-		shape.graphics.lineStyle(3, 0xFFFFFF, 1);
+		shape.graphics.beginFill(Color);
+		shape.graphics.lineStyle(10, Color, 1);
 		shape.graphics.drawRect(0, 0, Width, Height);
-		shape.graphics.lineStyle(0, 0, 0);
-		shape.graphics.drawRect(3, 3, Width - 6, Height - 6);
 		shape.graphics.endFill();
-		shape.graphics.beginGradientFill(RADIAL, [0xFFFFFF, FlxColor.TRANSPARENT], [guh, 0], [0, 255], null, null, null, 0.5);
-		shape.graphics.drawRect(3, 3, Width - 6, Height - 6);
-		shape.graphics.endFill();
+
 		var bitmap:BitmapData = new BitmapData(Width, Height, true, 0);
 		bitmap.draw(shape);
 		return bitmap;
 	}
-	public function createHints(x:Float = 0, y:Float = 0, width:Int, height:Int, color:Int) {
-		var shape:Shape = new Shape();
-		shape.graphics.beginFill(0xFFFFFF);
-		shape.graphics.lineStyle(3, 0xFFFFFF, 1);
-		shape.graphics.drawRect(0, 0, width, height);
-		shape.graphics.lineStyle(0, 0, 0);
-		shape.graphics.drawRect(3, 3, width - 6, height - 6);
-		shape.graphics.endFill();
-		
-		var bitmap:BitmapData = new BitmapData(width, height, true, 0);
-		bitmap.draw(shape);
- 
-        var hintSpr:FlxSprite = new FlxSprite(x, y, bitmap);
-		hintSpr.updateHitbox();
-		hintSpr.color = color;
 
-		return hintSpr;
+	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton
+	{
+		var hint:FlxButton = new FlxButton(X, Y);
+		hint.loadGraphic(createHintGraphic(Width, Height, Color));
+		hint.solid = false;
+		hint.immovable = true;
+		hint.scrollFactor.set();
+		hint.alpha = 0.00001;
+		hint.onDown.callback = hint.onOver.callback = function()
+		{
+			if (hint.alpha != AlphaThing)
+				hint.alpha = AlphaThing;
+		}
+		hint.onUp.callback = hint.onOut.callback = function()
+		{
+			if (hint.alpha != 0.00001)
+				hint.alpha = 0.00001;
+		}
+		#if FLX_DEBUG
+		hint.ignoreDrawDebug = true;
+		#end
+		return hint;
 	}
 }
-*/
