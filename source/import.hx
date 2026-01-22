@@ -58,9 +58,6 @@ import sys.thread.Thread;
 import crowplexus.iris.Iris;
 #end
 
-import mobile.backend.SUtil;
-//import mobile.backend.MobileScaleMode;
-
 //Flixel
 import flixel.sound.FlxSound;
 import flixel.FlxG;
