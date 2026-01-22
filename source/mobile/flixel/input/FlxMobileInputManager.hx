@@ -6,7 +6,8 @@ import mobile.flixel.FlxButton;
 import haxe.ds.Map;
 
 /**
- * A FlxButton group with functions for input handling 
+ * A FlxButton group with functions for input handling
+ * @author Karim Akra
  */
 class FlxMobileInputManager extends FlxTypedSpriteGroup<FlxButton>
 {
@@ -27,7 +28,7 @@ class FlxMobileInputManager extends FlxTypedSpriteGroup<FlxButton>
 	 * @param	button 	A button ID
 	 * @return	Whether at least one of the buttons passed was pressed.
 	 */
-	public function buttonPressed(button:FlxMobileInputID):Bool
+	public inline function buttonPressed(button:FlxMobileInputID):Bool
 	{
 		return anyPressed([button]);
 	}
@@ -38,7 +39,7 @@ class FlxMobileInputManager extends FlxTypedSpriteGroup<FlxButton>
 	 * @param	button 	A button ID
 	 * @return	Whether at least one of the buttons passed was just pressed.
 	 */
-	public function buttonJustPressed(button:FlxMobileInputID):Bool
+	public inline function buttonJustPressed(button:FlxMobileInputID):Bool
 	{
 		return anyJustPressed([button]);
 	}
@@ -49,7 +50,7 @@ class FlxMobileInputManager extends FlxTypedSpriteGroup<FlxButton>
 	 * @param	button 	A button ID
 	 * @return	Whether at least one of the buttons passed was just released.
 	 */
-	public function buttonJustReleased(button:FlxMobileInputID):Bool
+	public inline function buttonJustReleased(button:FlxMobileInputID):Bool
 	{
 		return anyJustReleased([button]);
 	}
@@ -60,7 +61,7 @@ class FlxMobileInputManager extends FlxTypedSpriteGroup<FlxButton>
 	 * @param	buttonsArray 	An array of buttos names
 	 * @return	Whether at least one of the buttons passed in is pressed.
 	 */
-	public function anyPressed(buttonsArray:Array<Dynamic>):Bool
+	public inline function anyPressed(buttonsArray:Array<FlxMobileInputID>):Bool
 	{
 		return checkButtonArrayState(buttonsArray, PRESSED);
 	}
@@ -71,7 +72,7 @@ class FlxMobileInputManager extends FlxTypedSpriteGroup<FlxButton>
 	 * @param	buttonsArray 	An array of buttons names
 	 * @return	Whether at least one of the buttons passed was just pressed.
 	 */
-	public function anyJustPressed(buttonsArray:Array<Dynamic>):Bool
+	public inline function anyJustPressed(buttonsArray:Array<FlxMobileInputID>):Bool
 	{
 		return checkButtonArrayState(buttonsArray, JUST_PRESSED);
 	}
@@ -82,7 +83,7 @@ class FlxMobileInputManager extends FlxTypedSpriteGroup<FlxButton>
 	 * @param	buttonsArray 	An array of button names
 	 * @return	Whether at least one of the buttons passed was just released.
 	 */
-	public function anyJustReleased(buttonsArray:Array<Dynamic>):Bool
+	public inline function anyJustReleased(buttonsArray:Array<FlxMobileInputID>):Bool
 	{
 		return checkButtonArrayState(buttonsArray, JUST_RELEASED);
 	}
@@ -94,7 +95,7 @@ class FlxMobileInputManager extends FlxTypedSpriteGroup<FlxButton>
 	 * @param	state		The button state to check for.
 	 * @return	Whether the provided key has the specified status.
 	 */
-	public function checkStatus(button:Dynamic, state:ButtonsStates = JUST_PRESSED):Bool
+	public function checkStatus(button:FlxMobileInputID, state:ButtonsStates = JUST_PRESSED):Bool
 	{
 		switch (button)
 		{
@@ -120,7 +121,7 @@ class FlxMobileInputManager extends FlxTypedSpriteGroup<FlxButton>
 	 * @param	state		The button state to check for
 	 * @return	Whether at least one of the buttons has the specified status
 	 */
-	function checkButtonArrayState(Buttons:Array<Dynamic>, state:ButtonsStates = JUST_PRESSED):Bool
+	function checkButtonArrayState(Buttons:Array<FlxMobileInputID>, state:ButtonsStates = JUST_PRESSED):Bool
 	{
 		if (Buttons == null)
 			return false;
@@ -132,7 +133,7 @@ class FlxMobileInputManager extends FlxTypedSpriteGroup<FlxButton>
 		return false;
 	}
 
-	function checkStatusUnsafe(button:Dynamic, state:ButtonsStates = JUST_PRESSED):Bool
+	function checkStatusUnsafe(button:FlxMobileInputID, state:ButtonsStates = JUST_PRESSED):Bool
 	{
 		return switch (state)
 		{
