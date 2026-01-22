@@ -40,7 +40,7 @@ import sys.io.File;
 import sys.io.Process;
 
 #if mobile
-import mobile.util.MobileUtil;
+import mobile.utils.MobileUtil;
 import openfl.events.UncaughtErrorEvent;
 #end
 
