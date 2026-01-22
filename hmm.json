@@ -1,11 +1,11 @@
 {
   "dependencies": [
     {
-	  "name": "lime",
-	  "type": "git",
-      "dir": null,   
+      "name": "lime",
+      "type": "git",
+      "dir": null,
       "ref": "main",
-      "url": "https://github.com/kittycathy233/lime",
+      "url": "https://github.com/MaysLastPlays-Stuff/lime-h",
 	  "version": "8.1.3"
 	},
     {
