@@ -90,6 +90,7 @@
 	<haxelib name="flixel-addons"/>
 	<haxelib name="tjson"/>
 	<haxelib name="compiletime"/>
+	<haxelib name="crypto"/>
 	<haxelib name="hscript-iris" if="HSCRIPT_ALLOWED"/>
 	<haxelib name="extension-androidtools" if="android"/>
 
