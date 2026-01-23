@@ -105,23 +105,6 @@
 	<haxedef name="DISCORD_DISABLE_IO_THREAD" if="hxdiscord_rpc" />
 	<haxedef name="NO_PRECOMPILED_HEADERS" if="linux" />
 
-	<section if="android">
-    <config:android permission="android.permission.MANAGE_MEDIA"/> 
-	<config:android permission="android.permission.MANAGE_EXTERNAL_STORAGE"/>
-	<config:android permission="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<config:android permission="android.permission.READ_EXTERNAL_STORAGE" />
-	<config:android permission="android.permission.READ_MEDIA_IMAGES"/>
-	<config:android permission="android.permission.READ_MEDIA_AUDIO"/>
-	<config:android permission="android.permission.READ_MEDIA_VIDEO"/>
-	<config:android permission="android.permission.VIBRATE" />
-	<config:android permission="android.permission.INTERNET" />
-	<config:android permission="android.permission.ACCESS_WIFI_STATE"/>
-	<config:android permission="android.permission.ACCESS_NETWORK_STATE" />
-	<config:android permission="android.permission.CAPTURE_AUDIO_OUTPUT" />
-	<android target-sdk-version="34" />
-	<android min-sdk-version="19" />
-</section>
-
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxedef name="HXC_LIBVLC_LOGGING" if="VIDEOS_ALLOWED debug" />
 	
