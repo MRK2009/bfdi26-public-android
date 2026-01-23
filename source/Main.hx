@@ -44,6 +44,8 @@ import mobile.utils.MobileUtil;
 import openfl.events.UncaughtErrorEvent;
 #end
 
+import mobile.states.CopyState;
+
 #if cpp
 import cpp.vm.Gc;
 #elseif hl
@@ -100,6 +102,14 @@ class Main extends Sprite
 		#end
 
 		#if mobile
+ 		#if android
+ 		SUtil.requestPermissions();
+ 		#end
+ 		Sys.setCwd(SUtil.getStorageDirectory());
+ 		#end
+		mobile.backend.CrashHandler.init();
+/*
+		#if mobile
 		MobileUtil.getPermissions();
 		Sys.setCwd(haxe.io.Path.addTrailingSlash(MobileUtil.getDirectory()));
 
@@ -110,14 +120,14 @@ class Main extends Sprite
 			MobileUtil.copyAssetsFromAPK("assets/videos/");
 		#end
 
-		/* Credits to MAJigsaw77 (he's the og author for this code)
+		 Credits to MAJigsaw77 (he's the og author for this code)
 		#if android
 		Sys.setCwd(Path.addTrailingSlash(Context.getExternalFilesDir()));
 		#elseif ios
 		Sys.setCwd(lime.system.System.applicationStorageDirectory);
 		#end*/
 
-		var _game = new FlxGame(game.width, game.height, game.firstState , game.fps, game.fps, game.skipSplash, game.startFullscreen);
+		var _game = new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) CopyState.checkExistingFiles() ? game.firstState : CopyState #else game.firstState #end, game.fps, game.fps, game.skipSplash, game.startFullscreen);
 		@:privateAccess _game._customSoundTray = funkin.objects.BFDISoundTray;
 		Setup.loadSave();
 		addChild(_game);
