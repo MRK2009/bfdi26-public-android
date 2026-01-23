@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="BFDI26" file="BFDI26" packageName="com.shadowmario.bfdi26" package="com.shadowmario.bfdi26" main="Main" version="0.2.8" company="BFDI26" />
+	<app title="BFDI26" file="BFDI26" packageName="com.shadowmario.bfdi" package="com.shadowmario.bfdi" main="Main" version="0.2.8" company="BFDI26" />
 
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
@@ -62,7 +62,7 @@
 	<!-- __________________________ Game Assets __________________________ -->
 
 	<!-- Assets -->
-	<assets path="assets/embeds" rename= "assets" embed="true" if="release"/>
+	<assets path="assets/embeds" rename= "assets" embed="false" if="release"/>
 	<assets path="assets/embeds" rename= "assets"  unless="release"/>
 	<assets path="assets/mobile" if="mobile"/>
 
@@ -73,7 +73,7 @@
 
 	<library name="videos"        preload="true" if="VIDEOS_ALLOWED"/>
 
-	<assets path='example_mods' rename='mods' embed='true'/>
+	<assets path="example_mods" rename="mods" embed="false"/>
 
 	<!-- OpenAL config -->
 	<section if="desktop">
