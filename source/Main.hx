@@ -39,11 +39,6 @@ import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
 
-#if mobile
-import mobile.utils.MobileUtil;
-import openfl.events.UncaughtErrorEvent;
-#end
-
 import mobile.states.CopyState;
 
 #if cpp
