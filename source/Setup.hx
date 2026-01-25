@@ -65,7 +65,8 @@ class Setup extends flixel.FlxState
 			lime.app.Application.current.onExit.add((ec) -> DiscordClient.shutdown());
 		}
 		#end
-		
+
+		#if !mobile
 		CoolUtil.tweenWindowResize({x: 1280, y: 720}, 0.3 * 4, function ()
 		{
 			openfl.Lib.application.window.resizable = true;
@@ -73,6 +74,10 @@ class Setup extends flixel.FlxState
 			final nextState:Null<NextState> = (!FlxG.save.data.modNotice ? funkin.states.BootFlashingState.new : Splash.new);
 			FlxG.switchState(nextState);
 		}, true);
+		#else
+		final nextState:Null<NextState> = (!FlxG.save.data.modNotice ? funkin.states.BootFlashingState.new : Splash.new);
+		FlxG.switchState(nextState);
+		#end
 
 		trace(FlxG.save.data.bannedhaha);
 
