@@ -248,6 +248,12 @@ class Main extends Sprite
 		if (fpsVar != null) #if mobile fpsVar.positionFPS(10, 3, Math.min(w / FlxG.width, h / FlxG.height)); #else fpsVar.scaleX = fpsVar.scaleY = Math.max(1, Math.min(w / FlxG.width, h / FlxG.height)); #end
 	}
 
+	public inline function positionFPS(X:Float, Y:Float, ?scale:Float = 1){
+ 		scaleX = scaleY = #if mobile (scale > 1 ? scale : 1) #else (scale < 1 ? scale : 1) #end;
+ 		x = FlxG.game.x + X;
+ 		y = FlxG.game.y + Y;
+	}
+
 	static function resetSpriteCache(sprite:Sprite):Void
 	{
 		@:privateAccess {
