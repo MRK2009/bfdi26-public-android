@@ -12,6 +12,7 @@ import lime.system.ThreadPool;
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
+import Setup;
 
 /**
  * ...
@@ -43,7 +44,7 @@ class CopyState extends MusicBeatState
 		checkExistingFiles();
 		if (maxLoopTimes <= 0)
 		{
-			FlxG.switchState(Setup.new);
+			FlxG.switchState(new Setup());
 			return;
 		}
 
@@ -100,7 +101,7 @@ class CopyState extends MusicBeatState
 				
 				FlxG.sound.play(Paths.sound('enterimpact')).onComplete = () ->
 				{
-					FlxG.switchState(Setup.new);
+					FlxG.switchState(new Setup());
 				};
 		
 				canUpdate = false;
