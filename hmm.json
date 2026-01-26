@@ -1,10 +1,5 @@
 {
   "dependencies": [
-	{
-      "name": "crypto",
-      "type": "haxelib",
-      "version": "1.0.4"
-    },
     {
       "name": "lime",
       "type": "git",
