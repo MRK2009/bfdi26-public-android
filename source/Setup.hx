@@ -75,12 +75,13 @@ class Setup extends flixel.FlxState
 			FlxG.switchState(nextState);
 		}, true);
 		#else
+		super.create();
 		final nextState:Null<NextState> = (!FlxG.save.data.modNotice ? funkin.states.BootFlashingState.new : Splash.new);
 		FlxG.switchState(nextState);
 		#end
 
 		trace(FlxG.save.data.bannedhaha);
 
-		super.create();
+		
     }
 }
