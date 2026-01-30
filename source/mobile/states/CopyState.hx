@@ -2,7 +2,7 @@ package mobile.states;
 
 #if mobile
 import funkin.states.Title;
-import funkin.states.CreditsState;
+import Setup;
 import lime.utils.Assets as LimeAssets;
 import openfl.utils.Assets as OpenFLAssets;
 import openfl.utils.ByteArray;
@@ -13,7 +13,6 @@ import lime.system.ThreadPool;
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
-import Setup;
 
 /**
  * ...
@@ -45,7 +44,7 @@ class CopyState extends MusicBeatState
 		checkExistingFiles();
 		if (maxLoopTimes <= 0)
 		{
-			FlxG.switchState(new CreditsState());
+			FlxG.switchState(new Setup());
 			return;
 		}
 
@@ -102,7 +101,7 @@ class CopyState extends MusicBeatState
 				
 				FlxG.sound.play(Paths.sound('enterimpact')).onComplete = () ->
 				{
-					FlxG.switchState(new CreditsState());
+					FlxG.switchState(new Setup());
 				};
 		
 				canUpdate = false;
