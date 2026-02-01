@@ -164,7 +164,7 @@ class Main extends Sprite
 		#end
 		#end
 
-		Lib.application.window.resizable = false;
+		//Lib.application.window.resizable = false;
 
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
 
