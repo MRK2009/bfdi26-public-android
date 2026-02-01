@@ -1,8 +1,7 @@
 package mobile.states;
 
 #if mobile
-import funkin.states.Title;
-import Setup;
+import flixel.util.typeLimit.NextState;
 import lime.utils.Assets as LimeAssets;
 import openfl.utils.Assets as OpenFLAssets;
 import openfl.utils.ByteArray;
@@ -20,6 +19,8 @@ import sys.io.Process;
  */
 class CopyState extends MusicBeatState
 {
+	final nextState:Null<NextState> = (!FlxG.save.data.modNotice ? funkin.states.BootFlashingState.new : Splash.new);
+	
 	private static final textFilesExtensions:Array<String> = ['ini', 'txt', 'xml', 'hxs', 'hx', 'lua', 'json', 'frag', 'vert'];
 	public static final IGNORE_FOLDER_FILE_NAME:String = "CopyState-Ignore.txt";
 	private static var directoriesToIgnore:Array<String> = [];
@@ -44,7 +45,7 @@ class CopyState extends MusicBeatState
 		checkExistingFiles();
 		if (maxLoopTimes <= 0)
 		{
-			FlxG.switchState(new Setup());
+			FlxG.switchState(nextState);
 			return;
 		}
 
@@ -101,7 +102,7 @@ class CopyState extends MusicBeatState
 				
 				FlxG.sound.play(Paths.sound('enterimpact')).onComplete = () ->
 				{
-					FlxG.switchState(new Setup());
+					FlxG.switchState(nextState);
 				};
 		
 				canUpdate = false;
