@@ -61,8 +61,8 @@ class Main extends Sprite
 {
 	public static final game = 
 	{
-		width: 1025,
-		height: 577,
+		width: 1280,
+		height: 720,
 		firstState: CopyState,
 		fps: 60,
 		skipSplash: true,
