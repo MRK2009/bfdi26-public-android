@@ -66,10 +66,11 @@ class Setup extends flixel.FlxState
 		}
 		#end
 
-		CoolUtil.tweenWindowResize({x: 1280, y: 720}, 0.3 * 4, function ()
-		{
+		//CoolUtil.tweenWindowResize({x: 1280, y: 720}, 0.3 * 4, function ()
+		//{
 			//openfl.Lib.application.window.resizable = true;
-			
+		FlxG.sound.play(Paths.sound('enterimpact')).onComplete = () ->
+		{	
 			final nextState:Null<NextState> = (!FlxG.save.data.modNotice ? funkin.states.BootFlashingState.new : Splash.new);
 			FlxG.switchState(nextState);
 		}, true);
