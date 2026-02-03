@@ -107,7 +107,7 @@
 	
 	<haxedef name="HXVLC_NO_SHARE_DIRECTORY" if="hxvlc"/>
 
-	<certificate path="keystore.jks" password="TheLagKingpassword" alias="BFDI" alias-password="BFDI26" if="android" unless="debug" />
+	<certificate path="keystore.jks" password="TheLagKingPassword" alias="BFDI" alias-password="BFDI26Password" if="android" unless="debug" />
 
 	<!--Enable the Flixel core recording system-->
 	<!--<haxedef name="FLX_RECORD" />-->
