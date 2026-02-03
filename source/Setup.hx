@@ -14,11 +14,11 @@ class Setup extends flixel.FlxState
 	public static var mouseIdle:BitmapData = BitmapData.fromFile('assets/shared/images/mouse.png');
 	public static var mouseHover:BitmapData = BitmapData.fromFile('assets/shared/images/mouse2.png');
 
-	public static var monitorResolutionWidth(get, never):Float;
-	public static var monitorResolutionHeight(get, never):Float;
+	//public static var monitorResolutionWidth(get, never):Float;
+	//public static var monitorResolutionHeight(get, never):Float;
 
-	static function get_monitorResolutionWidth():Float return Capabilities.screenResolutionX;
-	static function get_monitorResolutionHeight():Float return Capabilities.screenResolutionY;
+	//static function get_monitorResolutionWidth():Float return Capabilities.screenResolutionX;
+	//static function get_monitorResolutionHeight():Float return Capabilities.screenResolutionY;
 
 	public static function loadSave()
 	{
