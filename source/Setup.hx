@@ -43,7 +43,7 @@ class Setup extends flixel.FlxState
 		ClientPrefs.loadDefaultKeys();
 		ClientPrefs.loadPrefs();
 
-		if (Main.fpsVar.visible) Main.fpsVar.visible = false;
+		//if (Main.fpsVar.visible) Main.fpsVar.visible = false;
 
 		#if VIDEOS_ALLOWED
 		funkin.objects.Video4.init();
