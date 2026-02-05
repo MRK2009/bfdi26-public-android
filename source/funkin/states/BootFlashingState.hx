@@ -205,7 +205,7 @@ class BootFlashingState extends MusicBeatState //whatever man
 
 		FlxG.camera.fade(FlxColor.BLACK, 2, false, function() 
 		{
-			if (Main.fpsVar != null) Main.fpsVar.visible = ClientPrefs.data.showFPS;
+			//if (Main.fpsVar != null) Main.fpsVar.visible = ClientPrefs.data.showFPS;
 			FlxG.switchState(Splash.new);
 		});
 	}
