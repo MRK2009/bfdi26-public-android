@@ -39,7 +39,7 @@ class Title extends MusicBeatState
 		super.create();
 
 		persistentUpdate = persistentDraw = true;
-		Main.fpsVar.visible = ClientPrefs.data.showFPS;
+		if (Main.fpsVar != null) Main.fpsVar.visible = ClientPrefs.data.showFPS;
 
 		FlxG.mouse.visible = true;
 		FlxG.mouse.load(Setup.mouseIdle, 0.12);
