@@ -106,8 +106,16 @@ class BootFlashingState extends MusicBeatState //whatever man
     override function update(elapsed:Float)
     {
         super.update(elapsed);
+
+		var justTouched:Bool = false;
+
+		#if mobile
+                for (touch in FlxG.touches.list)
+	                if (touch.justPressed)
+		                justTouched = true;
+		#end
 		
-		if (controls.ACCEPT) 
+		if (controls.ACCEPT || justTouched) 
 		{
 			switch (pageNum) 
 			{
@@ -164,7 +172,7 @@ class BootFlashingState extends MusicBeatState //whatever man
 		{	
 			if (controls.UI_LEFT_P || controls.UI_RIGHT_P) change(controls.UI_LEFT_P ? -1 : 1);
 			
-			if (controls.ACCEPT)
+			if (controls.ACCEPT || justTouched)
 			{
 				canbruh = false;
 
