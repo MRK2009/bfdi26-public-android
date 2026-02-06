@@ -170,9 +170,14 @@ class BootFlashingState extends MusicBeatState //whatever man
 
 		if (canbruh) 
 		{	
+			#if mobile
+			addVirtualPad(LEFT_RIGHT, A);
+			addVirtualPadCamera();
+			#end
+			
 			if (controls.UI_LEFT_P || controls.UI_RIGHT_P) change(controls.UI_LEFT_P ? -1 : 1);
 			
-			if (controls.ACCEPT || justTouched)
+			if (controls.ACCEPT)
 			{
 				canbruh = false;
 
