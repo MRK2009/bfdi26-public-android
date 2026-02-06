@@ -269,6 +269,11 @@ class FreeplayState extends MusicBeatState
 		blackbg.color = FlxColor.BLACK;
 		blackbg.alpha = 0;
 
+	    #if mobile
+		addVirtualPad(NONE, B);
+		addVirtualPadCamera();
+		#end
+		
 		if (!skipIntro) 
 		{
 			superIntro(function () 
