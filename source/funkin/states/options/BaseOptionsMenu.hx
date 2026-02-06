@@ -37,10 +37,10 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	{
 		super();
 
+		#if DISCORD_ALLOWED
 		if(title == null) title = 'Options';
 		if(rpcTitle == null) rpcTitle = 'Options Menu';
 		
-		#if DISCORD_ALLOWED
 		DiscordClient.changePresence(rpcTitle, null);
 		#end
 
@@ -107,6 +107,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		border.cameras = [funkin.states.Title.quickCreateCam()];
 		border.scrollFactor.set();
 		add(border);
+
+		#if mobile
+		addVirtualPad(LEFT_FULL, A_B);
+		addVirtualPadCamera();
+		#end
 	}
 
 	public function addOption(option:Option) 
@@ -262,7 +267,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				}
 			}
 			
-			if (controls.RESET)
+			if (controls.RESET #if mobile || virtualPad.buttonR.justPressed #end)
 			{
 				var leOption:Option = optionsArray[curSelected];
 				if (leOption.type != 'keybind')
