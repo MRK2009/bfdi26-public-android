@@ -267,6 +267,11 @@ class SongSelect extends MusicBeatSubstate
 		});
 
 		cursel();
+
+		#if mobile
+		addVirtualPad(NONE, B);
+		addVirtualPadCamera();
+		#end
 		super.create();
 	}
 
