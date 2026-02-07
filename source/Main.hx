@@ -166,8 +166,6 @@ class Main extends Sprite
 
 		//Lib.application.window.resizable = false;
 
-		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
-
 		loadBanList();
 
 		#if DISCORD_ALLOWED
