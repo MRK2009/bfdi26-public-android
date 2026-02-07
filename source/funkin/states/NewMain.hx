@@ -269,6 +269,7 @@ class SongSelect extends MusicBeatSubstate
 
 		#if mobile
 		addVirtualPad(NONE, B);
+        addVirtualPadCamera();
 		#end
 		super.create();
 	}
