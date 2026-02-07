@@ -4,6 +4,7 @@ import flixel.input.keyboard.FlxKey;
 import openfl.display.BitmapData;
 import openfl.system.Capabilities;
 import flixel.util.typeLimit.NextState;
+import lime.app.Application;
 import lime.utils.Assets as LimeAssets;
 
 class Setup extends flixel.FlxState
