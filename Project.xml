@@ -73,7 +73,7 @@
 
 	<library name="videos"        preload="true" if="VIDEOS_ALLOWED"/>
 
-	<assets path="example_mods" rename="mods" embed="true"/>
+	<assets path="example_mods" rename="mods" embed="false"/>
 
 	<!-- OpenAL config -->
 	<section if="desktop">
