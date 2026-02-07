@@ -41,7 +41,7 @@ class Setup extends flixel.FlxState
 		FlxG.keys.preventDefaultKeys = [TAB];
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
 		
-		//LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver;
+		LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver;
 
 		Controls.instance = new Controls();
 		ClientPrefs.loadDefaultKeys();
