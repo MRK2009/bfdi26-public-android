@@ -1,7 +1,7 @@
 package funkin.backend;
 
 import flixel.FlxSubState;
-import funkin.backend.MusicBeatState;
+import mobile.flixel.FlxVirtualPad;
 
 class MusicBeatSubstate extends FlxSubState
 {
@@ -25,6 +25,38 @@ class MusicBeatSubstate extends FlxSubState
 		instance = this;
 		
 		super();
+	}
+
+	public var mobileControls:MobileControls;
+	public var virtualPad:FlxVirtualPad;
+
+	public var vpadCam:FlxCamera;
+	public var camControls:FlxCamera;
+
+	public function addVirtualPadCamera(DefaultDrawTarget:Bool = false)
+	{
+		if (virtualPad != null)
+		{
+			vpadCam = new FlxCamera();
+			FlxG.cameras.add(vpadCam, DefaultDrawTarget);
+			vpadCam.bgColor.alpha = 0;
+			virtualPad.cameras = [vpadCam];
+		}
+	}
+	
+    public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode)
+	{
+		if (virtualPad != null)
+			removeVirtualPad();
+
+		virtualPad = new FlxVirtualPad(DPad, Action);
+		add(virtualPad);
+	}
+
+	public function removeVirtualPad()
+	{
+		if (virtualPad != null)
+			remove(virtualPad);
 	}
 
 	inline function get_controls():Controls
