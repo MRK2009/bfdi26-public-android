@@ -39,6 +39,9 @@ import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
 
+import lime.app.Application;
+import lime.utils.Assets as LimeAssets;
+
 import mobile.states.CopyState;
 
 #if cpp
@@ -121,6 +124,8 @@ class Main extends Sprite
 		#elseif ios
 		Sys.setCwd(lime.system.System.applicationStorageDirectory);
 		#end*/
+
+		LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver;
 
 		var _game = new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) CopyState.checkExistingFiles() ? game.firstState : CopyState #else game.firstState #end, game.fps, game.fps, game.skipSplash, game.startFullscreen);
 		@:privateAccess _game._customSoundTray = funkin.objects.BFDISoundTray;
