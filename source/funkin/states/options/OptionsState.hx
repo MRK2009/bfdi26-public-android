@@ -2,6 +2,9 @@ package funkin.states.options;
 
 import funkin.data.StageData;
 
+import funkin.backend.MusicBeatState;
+import funkin.backend.MusicBeatSubstate;
+
 class OptionsState extends MusicBeatState
 {
 	var options:Array<String> = ['Controls', /*'Adjust Delay and Combo',*/ 'Graphics', 'Visuals and UI', 'Gameplay', 'Reset Data'];
