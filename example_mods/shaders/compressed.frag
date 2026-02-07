@@ -1,8 +1,5 @@
     #pragma header
 
-    vec2 uv = openfl_TextureCoordv.xy;
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 iResolution = openfl_TextureSize;
     uniform float iTime;
     #define iChannel0 bitmap
     #define iChannel1 bitmap
@@ -33,6 +30,9 @@ vec2 viewport(vec2 p)
 
 void mainImage()
 {
+    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+    vec2 iResolution = openfl_TextureSize;
+
     vec4 pixelColor = texture(iChannel0,viewport(fragCoord.xy));
     fragColor = vec4(0.);
     float sum = 0.;
