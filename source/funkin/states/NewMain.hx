@@ -270,7 +270,6 @@ class SongSelect extends MusicBeatSubstate
 
 		#if mobile
 		addVirtualPad(NONE, B);
-		addVirtualPadCamera();
 		#end
 		super.create();
 	}
@@ -308,7 +307,7 @@ class SongSelect extends MusicBeatSubstate
 
 			FlxG.mouse.load((isOverSmth ? Setup.mouseHover : Setup.mouseIdle), 0.12);
 
-			if (controls.BACK || FlxG.mouse.justPressedRight)
+			if (controls.BACK || FlxG.mouse.justPressedRight #if mobile || _virtualpad.buttonB.pressed #end)
 			{
 				songSpr.forEach(function(spr:FlxSprite)
 				{
