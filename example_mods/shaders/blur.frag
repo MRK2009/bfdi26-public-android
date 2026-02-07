@@ -2,8 +2,7 @@
 
 // SHADER BY EXISTICAL ON SHADERTOY https://www.shadertoy.com/view/Xltfzj i only ported and edited it a bit
 
-vec2 uv = openfl_TextureCoordv.xy;
-float pi = 6.28318530718; // Pi * 2
+const float pi = 6.28318530718; // Pi * 2
 uniform float directions;
 uniform float quality;
 uniform float size;
@@ -11,6 +10,7 @@ uniform float merge;
 uniform float alpha = 0.25;
 
 void main() {
+    vec2 uv = openfl_TextureCoordv.xy;
     vec2 radius = size / openfl_TextureSize.xy;
 	vec4 ocolor = texture2D(bitmap, uv);
     vec4 color = texture2D(bitmap, uv);
