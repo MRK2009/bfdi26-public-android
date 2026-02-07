@@ -13,9 +13,8 @@ import flixel.input.mouse.FlxMouseEvent;
 
 class NewMain extends MusicBeatState
 {
-#if DISCORD_ALLOWED
+
 	public static var psychEngineVersion:String = '0.7.3'; // This is also used for Discord RPC
-#end
 	public static var curSelected:Int = 0;
 	public static var selectedSomethin:Bool = true;
 
@@ -307,7 +306,7 @@ class SongSelect extends MusicBeatSubstate
 
 			FlxG.mouse.load((isOverSmth ? Setup.mouseHover : Setup.mouseIdle), 0.12);
 
-			if (controls.BACK || FlxG.mouse.justPressedRight #if mobile || _virtualpad.buttonB.pressed #end)
+			if (controls.BACK || FlxG.mouse.justPressedRight #if mobile || virtualPad.buttonB.pressed #end)
 			{
 				songSpr.forEach(function(spr:FlxSprite)
 				{
