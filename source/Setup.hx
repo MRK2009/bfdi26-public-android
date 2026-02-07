@@ -4,8 +4,6 @@ import flixel.input.keyboard.FlxKey;
 import openfl.display.BitmapData;
 import openfl.system.Capabilities;
 import flixel.util.typeLimit.NextState;
-import lime.app.Application;
-import lime.utils.Assets as LimeAssets;
 
 class Setup extends flixel.FlxState
 {
@@ -41,8 +39,6 @@ class Setup extends flixel.FlxState
 		FlxG.game.focusLostFramerate = 60;
 		FlxG.keys.preventDefaultKeys = [TAB];
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
-		
-		LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver;
 
 		Controls.instance = new Controls();
 		ClientPrefs.loadDefaultKeys();
