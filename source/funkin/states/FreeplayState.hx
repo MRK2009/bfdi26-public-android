@@ -1175,7 +1175,7 @@ class SelectedThumb extends MusicBeatSubstate
 		
 		if (can && !isWebCrasher) 
 		{
-			if (controls.BACK #if mobile || virtualpad.buttonB.pressed #end) 
+			if (controls.BACK #if mobile || virtualPad.buttonB.pressed #end) 
 			{
 				FlxG.sound.play(Paths.sound('spaceunpause'));
 				FlxTween.tween(parent.screen, {alpha: 0},0.4);
