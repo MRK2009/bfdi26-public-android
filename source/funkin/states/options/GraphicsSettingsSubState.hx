@@ -9,9 +9,7 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 	public function new()
 	{
 		title = 'Graphics';
-		#if DISCORD_ALLOWED
 		rpcTitle = 'Graphics Settings Menu'; //for Discord Rich Presence
-		#end
 
 		/*boyfriend = new Character(650, 60, 'ballbf', true);
 		boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.75));
