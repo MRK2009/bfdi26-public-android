@@ -52,9 +52,9 @@ class MusicBeatState extends FlxUIState
 			remove(virtualPad);
 	}
 
-	public function addMobileControls(DefaultDrawTarget:Bool = false, SpaceButton:Int = 0)
+	public function addMobileControls(DefaultDrawTarget:Bool = false)
 	{
-		//mobileControls = new MobileControls(SpaceButton);
+		mobileControls = new MobileControls();
 
 		camControls = new FlxCamera();
 		camControls.bgColor.alpha = 0;
