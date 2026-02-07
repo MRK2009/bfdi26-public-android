@@ -12,6 +12,7 @@ import mobile.flixel.input.FlxMobileInputID;
 	public var downScroll:Bool = false;
 	public var middleScroll:Bool = false;
 	public var opponentStrums:Bool = true;
+	public var screensaver:Bool = true;
 	public var padalpha:Float = 0.5;
 	public var hitboxalpha:Float = 0.2;
 	#if mobile
@@ -20,7 +21,7 @@ import mobile.flixel.input.FlxMobileInputID;
 	public var altCType:String = "space";
 	#end
 	public var lightMode:Bool = false;
-	public var showFPS:Bool = #if debug true #else false #end; //looks better
+	public var showFPS:Bool = #if debug true #else true #end; //looks better
 	public var flashing:Bool = true;
 	public var autoPause:Bool = true;
 	public var antialiasing:Bool = true;
