@@ -14,11 +14,11 @@ class Setup extends flixel.FlxState
 	public static var mouseIdle:BitmapData = BitmapData.fromFile('assets/shared/images/mouse.png');
 	public static var mouseHover:BitmapData = BitmapData.fromFile('assets/shared/images/mouse2.png');
 
-	//public static var monitorResolutionWidth(get, never):Float;
-	//public static var monitorResolutionHeight(get, never):Float;
+	public static var monitorResolutionWidth(get, never):Float;
+	public static var monitorResolutionHeight(get, never):Float;
 
-	//static function get_monitorResolutionWidth():Float return Capabilities.screenResolutionX;
-	//static function get_monitorResolutionHeight():Float return Capabilities.screenResolutionY;
+	static function get_monitorResolutionWidth():Float return Capabilities.screenResolutionX;
+	static function get_monitorResolutionHeight():Float return Capabilities.screenResolutionY;
 
 	public static function loadSave()
 	{
@@ -66,14 +66,14 @@ class Setup extends flixel.FlxState
 		}
 		#end
 
-		//CoolUtil.tweenWindowResize({x: 1280, y: 720}, 0.3 * 4, function ()
-		//{
+		CoolUtil.tweenWindowResize({x: 1280, y: 720}, 0.3 * 4, function ()
+		{
 			//openfl.Lib.application.window.resizable = true;
-		FlxG.sound.play(Paths.sound('enterimpact')).onComplete = () ->
-		{	
+		//FlxG.sound.play(Paths.sound('enterimpact')).onComplete = () ->
+		//{	
 			final nextState:Null<NextState> = (!FlxG.save.data.modNotice ? funkin.states.BootFlashingState.new : Splash.new);
 			FlxG.switchState(nextState);
-		};
+		}, true);
 
 		trace(FlxG.save.data.bannedhaha);
 
