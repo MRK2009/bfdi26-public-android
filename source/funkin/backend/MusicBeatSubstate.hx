@@ -27,7 +27,6 @@ class MusicBeatSubstate extends FlxSubState
 		super();
 	}
 
-	public var mobileControls:MobileControls;
 	public var virtualPad:FlxVirtualPad;
 
 	public var vpadCam:FlxCamera;
