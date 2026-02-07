@@ -40,7 +40,7 @@ import sys.io.File;
 import sys.io.Process;
 
 import lime.app.Application;
-import lime.utils.Assets as LimeAssets;
+import lime.system.System as LimeSystem;
 
 import mobile.states.CopyState;
 
