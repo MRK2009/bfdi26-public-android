@@ -6,7 +6,6 @@ import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.gamepad.FlxGamepadManager;
 
 import funkin.backend.MusicBeatState;
-import funkin.backend.MusicBeatSubstate;
 import funkin.objects.CheckboxThingie;
 import funkin.objects.AttachedText;
 import funkin.states.options.Option;
