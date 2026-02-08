@@ -4,6 +4,7 @@ import haxe.Json;
 import lime.utils.Assets;
 
 import funkin.backend.Section;
+import funkin.data.StageData;
 
 typedef SwagSong =
 {
