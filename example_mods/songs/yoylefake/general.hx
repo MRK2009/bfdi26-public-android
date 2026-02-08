@@ -36,7 +36,7 @@ else
 
 function onUpdatePost() 
 {
-    if (FlxG.mouse.justPressed && (FlxG.mouse.overlaps(dad) && dad.alpha > 0 && popCheck == true)) 
+    if (#if desktop FlxG.mouse.justPressed #end && (FlxG.mouse.overlaps(dad) && dad.alpha > 0 && popCheck == true)) 
     {
         dad.alpha = 0;
         FlxG.sound.play(Paths.sound('pop'));
