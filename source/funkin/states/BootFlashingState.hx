@@ -107,15 +107,15 @@ class BootFlashingState extends MusicBeatState //whatever man
     {
         super.update(elapsed);
 
-		var justTouched:Bool = false;
+		var Accepted:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
 
 		#if mobile
                 for (touch in FlxG.touches.list)
 	                if (touch.justPressed)
-		                justTouched = true;
+		                Accepted = true;
 		#end
 		
-		if (controls.ACCEPT || justTouched) 
+		if (Accepted) 
 		{
 			switch (pageNum) 
 			{
