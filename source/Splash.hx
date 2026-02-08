@@ -107,6 +107,6 @@ class Splash extends MusicBeatState
 
 		FlxTransitionableState.skipNextTransIn = FlxTransitionableState.skipNextTransOut = true;
 
-		FlxG.switchState(funkin.states.Title.new);
+		FlxG.switchState(Setup.new);
 	}
 }
