@@ -124,7 +124,7 @@ class CreditsState extends MusicBeatState
 		//if (amount >= 360) amount = 0;
 		//bg.color = FlxColor.fromHSL(amount, 1, 0.5, 1);
 
-		if (controls.BACK && !stop) goodbye();
+		if (controls.BACK #if mobile || virtualPad.buttonB.pressed #end && !stop) goodbye();
 		coolwiggle.update(elapsed);
 
 		if (mouseOverlapsGroup(credits)) 
