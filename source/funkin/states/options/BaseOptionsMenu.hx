@@ -144,14 +144,14 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			return;
 		}
 
-		if (controls.UI_UP_P || controls.UI_DOWN_P) changeSelection(controls.UI_UP_P ? -1 : 1);
+		if (controls.UI_UP_P || controls.UI_DOWN_P #if mobile || virtualPad.buttonUp.pressed || virtualPad.buttonDown.pressed #end) changeSelection(controls.UI_UP_P #if mobile || virtualPad.buttonUp.pressed #end ? -1 : 1);
 
 		if(FlxG.mouse.wheel != 0)
 		{
 			changeSelection(-1 * FlxG.mouse.wheel);
 		}
 		
-		if (controls.BACK)
+		if (controls.BACK #if mobile || virtualPad.buttonB.pressed #end)
 		{
 			close();
 			FlxG.sound.play(Paths.sound('spaceunpause'));
@@ -161,7 +161,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		{
 			if (curOption.type == 'bool')
 			{
-				if (controls.ACCEPT)
+				if (controls.ACCEPT #if mobile || virtualPad.buttonA.pressed #end)
 				{
 					FlxG.sound.play(Paths.sound('scrollup1'));
 					curOption.setValue((curOption.getValue() == true) ? false : true);
@@ -173,7 +173,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			{
 				if (curOption.type == 'keybind')
 				{
-					if (controls.ACCEPT)
+					if (controls.ACCEPT #if mobile || virtualPad.buttonA.pressed #end)
 					{
 						bindingBlack = new FlxSprite().makeGraphic(1, 1, FlxColor.WHITE);
 						bindingBlack.scale.set(FlxG.width, FlxG.height);
@@ -198,7 +198,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				}
 				else if (controls.UI_LEFT || controls.UI_RIGHT)
 				{
-					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P);
+					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P #if mobile || virtualPad.buttonLeft.pressed || virtualPad.buttonRight.pressed #end);
 					if (holdTime > 0.5 || pressed)
 					{
 						if (pressed)
@@ -261,7 +261,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 					
 					if (curOption.type != 'string') holdTime += elapsed;
 				}
-				else if (controls.UI_LEFT_R || controls.UI_RIGHT_R)
+				else if (controls.UI_LEFT_R || controls.UI_RIGHT_R #if mobile || virtualPad.buttonLeft.pressed || virtualPad.buttonRight.pressed #end)
 				{
 					if (holdTime > 0.5) FlxG.sound.play(Paths.sound('scrollup1'));
 					holdTime = 0;
@@ -308,7 +308,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				closeBinding();
 			}
 		}
-		else if (FlxG.keys.pressed.BACKSPACE || FlxG.gamepads.anyPressed(BACK))
+		else if (FlxG.keys.pressed.BACKSPACE || FlxG.gamepads.anyPressed(BACK) #if mobile || virtualPad.buttonB.pressed #end)
 		{
 			holdingEsc += elapsed;
 			if (holdingEsc > 0.5)
