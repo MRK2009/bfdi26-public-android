@@ -66,7 +66,7 @@ class Main extends Sprite
 	{
 		width: 1280,
 		height: 720,
-		firstState: Setup,
+		firstState: CopyState,
 		fps: 60,
 		skipSplash: true,
 		startFullscreen: false
@@ -127,7 +127,7 @@ class Main extends Sprite
 
 		LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver;
 
-		var _game = new FlxGame(game.width, game.height, #if (mobile && MODS_ALLOWED) CopyState.checkExistingFiles() ? game.firstState : CopyState #else game.firstState #end, game.fps, game.fps, game.skipSplash, game.startFullscreen);
+		var _game = new FlxGame(game.width, game.height, game.firstState, game.fps, game.fps, game.skipSplash, game.startFullscreen);
 		@:privateAccess _game._customSoundTray = funkin.objects.BFDISoundTray;
 		Setup.loadSave();
 		addChild(_game);
