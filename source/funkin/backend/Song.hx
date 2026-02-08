@@ -1,9 +1,9 @@
-package backend;
+package funkin.backend;
 
 import haxe.Json;
 import lime.utils.Assets;
 
-import backend.Section;
+import funkin.backend.Section;
 
 typedef SwagSong =
 {
