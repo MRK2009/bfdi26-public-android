@@ -2,9 +2,6 @@ package funkin.states.options;
 
 import funkin.data.StageData;
 
-import funkin.backend.MusicBeatState;
-import funkin.backend.MusicBeatSubstate;
-
 class OptionsState extends MusicBeatState
 {
 	var options:Array<String> = ['Controls', /*'Adjust Delay and Combo',*/ 'Graphics', 'Visuals and UI', 'Gameplay', 'Reset Data'];
@@ -91,11 +88,11 @@ class OptionsState extends MusicBeatState
 	{
 		super.update(elapsed);
 
-		if (controls.UI_UP_P || controls.UI_DOWN_P) changeSelection(controls.UI_UP_P ? -1 : 1);
+		if (controls.UI_UP_P || controls.UI_DOWN_P #if mobile || virtualPad.buttonUp.pressed || virtualPad.buttonDown.pressed #end) changeSelection(controls.UI_UP_P #if mobile || virtualPad.buttonUp.pressed #end ? -1 : 1);
 
 		if(FlxG.mouse.wheel != 0) changeSelection(-1 * FlxG.mouse.wheel);
 
-		if (controls.BACK) 
+		if (controls.BACK #if mobile || virtualPad.buttonB.pressed #end) 
 		{
 			FlxG.sound.play(Paths.sound('spaceunpause'));
 			if(onPlayState)
@@ -115,7 +112,7 @@ class OptionsState extends MusicBeatState
 			}
 			else FlxG.switchState(funkin.states.NewMain.new);
 		}
-		else if (controls.ACCEPT) openSelectedSubstate(options[curSelected]);
+		else if (controls.ACCEPT #if mobile || virtualPad.buttonA.pressed #end) openSelectedSubstate(options[curSelected]);
 	}
 	
 	function changeSelection(change:Int = 0) 
