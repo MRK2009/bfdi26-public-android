@@ -36,7 +36,8 @@ else
 
 function onUpdatePost() 
 {
-    if (#if desktop FlxG.mouse.justPressed #end && (FlxG.mouse.overlaps(dad) && dad.alpha > 0 && popCheck == true)) 
+	#if desktop
+    if (FlxG.mouse.justPressed && (FlxG.mouse.overlaps(dad) && dad.alpha > 0 && popCheck == true)) 
     {
         dad.alpha = 0;
         FlxG.sound.play(Paths.sound('pop'));
@@ -50,6 +51,7 @@ function onUpdatePost()
 		FlxG.sound.music.stop();
 		FlxG.sound.playMusic(Paths.music('freeplayMenu'), 0);
     }
+	#end
 }
 
 function onUpdate() shader2.setFloat("iTime", Conductor.songPosition / 100); 
