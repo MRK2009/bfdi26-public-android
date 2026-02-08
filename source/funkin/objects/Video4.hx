@@ -79,7 +79,7 @@ class Video4 extends FlxVideoSprite
 	{
 		super.update(elapsed);
 		
-		if ((FlxG.keys.justPressed.SPACE || FlxG.keys.justPressed.ENTER) && canSkip)
+		if ((FlxG.keys.justPressed.SPACE || FlxG.keys.justPressed.ENTER #if android || FlxG.android.justReleased.BACK #end) && canSkip)
 		{
 			onSkip.dispatch();
 			if (bitmap.isPlaying)
