@@ -1,5 +1,5 @@
 package mobile.controls;
-
+/*
 import flixel.FlxG;
 import flixel.util.FlxDestroyUtil;
 import openfl.display.BitmapData;
@@ -8,10 +8,10 @@ import mobile.flixel.FlxButton;
 import mobile.flixel.input.FlxMobileInputManager;
 import mobile.flixel.input.FlxMobileInputID;
 
-/**
- * Hitbox... HIT
- * @author StarNova (Cream.BR)
- */
+
+  Hitbox... HIT
+  @author StarNova (Cream.BR)
+ 
  
 class MobileHitbox extends FlxMobileInputManager
 {
@@ -108,3 +108,4 @@ class MobileHitbox extends FlxMobileInputManager
 			FlxDestroyUtil.destroy(btn);
 	}
 }
+*/
