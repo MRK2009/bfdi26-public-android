@@ -1,4 +1,4 @@
-package backend;
+package funkin;
 
 import flixel.graphics.frames.FlxFrame.FlxFrameAngle;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -19,7 +19,7 @@ import haxe.Json;
 
 
 #if MODS_ALLOWED
-import backend.Mods;
+import funkin.backend.Mods;
 #end
 
 class Paths
@@ -178,7 +178,7 @@ class Paths
 			return file;
 		}
 		#end
-		return #if mobile StorageSystem.getDirectory() + #end'assets/videos/$key.$VIDEO_EXT';
+		return 'assets/videos/$key.$VIDEO_EXT';
 	}
 
 	static public function sound(key:String, ?library:String):Sound
