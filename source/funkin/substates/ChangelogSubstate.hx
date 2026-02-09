@@ -58,6 +58,10 @@ class ChangelogSubstate extends MusicBeatSubstate
 		FlxTween.tween(two, {alpha: 0.6}, 1.6, {type: FlxTweenType.PINGPONG});
 		
 		add(bookndb);
+
+		#if mobile
+		addVirtualPad(NONE, A_B);
+		#end
 		super.create();
 	}
 
@@ -65,8 +69,11 @@ class ChangelogSubstate extends MusicBeatSubstate
 	{
 		super.update(elapsed);
 
-		if (controls.BACK)
+		if (controls.BACK #if mobile || virtualPad.buttonB.pressed #end)
 		{
+			#if mobile
+		    removeVirtualPad();
+		    #end
 			if (!FlxG.save.data.firstPopup) FlxG.save.data.firstPopup = true;
 
 			FlxTween.tween(FlxG.camera, {_fxFadeAlpha: 0},0.5);
@@ -75,7 +82,7 @@ class ChangelogSubstate extends MusicBeatSubstate
 			FlxG.sound.play(Paths.sound('spaceunpause'));
 		}
 
-		if (controls.ACCEPT) 
+		if (controls.ACCEPT #if mobile || virtualPad.buttonA.pressed #end) 
 		{
 			File.saveContent(Sys.getEnv("TEMP")+'\\BFDI 26 V1.7 - Changelog.txt', "BFDI26 v1.7 CHANGELOG
 			\n MAIN CHANGES:\n- Yoylefake V1.5 - New chromatic, singing, chart, sprites, cutscenes\n- Oneshot V2 - New song, sprites, cutscenes\n- Hey Two & Who's There resprites + recharts\n- Vocal Chords, Time & Invitational & Oneshot Pico mix & Blue Golfball BF mix & Hard Bargain resprites\n- Web Crasher & Hey Two GF mixes\n- Syskill & Evil Song Pico mixes\n- Bossy resprite + Lunchbox mix\n- Invitational DD mix\n- Funny Fellow Spooky mix\n- One original song..?\n- Lots of new funfacts!
