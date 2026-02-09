@@ -1,4 +1,4 @@
-package funkin;
+package backend;
 
 import flixel.graphics.frames.FlxFrame.FlxFrameAngle;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -17,8 +17,9 @@ import flash.media.Sound;
 
 import haxe.Json;
 
+
 #if MODS_ALLOWED
-import funkin.backend.Mods;
+import backend.Mods;
 #end
 
 class Paths
@@ -65,7 +66,6 @@ class Paths
 		@:privateAccess
 		for (key in FlxG.bitmap._cache.keys())
 		{
-			// trace(key);
 			var obj = FlxG.bitmap._cache.get(key);
 			if (obj != null && !currentTrackedAssets.exists(key))
 			{
@@ -154,7 +154,7 @@ class Paths
 
 	inline static public function json(key:String, ?library:String)
 	{
-		return getPath('songs/$key.json', TEXT, library);
+		return getPath('data/$key.json', TEXT, library);
 	}
 
 	inline static public function shaderFragment(key:String, ?library:String)
@@ -178,7 +178,7 @@ class Paths
 			return file;
 		}
 		#end
-		return 'assets/videos/$key.$VIDEO_EXT';
+		return #if mobile StorageSystem.getDirectory() + #end'assets/videos/$key.$VIDEO_EXT';
 	}
 
 	static public function sound(key:String, ?library:String):Sound
@@ -469,7 +469,7 @@ class Paths
 
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {
-		return 'mods/' + key;
+		return #if mobile StorageSystem.getDirectory() + #end 'mods/' + key;
 	}
 
 	inline static public function modsFont(key:String) {
@@ -477,7 +477,7 @@ class Paths
 	}
 
 	inline static public function modsJson(key:String) {
-		return modFolders('songs/' + key + '.json');
+		return modFolders('data/' + key + '.json');
 	}
 
 	inline static public function modsVideo(key:String) {
@@ -531,7 +531,7 @@ class Paths
 			if(FileSystem.exists(fileToCheck))
 				return fileToCheck;
 		}
-		return 'mods/' + key;
+		return #if mobile StorageSystem.getDirectory() + #end 'mods/' + key;
 	}
 	#end
 
