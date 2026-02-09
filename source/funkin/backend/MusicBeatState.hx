@@ -29,7 +29,6 @@ class MusicBeatState extends FlxUIState
 
 	public var controls(get, never):Controls;
 
-	public static var instance:MusicBeatState;
 	public var mobileControls:MobileControls;
 	public var virtualPad:FlxVirtualPad;
 
@@ -93,7 +92,6 @@ class MusicBeatState extends FlxUIState
 
 	override function create() 
 	{
-		instance = this;
 		var skip:Bool = FlxTransitionableState.skipNextTransOut;
 		#if MODS_ALLOWED Mods.updatedOnState = false; #end
 
