@@ -73,7 +73,7 @@ class Setup extends flixel.FlxState
 		//FlxG.sound.play(Paths.sound('enterimpact')).onComplete = () ->
 		//{	
 			final nextState:Null<NextState> = (!FlxG.save.data.modNotice ? funkin.states.BootFlashingState.new : Splash.new);
-			FlxG.switchState(funkin.states.Title.new);
+			FlxG.switchState(nextState);
 		}, true);
 
 		trace(FlxG.save.data.bannedhaha);
