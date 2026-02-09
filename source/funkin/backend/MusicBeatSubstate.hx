@@ -19,12 +19,8 @@ class MusicBeatSubstate extends FlxSubState
 	private var curDecBeat:Float = 0;
 	private var controls(get, never):Controls;
 
-	public static var instance:MusicBeatSubstate;
-
 	public function new()
 	{
-		instance = this;
-		
 		super();
 	}
 
