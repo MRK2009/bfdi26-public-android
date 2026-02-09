@@ -17,6 +17,7 @@ import mobile.flixel.FlxVirtualPad;
 class MusicBeatState extends FlxUIState
 {
 	public static var banlist:Array<String> = [];
+	public static var instance:MusicBeatState;
 
 	private var curSection:Int = 0;
 	private var stepsToDo:Int = 0;
@@ -92,6 +93,8 @@ class MusicBeatState extends FlxUIState
 
 	override function create() 
 	{
+		instance = this;
+		
 		var skip:Bool = FlxTransitionableState.skipNextTransOut;
 		#if MODS_ALLOWED Mods.updatedOnState = false; #end
 
