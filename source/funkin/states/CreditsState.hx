@@ -103,13 +103,13 @@ class CreditsState extends MusicBeatState
 		frame = new CreditFrame();
 		frame.visible = false;
         add(frame);
+		
+		super.create();
 
 		#if mobile
 		addVirtualPad(NONE, B);
 		addVirtualPadCamera();
-		#end
-		
-		super.create();
+		#end	
 
 		Paths.clearUnusedMemory();
 	}
