@@ -349,8 +349,12 @@ class ControlsSubState extends MusicBeatSubstate
 
 		if(!binding)
 		{
-			if(FlxG.keys.justPressed.ESCAPE || FlxG.gamepads.anyJustPressed(B))
+			if(FlxG.keys.justPressed.ESCAPE || FlxG.gamepads.anyJustPressed(B) #if mobile || virtualPad.buttonB.justPressed #end)
 			{
+				#if mobile
+				FlxTransitionableState.skipNextTransOut = true;
+				FlxG.resetState();
+				#end
 				close();
 				return;
 			}
