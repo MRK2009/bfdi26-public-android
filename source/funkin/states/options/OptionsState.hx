@@ -88,11 +88,11 @@ class OptionsState extends MusicBeatState
 	{
 		super.update(elapsed);
 
-		if (controls.UI_UP_P || controls.UI_DOWN_P #if mobile || virtualPad.buttonUp.pressed || virtualPad.buttonDown.pressed #end) changeSelection(controls.UI_UP_P #if mobile || virtualPad.buttonUp.pressed #end ? -1 : 1);
+		if (controls.UI_UP_P || controls.UI_DOWN_P #if mobile || virtualPad.buttonUp.justPressed || virtualPad.buttonDown.justPressed #end) changeSelection(controls.UI_UP_P #if mobile || virtualPad.buttonUp.justPressed #end ? -1 : 1);
 
 		if(FlxG.mouse.wheel != 0) changeSelection(-1 * FlxG.mouse.wheel);
 
-		if (controls.BACK #if mobile || virtualPad.buttonB.pressed #end) 
+		if (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end) 
 		{
 			FlxG.sound.play(Paths.sound('spaceunpause'));
 			if(onPlayState)
@@ -112,7 +112,7 @@ class OptionsState extends MusicBeatState
 			}
 			else FlxG.switchState(funkin.states.NewMain.new);
 		}
-		else if (controls.ACCEPT #if mobile || virtualPad.buttonA.pressed #end) openSelectedSubstate(options[curSelected]);
+		else if (controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end) openSelectedSubstate(options[curSelected]);
 	}
 	
 	function changeSelection(change:Int = 0) 
