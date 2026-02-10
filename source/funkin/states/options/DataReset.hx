@@ -144,6 +144,10 @@ class DataReset extends MusicBeatSubstate
 	{
 		FlxTween.tween(cam, {'scroll.y': 30, alpha: 0}, 0.4, {onComplete:Void -> close()});
 		FlxTween.tween(FlxG.camera, {_fxFadeAlpha: 0},0.5);
+		#if mobile
+		FlxTransitionableState.skipNextTransOut = true;
+		FlxG.resetState();
+		#end
 	}
 
 	function change(diff:Int = 0)
