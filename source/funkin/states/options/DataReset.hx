@@ -95,15 +95,19 @@ class DataReset extends MusicBeatSubstate
 		}
 
 		change();
+	    #if mobile
+		addVirtualPad(LEFT_RIGHT, A_B);
+		addVirtualPadCamera();
+		#end
 	}
 
 	override public function update(elapsed:Float)
 	{
 		if (canbruh) 
 		{	
-			if (controls.UI_LEFT_P || controls.UI_RIGHT_P) change(controls.UI_LEFT_P ? -1 : 1);
+			if (controls.UI_LEFT_P || controls.UI_RIGHT_P #if mobile || _virtualpad.buttonLeft.justPressed || _virtualpad.buttonRight.justPressed #end) change(controls.UI_LEFT_P #if mobile || _virtualpad.buttonLeft.justPressed #end ? -1 : 1);
 			
-			if (controls.ACCEPT)
+			if (controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end)
 			{
 				switch(select[curSel][0]) 
 				{
@@ -126,7 +130,7 @@ class DataReset extends MusicBeatSubstate
 		
 		if (canskip)
 		{
-			if (FlxG.keys.justPressed.SPACE) 
+			if (FlxG.keys.justPressed.SPACE #if mobile || virtualPad.buttonA.justPressed #end) 
 			{
 				warning.skip();
 				canskip = false;
