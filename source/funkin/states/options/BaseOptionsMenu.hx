@@ -204,7 +204,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 						if (pressed)
 						{
 							var add:Dynamic = null;
-							if (curOption.type != 'string') add = controls.UI_LEFT ? -curOption.changeValue : curOption.changeValue;
+							if (curOption.type != 'string') add = controls.UI_LEFT #if mobile || virtualPad.buttonLeft.pressed #end ? -curOption.changeValue : curOption.changeValue;
 							
 							switch (curOption.type)
 							{
@@ -299,7 +299,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	
 	function bindingKeyUpdate(elapsed:Float)
 	{
-		if (FlxG.keys.pressed.ESCAPE || FlxG.gamepads.anyPressed(B))
+		if (FlxG.keys.pressed.ESCAPE || FlxG.gamepads.anyPressed(B) #if mobile || virtualPad.buttonB.pressed #end)
 		{
 			holdingEsc += elapsed;
 			if (holdingEsc > 0.5)
@@ -308,7 +308,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				closeBinding();
 			}
 		}
-		else if (FlxG.keys.pressed.BACKSPACE || FlxG.gamepads.anyPressed(BACK) #if mobile || virtualPad.buttonB.justPressed #end)
+		else if (FlxG.keys.pressed.BACKSPACE || FlxG.gamepads.anyPressed(BACK) #if mobile || virtualPad.buttonB.pressed #end)
 		{
 			holdingEsc += elapsed;
 			if (holdingEsc > 0.5)
