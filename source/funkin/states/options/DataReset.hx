@@ -105,7 +105,7 @@ class DataReset extends MusicBeatSubstate
 	{
 		if (canbruh) 
 		{	
-			if (controls.UI_LEFT_P || controls.UI_RIGHT_P #if mobile || _virtualpad.buttonLeft.justPressed || _virtualpad.buttonRight.justPressed #end) change(controls.UI_LEFT_P #if mobile || _virtualpad.buttonLeft.justPressed #end ? -1 : 1);
+			if (controls.UI_LEFT_P || controls.UI_RIGHT_P #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end) change(controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end ? -1 : 1);
 			
 			if (controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end)
 			{
@@ -144,10 +144,7 @@ class DataReset extends MusicBeatSubstate
 	{
 		FlxTween.tween(cam, {'scroll.y': 30, alpha: 0}, 0.4, {onComplete:Void -> close()});
 		FlxTween.tween(FlxG.camera, {_fxFadeAlpha: 0},0.5);
-		#if mobile
-		FlxTransitionableState.skipNextTransOut = true;
-		FlxG.resetState();
-		#end
+		#if mobile closeSs(); #end
 	}
 
 	function change(diff:Int = 0)
