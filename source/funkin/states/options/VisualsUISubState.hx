@@ -74,14 +74,14 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.decimals = 1;
 		addOption(option);
 		
-		#if !mobile
+		//#if !mobile
 		var option:Option = new Option('FPS Counter',
 			'If unchecked, hides FPS Counter.',
 			'showFPS',
 			'bool');
 		addOption(option);
 		option.onChange = onChangeFPSCounter;
-		#end
+		//#end
 
 		#if DISCORD_ALLOWED
 		var option:Option = new Option('Discord Rich Presence',
@@ -100,11 +100,11 @@ class VisualsUISubState extends BaseOptionsMenu
 		super();
 	}
 
-	#if !mobile
+	//#if !mobile
 	function onChangeFPSCounter()
 	{
 		if(Main.fpsVar != null)
 			Main.fpsVar.visible = ClientPrefs.data.showFPS;
 	}
-	#end
+	//#end
 }
