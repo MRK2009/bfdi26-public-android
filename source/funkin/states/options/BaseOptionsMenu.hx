@@ -153,6 +153,10 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		
 		if (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end)
 		{
+			#if mobile
+			FlxTransitionableState.skipNextTransOut = true;
+			FlxG.resetState();
+		    #end
 			close();
 			FlxG.sound.play(Paths.sound('spaceunpause'));
 		}
