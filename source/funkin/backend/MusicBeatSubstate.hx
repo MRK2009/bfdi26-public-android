@@ -3,6 +3,7 @@ package funkin.backend;
 import flixel.FlxSubState;
 import mobile.MobileControls;
 import mobile.flixel.FlxVirtualPad;
+import flixel.addons.transition.FlxTransitionableState;
 
 class MusicBeatSubstate extends FlxSubState
 {
@@ -77,6 +78,11 @@ class MusicBeatSubstate extends FlxSubState
 			vpadCam.bgColor.alpha = 0;
 			virtualPad.cameras = [vpadCam];
 		}
+	}
+
+	public function closeSs() {
+ 		FlxTransitionableState.skipNextTransOut = true;
+ 		FlxG.resetState();
 	}
 
 	inline function get_controls():Controls
