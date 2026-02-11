@@ -150,7 +150,7 @@ class Title extends MusicBeatState
 		
 		if (FlxG.sound.music != null) Conductor.songPosition = FlxG.sound.music.time;
 
-		if (!transitioning && controls.ACCEPT || justTouched)
+		if (!transitioning && (controls.ACCEPT || justTouched))
 		{
 			transitioning = true;
 			FlxG.sound.play(Paths.sound('enterimpact'));
