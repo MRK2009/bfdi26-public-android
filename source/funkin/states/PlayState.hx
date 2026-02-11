@@ -31,7 +31,7 @@ import funkin.substates.GameOverSubstate;
 import openfl.filters.ShaderFilter;
 #end
 
-import shaders.ErrorHandledShader;
+import funkin.shaders.ErrorHandledShader;
 
 import funkin.objects.VideoSprite;
 import funkin.objects.Note.EventNote;
