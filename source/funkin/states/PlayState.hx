@@ -1,6 +1,5 @@
 package funkin.states;
 
-import funkin.backend.Highscore;
 import funkin.backend.StageData;
 import funkin.backend.WeekData;
 import funkin.backend.Song;
