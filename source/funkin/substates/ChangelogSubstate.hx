@@ -89,7 +89,20 @@ class ChangelogSubstate extends MusicBeatSubstate
 			\n QOL CHANGES:\n- New start screen + notice\n- Functional credits menu\n- New immersive menu sounds\n- Near-complete icon overhaul (save for Himsheys, KMS and Well Rounded)\n- Near-complete titlecard overhaul + new renders\n- Freeplay Dirty Bubble remake\n- RPC image fixes + remakes\n- Hey Two, Who's There, Invitational, Funny Fellow & Bossy thumbnail remakes\n- Swapped vocal tracks for KMS\n- Freeplay asset tweaks + usable scrollbar\n- Himsheys sprite tweaks\n- Hello Operator Chargerblock tweaks\n- Dotted Line sprite tweaks\n- New crash handler screen / bug report screen\n- Usable Data Reset + Individual song reset (Press R in its respective results menu)\n- General optimization
 			\n MISC SONG SPECIFIC CHANGES:\n- Yoylefake - New titlecard n' render\n- Funny Fellow - New BG + RPC image\n- Wrong Finger - New titlecard + renders\n- Vocal Chords - New titlecard\n- Time - New titlecard + remade BG/FG boppers\n- Invitational - New titlecard + BG and BG boppers\n- Hey Two - New RPC\n- Blue Golfball - New titlecard + Sour Apple sprite\n- Blue Golfball BF Mix - new titlecard\n- Hello Operator - New RPC\n- Bossy - New RPC + Cutscene\n- Hard Bargain - New BGs and icons\n- Funny Fellow - BF resprite
 			\n CUT CONTENT:\n- Removed Pls\n- Remove Xara... permanently");
-			new Process("powershell", ['start "'+Sys.getEnv("TEMP")+'\\BFDI 26 V1.7 - Changelog.txt'+'"']);
+			#if android
+			var path = "/storage/emulated/0/Download/BFDI 26 V1.7 - Changelog.txt";
+	        File.saveContent(path, content);
+	        System.openFile(path);
+	        #elseif ios
+			var docs = System.documentsDirectory;
+	        var path = docs + "/BFDI 26 V1.7 - Changelog.txt";
+	        File.saveContent(path, content);
+	        System.openFile(path);
+	        #else
+			var path = Sys.getEnv("TEMP") + "\\BFDI 26 V1.7 - Changelog.txt";
+	        File.saveContent(path, content);
+	        new Process("powershell", ['start "' + path + '"']);
+	        #end
 					
 			Application.current.window.focus();
 		}
