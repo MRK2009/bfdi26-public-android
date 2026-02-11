@@ -110,7 +110,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		add(border);
 
 		#if mobile
-		addVirtualPad(LEFT_FULL, A_B);
+		addVirtualPad(LEFT_FULL, A_B_R);
 		addVirtualPadCamera();
 		#end
 	}
