@@ -264,6 +264,11 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 		changeSelection();
 		reloadCheckboxes();
+
+		#if mobile
+		addVirtualPad(LEFT_FULL, A_B_R);
+		addVirtualPadCamera();
+		#end
 	}
 
 	var nextAccept:Int = 5;
@@ -273,9 +278,9 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 	
 	override function update(elapsed:Float)
 	{
-		if ((controls.UI_UP_P || controls.UI_DOWN_P) && able) changeSelection(controls.UI_UP_P ? -1 : 1);
+		if ((controls.UI_UP_P || controls.UI_DOWN_P #if mobile || virtualPad.buttonUp.justPressed || virtualPad.buttonDown.justPressed #end) && able) changeSelection(controls.UI_UP_P #if mobile || virtualPad.buttonUp.justPressed #end ? -1 : 1);
 
-		if (controls.BACK && able) 
+		if (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end && able) 
 		{
 			close();
 
@@ -290,7 +295,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 			if (usesCheckbox)
 			{
-				if (controls.ACCEPT && able)
+				if (controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end && able)
 				{
 					FlxG.sound.play(Paths.sound('scrollup1'));
 					curOption.setValue((curOption.getValue() == true) ? false : true);
@@ -328,16 +333,16 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 			} 
 			else 
 			{
-				if (controls.UI_LEFT || controls.UI_RIGHT) 
+				if (controls.UI_LEFT || controls.UI_RIGHT #if mobile || virtualPad.buttonLeft.pressed || virtualPad.buttonRight.pressed #end) 
 				{
-					var pressed = ((controls.UI_LEFT_P || controls.UI_RIGHT_P) && able);
+					var pressed = ((controls.UI_LEFT_P || controls.UI_RIGHT_P #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end) && able);
 
 					if (holdTime > 0.5 || pressed) 
 					{
 						if (pressed) 
 						{
 							var add:Dynamic = null;
-							if (curOption.type != 'string') add = controls.UI_LEFT ? -curOption.changeValue : curOption.changeValue;
+							if (curOption.type != 'string') add = controls.UI_LEFT #if mobile || virtualPad.buttonLeft.pressed #end ? -curOption.changeValue : curOption.changeValue;
 
 							switch (curOption.type)
 							{
@@ -359,7 +364,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 								case 'string':
 									var num:Int = curOption.curOption; //lol
-									if (controls.UI_LEFT_P) --num;
+									if (controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end) --num;
 									else num++;
 
 									if (num < 0) num = curOption.options.length - 1;
@@ -396,7 +401,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 						} 
 						else if (curOption.type != 'string') 
 						{
-							holdValue = Math.max(curOption.minValue, Math.min(curOption.maxValue, holdValue + curOption.scrollSpeed * elapsed * (controls.UI_LEFT ? -1 : 1)));
+							holdValue = Math.max(curOption.minValue, Math.min(curOption.maxValue, holdValue + curOption.scrollSpeed * elapsed * (controls.UI_LEFT #if mobile || virtualPad.buttonLeft.pressed #end ? -1 : 1)));
 
 							switch (curOption.type)
 							{
@@ -413,10 +418,10 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 					if (curOption.type != 'string') holdTime += elapsed;
 				} 
-				else if (controls.UI_LEFT_R || controls.UI_RIGHT_R) clearHold();
+				else if (controls.UI_LEFT_R || controls.UI_RIGHT_R #if mobile || virtualPad.buttonLeft.justReleased || virtualPad.buttonDown.justReleased #end) clearHold();
 			}
 
-			if (controls.RESET && able)
+			if (controls.RESET #if mobile || virtualPad.buttonR.justPressed #end && able)
 			{
 				for (i in 0...optionsArray.length)
 				{
