@@ -33,7 +33,7 @@ import openfl.filters.ShaderFilter;
 
 import funkin.shaders.ErrorHandledShader;
 
-import funkin.objects.VideoSprite;
+import hxvlc.flixel.FlxVideoSprite as VideoSprite;
 import funkin.objects.Note.EventNote;
 import funkin.objects.*;
 import funkin.states.stages.*;
