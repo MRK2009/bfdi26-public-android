@@ -49,7 +49,7 @@ class CharacterUnlock extends MusicBeatState
 		                justTouched = true;
 		#end
 		
-		if ((controls.ACCEPT || justTouch) && can) 
+		if ((controls.ACCEPT || justTouched) && can) 
 		{
 			FlxTransitionableState.skipNextTransIn = true;
 
