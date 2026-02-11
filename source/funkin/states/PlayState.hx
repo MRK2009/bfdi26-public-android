@@ -18,8 +18,7 @@ import openfl.utils.Assets as OpenFlAssets;
 import openfl.events.KeyboardEvent;
 import haxe.Json;
 
-import cutscenes.DialogueBoxPsych;
-
+import funkin.objects.cutscenes.DialogueBoxPsych;
 import funkin.states.StoryMenuState;
 import funkin.states.FreeplayState;
 import funkin.states.editors.ChartingState;
