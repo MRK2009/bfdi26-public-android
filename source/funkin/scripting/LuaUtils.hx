@@ -39,6 +39,23 @@ class LuaUtils
 		};
 	}
 
+	public static function isLuaSupported(value:Any):Bool {
+	return (value == null || isOfTypes(value, [Bool, Int, Float, String, Array]) || Type.typeof(value) == ValueType.TObject);
+	}
+
+	public static function destroyObject(tag:String) {
+	#if LUA_ALLOWED
+	var variables = PlayState.instance.variables;
+	var obj:FlxSprite = variables.get(tag);
+	if(obj == null || obj.destroy == null)
+		return;
+
+	LuaUtils.getTargetInstance().remove(obj, true);
+	obj.destroy();
+	variables.remove(tag);
+	#end
+	}
+
 	public static function setVarInArray(instance:Dynamic, variable:String, value:Dynamic, allowMaps:Bool = false):Any
 	{
 		var splitProps:Array<String> = variable.split('[');
