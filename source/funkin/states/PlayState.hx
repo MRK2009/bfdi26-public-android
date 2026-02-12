@@ -47,7 +47,7 @@ import psychlua.HScript;
 #end
 
 #if HSCRIPT_ALLOWED
-import funkin.scripting.HScript as HScriptInfos;
+import funkin.scripting.HScript;
 import crowplexus.iris.Iris;
 import crowplexus.hscript.Expr.Error as IrisError;
 import crowplexus.hscript.Printer;
