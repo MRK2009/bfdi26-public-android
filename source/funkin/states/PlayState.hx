@@ -2481,7 +2481,7 @@ class PlayState extends MusicBeatState
 				{
 					CoolUtil.tweenWindowResize({x: 1280, y: 720}, 0.3 * 4, function ()
 					{
-						Lib.application.window.resizable = true;
+						//Lib.application.window.resizable = true;
 						FlxG.switchState(()-> new FreeplayState());
 					}, true);
 				} else FlxG.switchState(()-> new FreeplayState());
@@ -3146,19 +3146,13 @@ class PlayState extends MusicBeatState
 	}
 
 	override function destroy() {
-		if (psychlua.CustomSubstate.instance != null)
-		{
-			closeSubState();
-			resetSubState();
-		}
-
 		#if LUA_ALLOWED
 		for (lua in luaArray)
 		{
 			lua.call('onDestroy', []);
 			lua.stop();
 		}
-		luaArray = null;
+		luaArray = [];
 		FunkinLua.customFunctions.clear();
 		#end
 
@@ -3166,27 +3160,23 @@ class PlayState extends MusicBeatState
 		for (script in hscriptArray)
 			if(script != null)
 			{
-				if(script.exists('onDestroy')) script.call('onDestroy');
+				if (script.exists('onDestroy'))
+				script.call('onDestroy');
 				script.destroy();
 			}
 
-		hscriptArray = null;
+		while (hscriptArray.length > 0)
+			hscriptArray.pop();
 		#end
-		stagesFunc(function(stage:BaseStage) stage.destroy());
 
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
-
-		FlxG.camera.setFilters([]);
-
-		#if FLX_PITCH FlxG.sound.music.pitch = 1; #end
 		FlxG.animationTimeScale = 1;
-
+		#if FLX_PITCH if (FlxG.sound.music != null) FlxG.sound.music.pitch = 1; #end
 		Note.globalRgbShaders = [];
-		backend.NoteTypesConfig.clearNoteTypesData();
-
-		NoteSplash.configs.clear();
+		funkin.backend.NoteTypesConfig.clearNoteTypesData();
 		instance = null;
+
 		super.destroy();
 	}
 
@@ -3466,6 +3456,7 @@ class PlayState extends MusicBeatState
 	}
 
 	function strumPlayAnim(isDad:Bool, id:Int, time:Float) {
+		if (PlayState.SONG.song.toLowerCase() == 'yoylefake') return;
 		var spr:StrumNote = null;
 		if(isDad) {
 			spr = opponentStrums.members[id];
@@ -3482,7 +3473,7 @@ class PlayState extends MusicBeatState
 	public var ratingName:String = '?';
 	public var ratingPercent:Float;
 	public var ratingFC:String;
-	public function RecalculateRating(badHit:Bool = false, scoreBop:Bool = true) {
+	public function RecalculateRating(badHit:Bool = false) {
 		setOnScripts('score', songScore);
 		setOnScripts('misses', songMisses);
 		setOnScripts('hits', songHits);
@@ -3510,12 +3501,10 @@ class PlayState extends MusicBeatState
 			}
 			fullComboFunction();
 		}
+		updateScore(badHit); // score will only update after rating is calculated, if it's a badHit, it shouldn't bounce
 		setOnScripts('rating', ratingPercent);
 		setOnScripts('ratingName', ratingName);
 		setOnScripts('ratingFC', ratingFC);
-		setOnScripts('totalPlayed', totalPlayed);
-		setOnScripts('totalNotesHit', totalNotesHit);
-		updateScore(badHit, scoreBop); // score will only update after rating is calculated, if it's a badHit, it shouldn't bounce
 	}
 
 	#if ACHIEVEMENTS_ALLOWED
