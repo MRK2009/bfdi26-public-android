@@ -41,8 +41,9 @@ import funkin.states.stages.objects.*;
 
 #if LUA_ALLOWED
 import psychlua.*;
+import funkin.scripting.*;
 #else
-import psychlua.LuaUtils;
+import funkin.scripting.LuaUtils;
 import psychlua.HScript;
 #end
 
