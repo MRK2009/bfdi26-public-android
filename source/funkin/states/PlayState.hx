@@ -1,5 +1,12 @@
 package funkin.states;
 
+#if VIDEOS_ALLOWED
+import hxvlc.flixel.FlxVideo;
+import hxvlc.flixel.FlxVideoSprite;
+import funkin.objects.Video4;
+#end
+
+import funkin.data.Highscore;
 import funkin.data.StageData;
 import funkin.data.WeekData;
 import funkin.backend.Song;
@@ -8,6 +15,7 @@ import funkin.backend.Rating;
 import flixel.FlxBasic;
 import flixel.FlxObject;
 import flixel.FlxSubState;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.util.FlxSort;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxSave;
@@ -105,6 +113,15 @@ class PlayState extends MusicBeatState
 	public static var uiPrefix:String = "";
 	public static var uiPostfix:String = "";
 	public static var isPixelStage(get, never):Bool;
+	
+	public static var yoylefakeStart:Bool = false;
+
+	public static var OneshotCheck:Bool = false;
+
+	public var yoylefakes:Video4;
+	public var po1:Video4;
+	
+	public static var FUCKMYLIFE:Bool = false;
 
 	@:noCompletion
 	static function set_stageUI(value:String):String
@@ -279,6 +296,11 @@ class PlayState extends MusicBeatState
 
 		if(FlxG.sound.music != null)
 			FlxG.sound.music.stop();
+			
+		if (PlayState.SONG.song.toLowerCase() == "web-crasher" || PlayState.SONG.song.toLowerCase() == "himsheys" || PlayState.SONG.song.toLowerCase() == "himsheys-tird" || PlayState.SONG.song.toLowerCase() == "web-crasher-gf") 
+		{
+			FUCKMYLIFE = true;
+		}
 
 		// Gameplay settings
 		healthGain = ClientPrefs.getGameplaySetting('healthgain');
