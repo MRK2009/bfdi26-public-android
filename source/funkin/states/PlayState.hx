@@ -90,6 +90,15 @@ class PlayState extends MusicBeatState
 	#if HSCRIPT_ALLOWED
 	public var hscriptArray:Array<HScript> = [];
 	#end
+	
+	#if LUA_ALLOWED
+	public var modchartTweens:Map<String, FlxTween> = new Map<String, FlxTween>();
+	public var modchartSprites:Map<String, ModchartSprite> = new Map<String, ModchartSprite>();
+	public var modchartTimers:Map<String, FlxTimer> = new Map<String, FlxTimer>();
+	public var modchartSounds:Map<String, FlxSound> = new Map<String, FlxSound>();
+	public var modchartTexts:Map<String, FlxText> = new Map<String, FlxText>();
+	public var modchartSaves:Map<String, FlxSave> = new Map<String, FlxSave>();
+	#end
 
 	public var BF_X:Float = 770;
 	public var BF_Y:Float = 100;
@@ -1509,7 +1518,8 @@ class PlayState extends MusicBeatState
 				babyArrow.alpha = 0;
 				FlxTween.tween(babyArrow, {/*y: babyArrow.y + 10,*/ alpha: targetAlpha}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
 			}
-			else babyArrow.alpha = targetAlpha;
+			else
+				babyArrow.alpha = targetAlpha;
 
 			if (player == 1)
 				playerStrums.add(babyArrow);
@@ -1526,7 +1536,7 @@ class PlayState extends MusicBeatState
 			}
 
 			strumLineNotes.add(babyArrow);
-			babyArrow.playerPosition();
+			babyArrow.postAddedToGroup();
 		}
 	}
 
@@ -2340,20 +2350,23 @@ class PlayState extends MusicBeatState
 
 
 	public var transitioning = false;
+	public var percent:Float;
 	public function endSong()
 	{
+		percent = ratingPercent;
+		if(Math.isNaN(percent)) percent = 0;
+
 		//Should kill you if you tried to cheat
-		if(!startingSong)
-		{
-			notes.forEachAlive(function(daNote:Note)
-			{
-				if(daNote.strumTime < songLength - Conductor.safeZoneOffset)
+		if(!startingSong) {
+			notes.forEach(function(daNote:Note) {
+				if(daNote.strumTime < songLength - Conductor.safeZoneOffset) {
 					health -= 0.05 * healthLoss;
+				}
 			});
-			for (daNote in unspawnNotes)
-			{
-				if(daNote != null && daNote.strumTime < songLength - Conductor.safeZoneOffset)
+			for (daNote in unspawnNotes) {
+				if(daNote.strumTime < songLength - Conductor.safeZoneOffset) {
 					health -= 0.05 * healthLoss;
+				}
 			}
 
 			if(doDeathCheck()) {
@@ -2368,22 +2381,39 @@ class PlayState extends MusicBeatState
 		camZooming = false;
 		inCutscene = false;
 		updateTime = false;
+		#if mobile mobileControls.visible = false; #end
 
 		deathCounter = 0;
 		seenCutscene = false;
 
 		#if ACHIEVEMENTS_ALLOWED
 		var weekNoMiss:String = WeekData.getWeekFileName() + '_nomiss';
-		checkForAchievement([weekNoMiss, 'ur_bad', 'ur_good', 'hype', 'two_keys', 'toastie' #if BASE_GAME_FILES, 'debugger' #end]);
+		checkForAchievement([weekNoMiss, 'ur_bad', 'ur_good', 'hype', 'two_keys', 'toastie', 'debugger']);
 		#end
 
 		var ret:Dynamic = callOnScripts('onEndSong', null, true);
 		if(ret != LuaUtils.Function_Stop && !transitioning)
 		{
 			#if !switch
-			var percent:Float = ratingPercent;
-			if(Math.isNaN(percent)) percent = 0;
-			Highscore.saveScore(Song.loadedSongName, songScore, storyDifficulty, percent);
+			Highscore.saveSongData(SONG.song,storyDifficulty,songScore,percent,Highscore.calculateFC(songMisses,percent),ratingsData[0].hits,ratingsData[1].hits,ratingsData[2].hits,ratingsData[3].hits);
+			ModSave.markSongSeen('${SONG.song.toLowerCase()}');
+
+			if (ModSave.secretSongs.exists(SONG.song.toLowerCase())) 
+			{
+				if (ModSave.secretSongs.get(SONG.song.toLowerCase()) == true) ModSave.editSecretSave('${SONG.song.toLowerCase()}');
+			}
+
+			/*final name = (SONG.song.toLowerCase() + Paths.getTextFromFile('images/menus/freeplay/thumbnails/text/'+FreeplayState.SelectedThumb.songName+'/charmix.txt'));
+
+			if (ModSave.playableMixes.exists(name)) 
+			{
+				if (ModSave.playableMixes.get(name) == false) 
+				{
+					ModSave.editPlayableSave('$name');
+					FlxG.switchState(()->new funkin.states.CharacterUnlock('${Paths.getTextFromFile('images/menus/freeplay/thumbnails/text/'+FreeplayState.SelectedThumb.songName+'/charmix.txt')}'));
+				}
+			}*/
+
 			#end
 			playbackRate = 1;
 
@@ -2404,15 +2434,16 @@ class PlayState extends MusicBeatState
 				{
 					Mods.loadTopMod();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
-					#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
+					#if DISCORD_ALLOWED DiscordClient.resetClientID();
 
-					canResync = false;
-					MusicBeatState.switchState(new StoryMenuState());
+					DiscordClient.set_clientID("1260051488265470014"); #end
+					FlxG.switchState(funkin.states.NewMain.new);
 
 					// if ()
-					if(!ClientPrefs.getGameplaySetting('practice') && !ClientPrefs.getGameplaySetting('botplay')) {
+					if(!ClientPrefs.getGameplaySetting('practice') && !ClientPrefs.data.botPlay) 
+					{
 						StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
-						Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
+						Highscore.saveSongData(SONG.song,storyDifficulty,songScore,percent,Highscore.calculateFC(songMisses,percent),ratingsData[0].hits,ratingsData[1].hits,ratingsData[2].hits,ratingsData[3].hits);
 
 						FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
 						FlxG.save.flush();
@@ -2423,30 +2454,39 @@ class PlayState extends MusicBeatState
 				{
 					var difficulty:String = Difficulty.getFilePath();
 
-					trace('LOADING NEXT SONG');
-					trace(Paths.formatToSongPath(PlayState.storyPlaylist[0]) + difficulty);
-
 					FlxTransitionableState.skipNextTransIn = true;
 					FlxTransitionableState.skipNextTransOut = true;
 					prevCamFollow = camFollow;
 
-					Song.loadFromJson(PlayState.storyPlaylist[0] + difficulty, PlayState.storyPlaylist[0]);
+					PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0] + difficulty, PlayState.storyPlaylist[0]);
 					FlxG.sound.music.stop();
 
-					canResync = false;
-					LoadingState.prepareToSong();
-					LoadingState.loadAndSwitchState(new PlayState(), false, false);
+					FlxG.switchState(PlayState.new);
 				}
 			}
 			else
 			{
-				trace('WENT BACK TO FREEPLAY??');
 				Mods.loadTopMod();
-				#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
+				#if DISCORD_ALLOWED DiscordClient.resetClientID();
 
-				canResync = false;
-				MusicBeatState.switchState(new FreeplayState());
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				DiscordClient.set_clientID("1260051488265470014"); #end
+
+				//really bruh
+				if (FUCKMYLIFE) 
+				{
+					CoolUtil.tweenWindowResize({x: 1280, y: 720}, 0.3 * 4, function ()
+					{
+						Lib.application.window.resizable = true;
+						FlxG.switchState(()-> new FreeplayState());
+					}, true);
+				} else FlxG.switchState(()-> new FreeplayState());
+
+				//FlxG.sound.playMusic(Paths.music('freakyMenu'));
+
+				FlxG.sound.music.pause();
+				FlxG.sound.music.stop();
+
+				FlxG.sound.playMusic(Paths.music('freeplayMenu'), 0);
 				changedDifficulty = false;
 			}
 			transitioning = true;
@@ -3109,14 +3149,6 @@ class PlayState extends MusicBeatState
 		hscriptArray = null;
 		#end
 		stagesFunc(function(stage:BaseStage) stage.destroy());
-
-		#if VIDEOS_ALLOWED
-		if(videoCutscene != null)
-		{
-			videoCutscene.destroy();
-			videoCutscene = null;
-		}
-		#end
 
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
