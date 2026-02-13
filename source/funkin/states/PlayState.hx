@@ -1275,7 +1275,7 @@ class PlayState extends MusicBeatState
 				vocals.loadEmbedded(playerVocals != null ? playerVocals : Paths.voices(songData.song));
 				
 				var oppVocals = Paths.voices(songData.song, (dad.vocalsFile == null || dad.vocalsFile.length < 1) ? 'Opponent' : dad.vocalsFile);
-				if(oppVocals != null && oppVocals.length > 0) opponentVocals.loadEmbedded(oppVocals);
+				if(oppVocals != null) opponentVocals.loadEmbedded(oppVocals);
 			}
 		}
 		catch (e:Dynamic) {}
@@ -1303,11 +1303,10 @@ class PlayState extends MusicBeatState
 
 		try
 		{
-			var eventsChart:SwagSong = Song.getChart('events', songName);
-			if(eventsChart != null)
-				for (event in eventsChart.events) //Event Notes
-					for (i in 0...event[1].length)
-						makeEvent(event, i);
+			var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
+			for (event in eventsData) //Event Notes
+				for (i in 0...event[1].length)
+					makeEvent(event, i);
 		}
 		catch(e:Dynamic) {}
 
