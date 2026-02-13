@@ -11,6 +11,7 @@ import funkin.data.ModSave;
 import funkin.data.StageData;
 import funkin.data.WeekData;
 import funkin.backend.Song;
+import funkin.backend.Section;
 import funkin.backend.Rating;
 
 import flixel.FlxBasic;
@@ -1311,8 +1312,6 @@ class PlayState extends MusicBeatState
 		catch(e:Dynamic) {}
 
 		var oldNote:Note = null;
-		var sectionsData:Array<SwagSection>;
-		sectionsData = songData.notes;
 		var ghostNotesCaught:Int = 0;
 		var daBpm:Float = Conductor.bpm;
 	
@@ -2935,7 +2934,7 @@ class PlayState extends MusicBeatState
 			var animToPlay:String = singAnimations[Std.int(Math.abs(Math.min(singAnimations.length-1, direction)))] + 'miss' + postfix;
 			char.playAnim(animToPlay, true);
 
-			if(char != gf && lastCombo > 5 && gf != null && gf.hasAnimation('sad'))
+			if(char != gf && lastCombo > 5 && gf != null && gf.animOffsets.exists('sad'))
 			{
 				gf.playAnim('sad');
 				gf.specialAnim = true;
