@@ -206,7 +206,7 @@ class Paths
 	}
 
 	inline static public function sound(key:String):Sound
-		return returnSound('sounds/$key');
+		return returnSound('sounds/$key', library);
 
 	inline static public function music(key:String):Sound
 		return returnSound('music/$key');
@@ -219,7 +219,7 @@ class Paths
 		var songKey:String = '${formatToSongPath(song)}/Voices';
 		if(postfix != null) songKey += '-' + postfix;
 		//trace('songKey test: $songKey');
-		return returnSound(songKey, 'songs', false);
+		return returnSound(songKey, 'songs', library);
 	}
 
 	inline static public function soundRandom(key:String, min:Int, max:Int)
