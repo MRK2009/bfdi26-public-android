@@ -205,25 +205,25 @@ class Paths
 		return 'assets/videos/$key.$VIDEO_EXT';
 	}
 
-	inline static public function sound(key:String, ?modsAllowed:Bool = true):Sound
-		return returnSound('sounds/$key', modsAllowed);
+	inline static public function sound(key:String):Sound
+		return returnSound('sounds/$key');
 
-	inline static public function music(key:String, ?modsAllowed:Bool = true):Sound
-		return returnSound('music/$key', modsAllowed);
+	inline static public function music(key:String):Sound
+		return returnSound('music/$key');
 
-	inline static public function inst(song:String, ?modsAllowed:Bool = true):Sound
-		return returnSound('${formatToSongPath(song)}/Inst', 'songs', modsAllowed);
+	inline static public function inst(song:String):Sound
+		return returnSound('${formatToSongPath(song)}/Inst', 'songs');
 
-	inline static public function voices(song:String, postfix:String = null, ?modsAllowed:Bool = true):Sound
+	inline static public function voices(song:String, postfix:String = null):Sound
 	{
 		var songKey:String = '${formatToSongPath(song)}/Voices';
 		if(postfix != null) songKey += '-' + postfix;
 		//trace('songKey test: $songKey');
-		return returnSound(songKey, 'songs', modsAllowed, false);
+		return returnSound(songKey, 'songs', false);
 	}
 
-	inline static public function soundRandom(key:String, min:Int, max:Int, ?modsAllowed:Bool = true)
-		return sound(key + FlxG.random.int(min, max), modsAllowed);
+	inline static public function soundRandom(key:String, min:Int, max:Int)
+		return sound(key + FlxG.random.int(min, max));
 
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	static public function image(key:String, ?library:String = null, ?allowGPU:Bool = true):FlxGraphic
@@ -468,6 +468,9 @@ class Paths
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '')
 		return 'mods/' + key;
+
+    inline static public function modsFont(key:String)
+		return modFolders('fonts/' + key);
 
 	inline static public function modsJson(key:String)
 		return modFolders('data/' + key + '.json');
