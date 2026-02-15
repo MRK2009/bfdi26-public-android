@@ -209,7 +209,7 @@ class Paths
 		return returnSound('sounds/$key', key);
 
 	inline static public function music(key:String):Sound
-		return returnSound('music/$key', key, library);
+		return returnSound('music/$key', key);
 
 	inline static public function inst(song:String):Sound
 		return returnSound('${formatToSongPath(song)}/Inst', 'songs');
