@@ -118,13 +118,21 @@ class CreditsState extends MusicBeatState
 	//var amount:Float = 0.0;
 	override function update(elapsed:Float)
 	{	
+		var justTouched:Bool = false;
+
+		#if mobile
+                for (touch in FlxG.touches.list)
+	                if (touch.justPressed)
+		                justTouched = true;
+		#end
+
 		super.update(elapsed);
 
 		//amount += elapsed * 20;
 		//if (amount >= 360) amount = 0;
 		//bg.color = FlxColor.fromHSL(amount, 1, 0.5, 1);
 
-		if (controls.BACK #if mobile || virtualPad.buttonB.pressed #end && !stop) goodbye();
+		if (controls.BACK #if mobile || virtualPad.buttonB.justReleased #end && !stop) goodbye();
 		coolwiggle.update(elapsed);
 
 		if (mouseOverlapsGroup(credits)) 
@@ -143,7 +151,7 @@ class CreditsState extends MusicBeatState
                 }
             }
 
-			if (FlxG.mouse.justPressed) CoolUtil.browserLoad(descriptions[curSelected][1]);
+			if (FlxG.mouse.justPressed || justTouched) CoolUtil.browserLoad(descriptions[curSelected][1]);
 		} 
 		else if (curSelected != -1) 
 		{       
