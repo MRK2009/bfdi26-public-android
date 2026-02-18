@@ -26,7 +26,7 @@ class NewMain extends MusicBeatState
 
 	override function create()
 	{
-		FlxG.mouse.visible = true;
+		FlxG.mouse.visible = false;
 		FlxG.camera.bgColor = FlxColor.BLACK;
 
 		#if DISCORD_ALLOWED DiscordClient.changePresence("BFDI 26 - MAIN MENU", null); #end
@@ -112,6 +112,14 @@ class NewMain extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		var justTouched:Bool = false;
+
+		#if mobile
+                for (touch in FlxG.touches.list)
+	                if (touch.justPressed)
+		                justTouched = true;
+		#end
+
 		if (FlxG.keys.justPressed.FOUR) FlxG.resetState();
 
 		mouseMovement(elapsed,!selectedSomethin);
@@ -145,7 +153,7 @@ class NewMain extends MusicBeatState
 					}
 				}
 					
-				if (controls.ACCEPT || (FlxG.mouse.justPressed && isOverlapping)) 
+				if (controls.ACCEPT || ((FlxG.mouse.justPressed || justTouched) && isOverlapping)) 
 				{
 					isOverSmth = false;
 					confirm(buttons[curSelected]);
@@ -276,6 +284,14 @@ class SongSelect extends MusicBeatSubstate
 
 	override function update(elapsed:Float) 
 	{
+		var justTouched:Bool = false;
+
+		#if mobile
+                for (touch in FlxG.touches.list)
+	                if (touch.justPressed)
+		                justTouched = true;
+		#end
+
 		mouseMovement(elapsed);
 
 		if (controls.UI_LEFT_P || controls.UI_RIGHT_P) cursel(controls.UI_LEFT_P ? -1 : 1);
@@ -298,7 +314,7 @@ class SongSelect extends MusicBeatSubstate
 					}
 				}
 					
-				if (controls.ACCEPT || (FlxG.mouse.justPressed && isOverlapping)) 
+				if (controls.ACCEPT || ((FlxG.mouse.justPressed || justTouched) && isOverlapping)) 
 				{
 					isOverSmth = false;
 					accept(song[current]);
@@ -307,7 +323,7 @@ class SongSelect extends MusicBeatSubstate
 
 			FlxG.mouse.load((isOverSmth ? Setup.mouseHover : Setup.mouseIdle), 0.12);
 
-			if (controls.BACK || FlxG.mouse.justPressedRight #if mobile || virtualPad.buttonB.pressed #end)
+			if (controls.BACK || FlxG.mouse.justPressedRight #if mobile || virtualPad.buttonB.justPressed #end)
 			{
 				songSpr.forEach(function(spr:FlxSprite)
 				{
