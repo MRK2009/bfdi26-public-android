@@ -7,7 +7,7 @@ uniform float directions;
 uniform float quality;
 uniform float size;
 uniform float merge;
-uniform float alpha = 0.25;
+uniform float alpha;
 
 void main() {
     vec2 uv = openfl_TextureCoordv.xy;
