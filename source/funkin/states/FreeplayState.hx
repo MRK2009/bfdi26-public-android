@@ -366,7 +366,8 @@ class FreeplayState extends MusicBeatState
 		#if mobile
                 for (touch in FlxG.touches.list)
 	                if (touch.justPressed) justTouched = true;
-		            if (touch.justReleased) justReleased = true;
+		        for (Releasetouch in FlxG.touches.list)
+		            if (Releasetouch.justReleased) justReleased = true;
 		#end
 
 		if (FlxG.sound.music.volume < 0.7)
