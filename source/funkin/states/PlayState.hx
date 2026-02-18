@@ -541,7 +541,7 @@ class PlayState extends MusicBeatState
         redline.scrollFactor.set();
         add(redline);
 
-		reddot = new FlxSprite(-25,693).loadGraphic(Paths.images('hud/reddot'));
+		reddot = new FlxSprite(-25,693).loadGraphic(Paths.image('hud/reddot'));
 		reddot.scale.set(0.5,0.5);
 		reddot.antialiasing = false;
 		add(reddot);
