@@ -32,6 +32,7 @@ enum FlxActionMode
 	B;
 	X;
 	A_B;
+	B_T;
 	A_B_C;
 	A_B_E;
 	A_B_R;
@@ -67,6 +68,7 @@ class FlxVirtualPad extends FlxMobileInputManager
 	public var buttonD:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.D]);
 	public var buttonE:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.E]);
 	public var buttonR:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.R]);
+	public var buttonR:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.T]);
 	public var buttonV:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.V]);
 	public var buttonX:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.X]);
 	public var buttonY:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.Y]);
@@ -142,6 +144,9 @@ class FlxVirtualPad extends FlxMobileInputManager
 			case A_B:
 				add(buttonB = createButton(FlxG.width - 258, FlxG.height - 135, 'b', 0xFFCB00));
 				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
+			case B_T:
+				add(buttonT = createButton(FlxG.width - 132, 135, 't', 0x2ECC71));
+				add(buttonB = createButton(FlxG.width - 132, FlxG.height - 135, 'b', 0xFFCB00));
 			case A_B_C:
 				add(buttonC = createButton(FlxG.width - 384, FlxG.height - 135, 'c', 0x44FF00));
 				add(buttonB = createButton(FlxG.width - 258, FlxG.height - 135, 'b', 0xFFCB00));
