@@ -816,7 +816,7 @@ class SelectedThumb extends MusicBeatSubstate
 				{
 					boxhover = false;
 
-					FlxTween.tween(questionCam, {alpha: 1}, 0.6, {onComplete:Void -> canAnswer = true; Movement = "LEFT_RIGHT"; virtualPad.cameras = [questionCam];});
+					FlxTween.tween(questionCam, {alpha: 1}, 0.6, {onComplete:Void -> { canAnswer = true; Movement = "LEFT_RIGHT"; virtualPad.cameras = [questionCam];}});
 					box.arrowThing(false);
 				}
 
