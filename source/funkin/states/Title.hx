@@ -41,7 +41,7 @@ class Title extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 		//if (Main.fpsVar != null) Main.fpsVar.visible = ClientPrefs.data.showFPS;
 
-		FlxG.mouse.visible = true;
+		FlxG.mouse.visible = false;
 		FlxG.mouse.load(Setup.mouseIdle, 0.12);
 
 		transIn = FlxTransitionableState.defaultTransIn;
