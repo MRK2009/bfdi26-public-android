@@ -357,6 +357,15 @@ class FreeplayState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		var justTouched:Bool = false;
+		var justReleased:Bool = false;
+
+		#if mobile
+                for (touch in FlxG.touches.list)
+	                if (touch.justPressed) justTouched = true;
+		            if (touch.justReleased) justReleased = true;
+		#end
+
 		if (FlxG.sound.music.volume < 0.7)
 		FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		
@@ -366,7 +375,7 @@ class FreeplayState extends MusicBeatState
 
 		if (canScroll) 
 		{
-			if (FlxG.mouse.overlaps(changelog) && FlxG.mouse.justPressed) 
+			if (FlxG.mouse.overlaps(changelog) && (FlxG.mouse.justPressed || justTouched)) 
 			{
 				openSubState(new funkin.substates.ChangelogSubstate());
 			}
@@ -386,8 +395,8 @@ class FreeplayState extends MusicBeatState
 			//i think i want it this way but im not sure honestly will probably change it back later
 			if (allowedToUseMouse) 
 			{
-				if (FlxG.mouse.justPressed) usingMouse = true;
-				else if (FlxG.mouse.justReleased) 
+				if (FlxG.mouse.justPressed || justTouched) usingMouse = true;
+				else if (FlxG.mouse.justReleased || justReleased) 
 				{
 					usingMouse = false;
 					allowedToUseMouse = false;
@@ -412,7 +421,7 @@ class FreeplayState extends MusicBeatState
 					} else FlxG.mouse.load(Setup.mouseIdle, 0.12);
 				}
 	
-				if (FlxG.mouse.overlaps(thumbnails) && !selected && (controls.ACCEPT || FlxG.mouse.justPressed)) 
+				if (FlxG.mouse.overlaps(thumbnails) && !selected && (controls.ACCEPT || FlxG.mouse.justPressed || justTouched)) 
 				{
 					if (ModSave.secretSongs.exists(songs[curSelected].sn) && ModSave.secretSongs.get(songs[curSelected].sn) == true)
 					{
@@ -443,7 +452,7 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 
-		if (controls.BACK #if mobile || virtualPad.buttonB.pressed #end && canScroll) 
+		if ((controls.BACK #if mobile || virtualPad.buttonB.pressed #end) && canScroll) 
 		{
 			FlxMouseEvent.removeAll();
 
@@ -586,6 +595,9 @@ class SelectedThumb extends MusicBeatSubstate
 
 	var questionCam:Null<FlxCamera>;
 	var shutup:Bool = false;
+
+	var Movement = "NONE";
+	var Action = "B_T";
 
 	public function new(?parent:Null<FreeplayState> = null, ?cachedCursel:Null<Int> = null) 
 	{
@@ -1001,6 +1013,10 @@ class SelectedThumb extends MusicBeatSubstate
 
 		questionCam.alpha = 0.000001;
 		change();
+
+        #if mobile
+		addVirtualPad(Movement, Action);
+		#end
 	}
 
 	function change(diff:Int = 0)
