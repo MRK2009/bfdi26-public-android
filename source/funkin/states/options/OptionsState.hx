@@ -19,6 +19,7 @@ class OptionsState extends MusicBeatState
 	function openSelectedSubstate(label:String) 
 	{
 		border.visible = false;
+		#if mobile removeVirtualPad(); #end
 
 		switch(label) 
 		{
@@ -115,7 +116,7 @@ class OptionsState extends MusicBeatState
 			}
 			else FlxG.switchState(funkin.states.NewMain.new);
 		}
-		else if (controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end) openSelectedSubstate(options[curSelected]); virtualPad.visible = false;
+		else if (controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end) openSelectedSubstate(options[curSelected]);
 	}
 	
 	function changeSelection(change:Int = 0) 
