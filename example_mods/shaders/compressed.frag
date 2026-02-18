@@ -17,7 +17,7 @@
 #define BLENCCMAX   (1.)
 #define DIAMETER 	(5.)
 #define SPACESMOOTH (1./1.41)
-#define INTENSITYSMOOTH (0.01) // (iMouse.y/iResolution.y*0.) // the bigger the glower
+#define INTENSITYSMOOTH (0.01) // (iMouse.y/openfl_TextureSize.y*0.) // the bigger the glower
 #define EPSILON 	(1e-0)
 #define LUMWEIGHT   (vec4(0.,0.,0.001,0.))
 
@@ -25,13 +25,12 @@
 
 vec2 viewport(vec2 p)
 {   
-    return p/(iResolution.xy);
+    return p/(openfl_TextureSize.xy);
 }
 
 void mainImage()
 {
     vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 iResolution = openfl_TextureSize;
 
     vec4 pixelColor = texture(iChannel0,viewport(fragCoord.xy));
     fragColor = vec4(0.);
