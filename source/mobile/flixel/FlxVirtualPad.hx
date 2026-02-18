@@ -68,7 +68,7 @@ class FlxVirtualPad extends FlxMobileInputManager
 	public var buttonD:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.D]);
 	public var buttonE:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.E]);
 	public var buttonR:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.R]);
-	public var buttonR:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.T]);
+	public var buttonT:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.T]);
 	public var buttonV:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.V]);
 	public var buttonX:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.X]);
 	public var buttonY:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.Y]);
