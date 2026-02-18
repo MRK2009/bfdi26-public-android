@@ -1117,11 +1117,17 @@ class SelectedThumb extends MusicBeatSubstate
 
 	override function update(elapsed:Float) 
 	{
+		var justTouched:Bool = false;
+
+		#if mobile
+                for (touch in FlxG.touches.list)
+	                if (touch.justPressed) justTouched = true;
+		#end
         super.update(elapsed);
 
 		if (boxhover && !canAnswer) 
 		{
-			if (FlxG.keys.justPressed.ENTER) 
+			if (FlxG.keys.justPressed.ENTER || justTouched) 
 			{
 				boxhover = false;
 				nextFunfact();
@@ -1129,8 +1135,8 @@ class SelectedThumb extends MusicBeatSubstate
 		}
 		else if (canAnswer)
 		{
-			if (controls.UI_LEFT_P || controls.UI_RIGHT_P) change(controls.UI_LEFT_P ? -1 : 1);
-			if (controls.ACCEPT)
+			if (controls.UI_LEFT_P || controls.UI_RIGHT_P #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end) change(controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end ? -1 : 1);
+			if (controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end)
 			{
 				canAnswer = false;
 
@@ -1194,7 +1200,7 @@ class SelectedThumb extends MusicBeatSubstate
 		
 		if (can && !isWebCrasher) 
 		{
-			if (controls.BACK) 
+			if (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end) 
 			{
 				FlxG.sound.play(Paths.sound('spaceunpause'));
 				FlxTween.tween(parent.screen, {alpha: 0},0.4);
@@ -1206,7 +1212,7 @@ class SelectedThumb extends MusicBeatSubstate
 				typer.clear();
 			}
 			
-			if (FlxG.keys.justPressed.TAB && (canCycle || songUnlockable))
+			if ((FlxG.keys.justPressed.TAB #if mobile || virtualPad.buttonT.justPressed #end) && (canCycle || songUnlockable))
 			{
 				if (songUnlockable) 
 				{
