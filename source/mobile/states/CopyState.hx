@@ -18,7 +18,7 @@ import sys.io.Process;
  * ...
  * @author: Karim Akra
  */
-class CopyState extends MusicBeatState
+class CopyState extends flixel.FlxState
 {
 	final nextState:Null<NextState> = (!FlxG.save.data.modNotice ? funkin.states.BootFlashingState.new : Splash.new);
 	
