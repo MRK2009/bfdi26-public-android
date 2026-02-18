@@ -596,8 +596,8 @@ class SelectedThumb extends MusicBeatSubstate
 	var questionCam:Null<FlxCamera>;
 	var shutup:Bool = false;
 
-	var Movement = "NONE";
-	var Action = "B_T";
+	var Movement:String = "NONE";
+	var Action:String = "B_T";
 
 	public function new(?parent:Null<FreeplayState> = null, ?cachedCursel:Null<Int> = null) 
 	{
@@ -816,7 +816,7 @@ class SelectedThumb extends MusicBeatSubstate
 				{
 					boxhover = false;
 
-					FlxTween.tween(questionCam, {alpha: 1}, 0.6, {onComplete:Void -> canAnswer = true});
+					FlxTween.tween(questionCam, {alpha: 1}, 0.6, {onComplete:Void -> canAnswer = true; Movement = "LEFT_RIGHT"; virtualPad.cameras = [questionCam];});
 					box.arrowThing(false);
 				}
 
