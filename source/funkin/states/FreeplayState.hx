@@ -24,6 +24,9 @@ import flixel.input.mouse.FlxMouseEvent;
 import flixel.system.FlxAssets.FlxShader;
 import flixel.addons.transition.FlxTransitionableState;
 
+import mobile.MobileControls;
+import mobile.flixel.FlxVirtualPad;
+
 //ill recode this to work with nullsafety later im tired
 //@:nullSafety
 class FreeplayState extends MusicBeatState
@@ -1015,7 +1018,7 @@ class SelectedThumb extends MusicBeatSubstate
 		change();
 
         #if mobile
-		addVirtualPad(Movement, Action);
+		addVirtualPad(NONE, B_T);
 		#end
 	}
 
