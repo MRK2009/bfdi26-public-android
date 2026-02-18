@@ -200,7 +200,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 						FlxG.sound.play(Paths.sound('scrollup1'));
 					}
 				}
-				else if (controls.UI_LEFT || controls.UI_RIGHT)
+				else if (controls.UI_LEFT || controls.UI_RIGHT #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end)
 				{
 					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end);
 					if (holdTime > 0.5 || pressed)
@@ -265,7 +265,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 					
 					if (curOption.type != 'string') holdTime += elapsed;
 				}
-				else if (controls.UI_LEFT_R || controls.UI_RIGHT_R #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end)
+				else if (controls.UI_LEFT_R || controls.UI_RIGHT_R #if mobile || virtualPad.buttonLeft.justReleased || virtualPad.buttonRight.justReleased #end)
 				{
 					if (holdTime > 0.5) FlxG.sound.play(Paths.sound('scrollup1'));
 					holdTime = 0;
