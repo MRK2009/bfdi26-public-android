@@ -505,6 +505,7 @@ class FreeplayState extends MusicBeatState
 			{
 				FlxG.fullscreen = false;
 				Lib.application.window.resizable = false;
+				FlxG.scaleMode = new MobileScaleMode();
 				
 				CoolUtil.tweenWindowResize({x: 960, y: 720}, 0.3 * 4, function () FlxG.switchState(()-> new PlayState()), false);
 			} else FlxG.switchState(()-> new PlayState());
@@ -983,6 +984,7 @@ class SelectedThumb extends MusicBeatSubstate
 				    CoolUtil.tweenWindowResize({x: 960, y: 720}, 0.3 * 4, function ()
 					{
 						parent.loadSong('web-crasher');
+						FlxG.scaleMode = new MobileScaleMode();
 					});
 				});
 			},null,null,null,false,true,false);
