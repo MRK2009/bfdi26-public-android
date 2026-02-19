@@ -456,7 +456,7 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 
-		if ((controls.BACK #if mobile || virtualPad.buttonB.pressed #end) && canScroll) 
+		if ((controls.BACK #if mobile || virtualPad.buttonB.justPressed #end) && canScroll) 
 		{
 			FlxMouseEvent.removeAll();
 
