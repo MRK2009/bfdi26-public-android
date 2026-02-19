@@ -10,6 +10,7 @@ import mobile.flixel.input.FlxMobileInputID;
 {
 	public var botPlay:Bool = false;
 	public var downScroll:Bool = false;
+	public var wideScreen:Bool = false;
 	public var middleScroll:Bool = false;
 	public var opponentStrums:Bool = true;
 	public var screensaver:Bool = true;
