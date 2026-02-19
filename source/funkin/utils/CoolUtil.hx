@@ -113,7 +113,7 @@ class CoolUtil
 
 		FlxG.mouse.visible = false;
 
-		_windowRes = FlxPoint.get(Lib.application.window.width, Lib.application.window.height); //Lib.application.window.width, Lib.application.window.height
+		_windowRes = FlxPoint.get(Lib.application.window.width, Lib.application.window.height);
 		_windowPos = getCenterWindowPoint();
 								
 		_windowTween = FlxTween.tween(_windowRes, values, time, {ease: FlxEase.circInOut, onUpdate: (_) -> 
@@ -121,13 +121,16 @@ class CoolUtil
 			FlxG.resizeWindow(Std.int(_windowRes.x), Std.int(_windowRes.y));
 			
 			centerWindowOnPoint(_windowPos);
+			
+			// Update game size during tween
+			FlxG.resizeGame(Std.int(_windowRes.x), Std.int(_windowRes.y));
 		}, onComplete: _ -> 
 		{
 			if (onComplete != null) onComplete();
 
 			var finalvalues = [big ? 1280 : 960, 720];
 
-			flixel.system.scaleModes.BaseScaleMode.ogSize = FlxPoint.get(finalvalues[0], finalvalues[1]); //921, 691
+			flixel.system.scaleModes.BaseScaleMode.ogSize = FlxPoint.get(finalvalues[0], finalvalues[1]);
 			FlxG.scaleMode = new flixel.system.scaleModes.RatioScaleMode();
 
 			FlxG.updateFramerate = ClientPrefs.data.framerate;
@@ -137,8 +140,9 @@ class CoolUtil
 
 			centerWindowOnPoint(_windowPos);
 			
-			_windowPos.put(); 
 			_windowPos.put();
+			_windowRes.put();
+			
 			FlxG.mouse.visible = true;
 		}});
 	}
