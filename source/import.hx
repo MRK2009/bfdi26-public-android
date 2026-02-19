@@ -59,7 +59,8 @@ import crowplexus.iris.Iris;
 #end
 
 import mobile.backend.SUtil;
- 
+import mobile.backend.MobileScaleMode;
+
  //Android
  #if android
  import android.content.Context as AndroidContext;
