@@ -130,7 +130,7 @@ class DataReset extends MusicBeatSubstate
 		
 		if (canskip)
 		{
-			if (FlxG.keys.justPressed.SPACE #if mobile || virtualPad.buttonA.justPressed #end) 
+			if (FlxG.keys.justPressed.SPACE #if mobile || virtualPad.buttonA.justReleased #end) 
 			{
 				warning.skip();
 				canskip = false;
