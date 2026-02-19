@@ -200,7 +200,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 						FlxG.sound.play(Paths.sound('scrollup1'));
 					}
 				}
-				else if (controls.UI_LEFT || controls.UI_RIGHT #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end)
+				else if (controls.UI_LEFT || controls.UI_RIGHT #if mobile || virtualPad.buttonLeft.pressed || virtualPad.buttonRight.pressed #end)
 				{
 					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end);
 					if (holdTime > 0.5 || pressed)
@@ -230,7 +230,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 									
 								case 'string':
 									var num:Int = curOption.curOption; // lol
-									if (controls.UI_LEFT_P) --num;
+									if (controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end) --num;
 									else num++;
 									
 									if (num < 0) num = curOption.options.length - 1;
@@ -246,7 +246,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 						}
 						else if (curOption.type != 'string')
 						{
-							holdValue += curOption.scrollSpeed * elapsed * (controls.UI_LEFT ? -1 : 1);
+							holdValue += curOption.scrollSpeed * elapsed * (controls.UI_LEFT #if mobile || virtualPad.buttonLeft.pressed #end ? -1 : 1);
 							if (holdValue < curOption.minValue) holdValue = curOption.minValue;
 							else if (holdValue > curOption.maxValue) holdValue = curOption.maxValue;
 							
