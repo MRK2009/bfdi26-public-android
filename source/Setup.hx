@@ -74,7 +74,7 @@ class Setup extends flixel.FlxState
 		//{	
 			final nextState:Null<NextState> = (!FlxG.save.data.modNotice ? funkin.states.BootFlashingState.new : Splash.new);
 			FlxG.switchState(nextState);
-			FlxG.scaleMode = new MobileScaleMode();
+			//FlxG.scaleMode = new MobileScaleMode();
 		}, true);
 
 		trace(FlxG.save.data.bannedhaha);
