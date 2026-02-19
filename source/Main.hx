@@ -126,7 +126,7 @@ class Main extends Sprite
 		#end*/
 
 		LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver;
-		FlxG.scaleMode = new MobileScaleMode();
+		//FlxG.scaleMode = new MobileScaleMode();
 
 		var _game = new FlxGame(game.width, game.height, game.firstState, game.fps, game.fps, game.skipSplash, game.startFullscreen);
 		@:privateAccess _game._customSoundTray = funkin.objects.BFDISoundTray;
