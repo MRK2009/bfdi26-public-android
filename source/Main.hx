@@ -126,6 +126,7 @@ class Main extends Sprite
 		#end*/
 
 		LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver;
+		FlxG.scaleMode = new MobileScaleMode();
 
 		var _game = new FlxGame(game.width, game.height, game.firstState, game.fps, game.fps, game.skipSplash, game.startFullscreen);
 		@:privateAccess _game._customSoundTray = funkin.objects.BFDISoundTray;
@@ -149,13 +150,13 @@ class Main extends Sprite
 			Main.skipNextDump = false;
 		});
 
-		#if !mobile
+		//#if !mobile
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		fpsVar.visible = ClientPrefs.data.showFPS;
-		#end
+		//#end
 
 		#if linux
 		var icon = Image.fromFile("icon.png");
