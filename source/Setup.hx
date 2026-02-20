@@ -16,6 +16,7 @@ class Setup extends flixel.FlxState
 
 	public static var monitorResolutionWidth(get, never):Float;
 	public static var monitorResolutionHeight(get, never):Float;
+	public static var scaleMode:FunkinRatioScaleMode;
 
 	static function get_monitorResolutionWidth():Float return Capabilities.screenResolutionX;
 	static function get_monitorResolutionHeight():Float return Capabilities.screenResolutionY;
@@ -38,7 +39,6 @@ class Setup extends flixel.FlxState
 		FlxG.fixedTimestep = false;
 		FlxG.game.focusLostFramerate = 60;
 		FlxG.keys.preventDefaultKeys = [TAB];
-		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
 
 		Controls.instance = new Controls();
 		ClientPrefs.loadDefaultKeys();
@@ -74,7 +74,7 @@ class Setup extends flixel.FlxState
 		//{	
 			final nextState:Null<NextState> = (!FlxG.save.data.modNotice ? funkin.states.BootFlashingState.new : Splash.new);
 			FlxG.switchState(nextState);
-			//FlxG.scaleMode = new MobileScaleMode();
+			FlxG.scaleMode = scaleMode = new FunkinRatioScaleMode();
 		}, true);
 
 		trace(FlxG.save.data.bannedhaha);
