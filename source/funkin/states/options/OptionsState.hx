@@ -83,8 +83,8 @@ class OptionsState extends MusicBeatState
 
 		border.visible = true;
 		#if mobile
-		removeVirtualPad();
-		addVirtualPad(UP_DOWN, A_B);
+		//removeVirtualPad();
+		//addVirtualPad(UP_DOWN, A_B);
 		#end
 	}
 
