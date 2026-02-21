@@ -154,7 +154,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		if (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end)
 		{
 			//#if mobile
- 			//closeSs();
+ 			closeSs();
  			//#else
  			close();
  			//#end
