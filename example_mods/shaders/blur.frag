@@ -17,11 +17,14 @@ void main() {
 	
     // Blur calculations
     for (float d = 0.0; d < pi; d += pi / directions) {
-		for (float i = 1.0 / quality; i < 1.001; i += 1.0 / quality) {
-			color += texture2D(bitmap, uv + vec2(cos(d), sin(d) * 2) * radius * i);		
-        }
+    for (float i = 1.0 / quality; i < 1.001; i += 1.0 / quality) {
+        color += texture2D(
+            bitmap,
+            uv + vec2(cos(d), sin(d) * 2.0) * radius * i
+        );
     }
-    
-    color /= quality * directions + 1.0;
-    gl_FragColor = color * (alpha);
+}
+
+color /= quality * directions + 1.0;
+gl_FragColor = color * alpha;
 }
