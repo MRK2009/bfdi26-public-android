@@ -165,7 +165,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		{
 			if (curOption.type == 'bool')
 			{
-				if (controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end)
+				if (controls.ACCEPT_P #if mobile || virtualPad.buttonA.justPressed #end)
 				{
 					FlxG.sound.play(Paths.sound('scrollup1'));
 					curOption.setValue((curOption.getValue() == true) ? false : true);
@@ -177,7 +177,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			{
 				if (curOption.type == 'keybind')
 				{
-					if (controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end)
+					if (controls.ACCEPT_P #if mobile || virtualPad.buttonA.justPressed #end)
 					{
 						bindingBlack = new FlxSprite().makeGraphic(1, 1, FlxColor.WHITE);
 						bindingBlack.scale.set(FlxG.width, FlxG.height);
