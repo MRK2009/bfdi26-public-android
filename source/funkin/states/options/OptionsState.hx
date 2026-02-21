@@ -73,6 +73,7 @@ class OptionsState extends MusicBeatState
 
 		#if mobile
 		addVirtualPad(UP_DOWN, A_B);
+		addVirtualPadCamera();
 		#end
 	}
 
@@ -83,8 +84,8 @@ class OptionsState extends MusicBeatState
 
 		border.visible = true;
 		#if mobile
-		//removeVirtualPad();
-		//addVirtualPad(UP_DOWN, A_B);
+		removeVirtualPad();
+		addVirtualPad(UP_DOWN, A_B);
 		#end
 	}
 
@@ -116,7 +117,7 @@ class OptionsState extends MusicBeatState
 			}
 			else FlxG.switchState(funkin.states.NewMain.new);
 		}
-		else if (controls.ACCEPT #if mobile || virtualPad.buttonA.justReleased #end) openSelectedSubstate(options[curSelected]);
+		else if (controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end) openSelectedSubstate(options[curSelected]);
 	}
 	
 	function changeSelection(change:Int = 0) 
