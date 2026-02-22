@@ -19,8 +19,7 @@ class OptionsState extends MusicBeatState
 	function openSelectedSubstate(label:String) 
 	{
 		border.visible = false;
-		#if mobile if (virtualPad != null) virtualPad.visible = false; #end
-
+		
 		switch(label) 
 		{
 			case 'Controls':
@@ -44,6 +43,11 @@ class OptionsState extends MusicBeatState
 		#if DISCORD_ALLOWED
 		DiscordClient.changePresence("SORTING OUT THEIR OPTIONS", null);
 		#end
+
+		#if mobile
+		if (controls.isInSubstate)
+            controls.isInSubstate = false;
+        #end
 
 		trace(PlayState.FUCKMYLIFE);
 
@@ -69,12 +73,11 @@ class OptionsState extends MusicBeatState
 		changeSelection();
 		ClientPrefs.saveSettings();
 
-		super.create();
-
 		#if mobile
 		addVirtualPad(UP_DOWN, A_B);
-		addVirtualPadCamera();
 		#end
+
+		super.create();
 	}
 
 	override function closeSubState() 
@@ -83,7 +86,14 @@ class OptionsState extends MusicBeatState
 		ClientPrefs.saveSettings();
 
 		border.visible = true;
-		#if mobile if (virtualPad != null) virtualPad.visible = true; #end
+		controls.isInSubstate = false;
+
+		#if mobile
+		removeVirtualPad();
+		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
+			addVirtualPad(UP_DOWN, A_B);
+		});
+		#end
 	}
 
 	override function update(elapsed:Float) 
