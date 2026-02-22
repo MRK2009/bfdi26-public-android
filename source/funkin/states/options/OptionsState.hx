@@ -83,10 +83,7 @@ class OptionsState extends MusicBeatState
 		ClientPrefs.saveSettings();
 
 		border.visible = true;
-		#if mobile
-		removeVirtualPad();
-		addVirtualPad(UP_DOWN, A_B);
-		#end
+		#if mobile if (virtualPad != null) virtualPad.visible = true; #end
 	}
 
 	override function update(elapsed:Float) 
