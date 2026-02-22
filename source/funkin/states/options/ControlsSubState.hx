@@ -119,6 +119,10 @@ class ControlsSubState extends MusicBeatSubstate
 	{
 		super();
 
+		#if mobile
+        controls.isInSubstate = true;
+        #end
+
 		#if DISCORD_ALLOWED
 		DiscordClient.changePresence("Controls Menu", null);
 		#end
