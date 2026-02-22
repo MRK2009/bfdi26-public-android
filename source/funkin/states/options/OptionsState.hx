@@ -117,7 +117,7 @@ class OptionsState extends MusicBeatState
 			}
 			else FlxG.switchState(funkin.states.NewMain.new);
 		}
-		else if (controls.ACCEPT_P #if mobile || virtualPad.buttonA.justPressed #end) openSelectedSubstate(options[curSelected]);
+		else if (controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end) openSelectedSubstate(options[curSelected]);
 	}
 	
 	function changeSelection(change:Int = 0) 
