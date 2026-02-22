@@ -26,7 +26,7 @@ class NewMain extends MusicBeatState
 
 	override function create()
 	{
-		FlxG.mouse.visible = false;
+		FlxG.mouse.visible = true;
 		FlxG.camera.bgColor = FlxColor.BLACK;
 
 		#if DISCORD_ALLOWED DiscordClient.changePresence("BFDI 26 - MAIN MENU", null); #end
