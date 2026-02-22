@@ -175,6 +175,11 @@ class FreeplayState extends MusicBeatState
 	{
 		FlxTransitionableState.skipNextTransIn = FlxTransitionableState.skipNextTransOut = true;
 
+		#if mobile
+		if (controls.isInSubstate)
+            controls.isInSubstate = false;
+        #end
+
 		FlxG.camera.bgColor = ClientPrefs.data.lightMode ? 0xFFe0e0e0 : 0xFF121212;
 		FlxG.camera.antialiasing = ClientPrefs.data.antialiasing;
 
@@ -275,6 +280,16 @@ class FreeplayState extends MusicBeatState
 	    #if mobile
 		addVirtualPad(NONE, B);
 		addVirtualPadCamera();
+		#end
+
+		controls.isInSubstate = false;
+
+		#if mobile
+		removeVirtualPad();
+		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+			addVirtualPad(NONE, B);
+			addVirtualPadCamera();
+		});
 		#end
 		
 		if (!skipIntro) 
@@ -1019,6 +1034,7 @@ class SelectedThumb extends MusicBeatSubstate
 		questionCam.alpha = 0.000001;
 		change();
 
+        controls.isInSubstate = true;
         #if mobile
 		addVirtualPad(NONE, B_T);
 		#end
@@ -1208,7 +1224,6 @@ class SelectedThumb extends MusicBeatSubstate
 				FlxTween.tween(parent.screen, {alpha: 0},0.4);
 				parent.selected = false;
 				close();
-				#if mobile closeSs(); #end
 
 				typer.startTyping('');
 				typer.skip();
