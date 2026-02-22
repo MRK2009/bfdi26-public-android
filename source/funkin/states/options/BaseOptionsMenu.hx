@@ -38,6 +38,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	{
 		super();
 
+		controls.isInSubstate = true;
+
 		#if DISCORD_ALLOWED
 		if(title == null) title = 'Options';
 		if(rpcTitle == null) rpcTitle = 'Options Menu';
