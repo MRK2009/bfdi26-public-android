@@ -19,7 +19,7 @@ class OptionsState extends MusicBeatState
 	function openSelectedSubstate(label:String) 
 	{
 		border.visible = false;
-		#if mobile removeVirtualPad(); #end
+		#if mobile if (virtualPad != null) virtualPad.visible = false; #end
 
 		switch(label) 
 		{
