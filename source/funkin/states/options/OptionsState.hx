@@ -19,6 +19,7 @@ class OptionsState extends MusicBeatState
 	function openSelectedSubstate(label:String) 
 	{
 		border.visible = false;
+		#if mobile virtualPad.visible = false; #end
 		
 		switch(label) 
 		{
@@ -90,7 +91,7 @@ class OptionsState extends MusicBeatState
 
 		#if mobile
 		removeVirtualPad();
-		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
+		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 			addVirtualPad(UP_DOWN, A_B);
 		});
 		#end
