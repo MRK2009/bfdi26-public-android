@@ -1,0 +1,46 @@
+name: iOS Build
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    name: iOS Build
+    permissions: write-all
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.3.2
+          
+      - name: Install Libraries
+        run: |
+         haxelib install hmm --quiet
+         haxelib run hmm install --quiet
+      
+      - name: Compile hxcpp
+        run: |
+          cd .haxelib/hxcpp/git/tools/hxcpp
+          haxe compile.hxml
+
+      - name: Compile
+        run: haxelib run lime build ios -nosign
+
+      - name: Making ipa file
+        run: |
+          brew install ldid
+          cd export/release/ios/build/Release-iphoneos/bfdi26mobile.app
+          ldid -S../../../bfdi26mobile/bfdi26mobile.entitlements bfdi26mobile
+          cd ..
+          mkdir Payload
+          mv bfdi26mobile.app Payload
+          zip -r bfdi26mobile.ipa Payload
+      - name: Upload Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: Psych Engine iOS
+          path: export/release/ios/build/Release-iphoneos/*.ipa
+          if-no-files-found: error
