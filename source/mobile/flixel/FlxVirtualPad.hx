@@ -30,6 +30,7 @@ enum FlxActionMode
 {
 	A;
 	B;
+	CREDIT;
 	X;
 	A_B;
 	B_T;
