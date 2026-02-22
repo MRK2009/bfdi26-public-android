@@ -440,6 +440,7 @@ class FreeplayState extends MusicBeatState
 							
 							load.alpha = 0;
 							load.visible = true;
+							#if mobile if (virtualPad != null) virtualPad.visible = false; #end
 
 							FlxTimer.wait(value, ()->
 							{	
@@ -1207,6 +1208,7 @@ class SelectedThumb extends MusicBeatSubstate
 				FlxTween.tween(parent.screen, {alpha: 0},0.4);
 				parent.selected = false;
 				close();
+				#if mobile closeSs(); #end
 
 				typer.startTyping('');
 				typer.skip();
