@@ -113,7 +113,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		#if mobile
 		addVirtualPad(LEFT_FULL, A_B_R);
-		//addVirtualPadCamera();
+		addVirtualPadCamera();
 		#end
 	}
 
@@ -156,7 +156,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		if (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end)
 		{
 			//#if mobile
- 			closeSs();
+ 			//closeSs();
  			//#else
  			close();
  			//#end
@@ -274,7 +274,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				}
 			}
 			
-			if (controls.RESET)
+			if (controls.RESET #if mobile || virtualPad.buttonR.justPressed #end)
 			{
 				var leOption:Option = optionsArray[curSelected];
 				if (leOption.type != 'keybind')
