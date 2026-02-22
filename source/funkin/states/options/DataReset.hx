@@ -97,7 +97,7 @@ class DataReset extends MusicBeatSubstate
 		change();
 	    #if mobile
 		addVirtualPad(LEFT_RIGHT, A_B);
-		addVirtualPadCamera();
+		//addVirtualPadCamera();
 		#end
 	}
 
@@ -107,7 +107,7 @@ class DataReset extends MusicBeatSubstate
 		{	
 			if (controls.UI_LEFT_P || controls.UI_RIGHT_P #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end) change(controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end ? -1 : 1);
 			
-			if (controls.ACCEPT_P #if mobile || virtualPad.buttonA.justPressed #end)
+			if (controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end)
 			{
 				switch(select[curSel][0]) 
 				{
