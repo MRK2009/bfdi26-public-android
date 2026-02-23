@@ -165,6 +165,7 @@ class CreditsState extends MusicBeatState
 	function goodbye() 
 	{
 		stop = true;
+		#if mobile virtualPad.visible = false; #end
 		
 		FlxG.sound.play(Paths.sound('spaceunpause'));
 		FlxTween.tween(FlxG.camera, {zoom: FlxG.camera.zoom + 0.9},2, {ease: FlxEase.sineInOut});
