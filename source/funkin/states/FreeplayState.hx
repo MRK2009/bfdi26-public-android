@@ -283,14 +283,6 @@ class FreeplayState extends MusicBeatState
 		#end
 
 		controls.isInSubstate = false;
-
-		#if mobile
-		removeVirtualPad();
-		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-			addVirtualPad(NONE, B);
-			addVirtualPadCamera();
-		});
-		#end
 		
 		if (!skipIntro) 
 		{
@@ -455,7 +447,6 @@ class FreeplayState extends MusicBeatState
 							
 							load.alpha = 0;
 							load.visible = true;
-							#if mobile if (virtualPad != null) virtualPad.visible = false; #end
 
 							FlxTimer.wait(value, ()->
 							{	
