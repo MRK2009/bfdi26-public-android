@@ -607,9 +607,6 @@ class SelectedThumb extends MusicBeatSubstate
 	var questionCam:Null<FlxCamera>;
 	var shutup:Bool = false;
 
-	var Movement:String = "NONE";
-	var Action:String = "B_T";
-
 	public function new(?parent:Null<FreeplayState> = null, ?cachedCursel:Null<Int> = null) 
 	{
 		this.parent = parent;
@@ -1215,6 +1212,7 @@ class SelectedThumb extends MusicBeatSubstate
 				FlxTween.tween(parent.screen, {alpha: 0},0.4);
 				parent.selected = false;
 				close();
+				#if mobile controls.isInSubstate = false; #end
 
 				typer.startTyping('');
 				typer.skip();
