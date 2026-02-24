@@ -607,6 +607,9 @@ class SelectedThumb extends MusicBeatSubstate
 	var questionCam:Null<FlxCamera>;
 	var shutup:Bool = false;
 
+	var Movement:String = "NONE";
+	var Action:String = "B_T";
+
 	public function new(?parent:Null<FreeplayState> = null, ?cachedCursel:Null<Int> = null) 
 	{
 		this.parent = parent;
