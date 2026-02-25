@@ -98,6 +98,7 @@ class DataReset extends MusicBeatSubstate
 	    #if mobile
 		addVirtualPad(LEFT_RIGHT, A);
 		//addVirtualPadCamera();
+	    controls.isInSubstate = true;
 		#end
 	}
 
