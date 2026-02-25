@@ -1,7 +1,5 @@
 #pragma header
-vec2 uv = openfl_TextureCoordv.xy;
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
+
 uniform float iTime;
 #define iChannel0 bitmap
 #define iChannel1 bitmap
@@ -37,6 +35,8 @@ float noise( in vec3 p )
 
 void mainImage()
 {
+vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+vec2 iResolution = openfl_TextureSize;
     // Normalized pixel coordinates (from 0 to 1)
     vec2 uv = fragCoord/iResolution.xy;
     
