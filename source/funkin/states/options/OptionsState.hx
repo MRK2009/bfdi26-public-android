@@ -87,12 +87,12 @@ class OptionsState extends MusicBeatState
 		ClientPrefs.saveSettings();
 
 		border.visible = true;
-		controls.isInSubstate = false;
 
 		#if mobile
 		removeVirtualPad();
 		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 			addVirtualPad(UP_DOWN, A_B);
+			controls.isInSubstate = false;
 		});
 		#end
 	}
