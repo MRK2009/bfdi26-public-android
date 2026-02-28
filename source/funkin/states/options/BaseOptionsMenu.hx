@@ -38,8 +38,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	{
 		super();
 
-		controls.isInSubstate = true;
-
 		#if DISCORD_ALLOWED
 		if(title == null) title = 'Options';
 		if(rpcTitle == null) rpcTitle = 'Options Menu';
@@ -112,6 +110,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		add(border);
 
 		#if mobile
+		controls.isInSubstate = true;
 		addVirtualPad(LEFT_FULL, A_B_R);
 		addVirtualPadCamera();
 		#end
