@@ -119,10 +119,6 @@ class ControlsSubState extends MusicBeatSubstate
 	{
 		super();
 
-		#if mobile
-        controls.isInSubstate = true;
-        #end
-
 		#if DISCORD_ALLOWED
 		DiscordClient.changePresence("Controls Menu", null);
 		#end
@@ -183,6 +179,7 @@ class ControlsSubState extends MusicBeatSubstate
 		add(border);
 
 		#if mobile
+		controls.isInSubstate = true;
 		addVirtualPad(LEFT_FULL, A_B);
 		addVirtualPadCamera();
 		#end
