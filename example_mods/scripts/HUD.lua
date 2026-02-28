@@ -67,7 +67,7 @@ function onCreate()
 setProperty('timeTxt.visible',false)
 setProperty('timeTxt.alpha',0)
 setProperty('camGame.bgColor', getColorFromHex('000000'))
-setPropertyFromClass('flixel.FlxG', 'mouse.visible', false)
+setPropertyFromClass('flixel.FlxG', 'mouse.visible', true)
 setObjectCamera('mouse','other')
 setProperty('skipCountdown',true)
 
