@@ -463,7 +463,7 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 
-		if (!controls.isInSubstate && (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end) && canScroll)
+		if (#if mobile !controls.isInSubstate && #end (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end) && canScroll)
 		{
 			FlxMouseEvent.removeAll();
 
@@ -1025,8 +1025,8 @@ class SelectedThumb extends MusicBeatSubstate
 		questionCam.alpha = 0.000001;
 		change();
 
-        controls.isInSubstate = true;
         #if mobile
+        controls.isInSubstate = true;
 		addVirtualPad(NONE, B_T);
 		#end
 	}
@@ -1215,7 +1215,11 @@ class SelectedThumb extends MusicBeatSubstate
 				FlxTween.tween(parent.screen, {alpha: 0},0.4);
 				parent.selected = false;
 				close();
-				#if mobile controls.isInSubstate = false; #end
+				#if mobile
+				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+				controls.isInSubstate = false;
+				});
+			    #end
 
 				typer.startTyping('');
 				typer.skip();
