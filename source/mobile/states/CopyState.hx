@@ -231,5 +231,41 @@ class CopyState extends MusicBeatState
 
 		return (maxLoopTimes <= 0);
 	}
+
+override function destroy()
+{
+	if (loadingBar != null)
+	{
+		remove(loadingBar);
+		@:privateAccess {
+			loadingBar.frontFrames = null;
+			loadingBar.backFrames = null;
+		}
+		loadingBar.destroy();
+		loadingBar = null;
+	}
+	
+	if (loadingImage != null)
+	{
+		remove(loadingImage);
+		loadingImage.destroy();
+		loadingImage = null;
+	}
+
+	if (loadedText != null)
+	{
+		remove(loadedText);
+		loadedText.destroy();
+		loadedText = null;
+	}
+
+	if (thread != null)
+	{
+		thread.doWork.removeAll();
+		thread = null;
+	}
+
+	super.destroy();
+}
 }
 #end
