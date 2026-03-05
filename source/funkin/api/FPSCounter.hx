@@ -71,6 +71,7 @@ class FPSCounter extends Sprite
 		}
 			
 		currentFPS = times.length < FlxG.updateFramerate ? times.length : FlxG.updateFramerate;
+		#if mobile setScale(); #end
 		updateText();
 		
 		deltaTimeout = 0.0;
@@ -92,9 +93,27 @@ class FPSCounter extends Sprite
 	
 	inline function get_memoryMegas():UInt return cast #if (openfl < "9.4.0") System.totalMemory #else System.totalMemoryNumber #end;
 
+	#if mobile
+	public inline function setScale(?scale:Float):Void {
+	    if (scale == null) {
+	        var screenW:Float = FlxG.stage.window.width;
+	        var screenH:Float = FlxG.stage.window.height;
+	        scale = Math.min(screenW / FlxG.width, screenH / FlxG.height);
+	    }
+	
+	    #if android
+	        var finalScale:Float = (scale > 1) ? scale : 1;
+	    #else
+	        var finalScale:Float = (scale < 1 ? scale : 1);
+	    #end
+	
+	    scaleX = scaleY = finalScale;
+	}
+
 	public inline function positionFPS(X:Float, Y:Float, ?scale:Float = 1){
  		scaleX = scaleY = #if mobile (scale > 1 ? scale : 1) #else (scale < 1 ? scale : 1) #end;
  		x = FlxG.game.x + X;
  		y = FlxG.game.y + Y;
 	}
+	#end
 }
