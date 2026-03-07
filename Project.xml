@@ -35,7 +35,7 @@
 	<!-- ____________________________ Window Settings ___________________________ -->
 
 	<!--These window settings apply to all targets-->
-	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" />
+	<window width="1025" height="577" fps="60" background="#000000" hardware="true" vsync="false" />
 
 	<!--HTML5-specific-->
 	<window if="html5" resizable="true" />
@@ -107,7 +107,11 @@
 	
 	<haxedef name="HXVLC_NO_SHARE_DIRECTORY" if="hxvlc"/>
 
-	<certificate path="bfdi-key.keystore" password="bfditeam" alias="objectshow" alias-password="bfditeam" if="android" unless="debug" />
+	<section if="android">
+		<config:android permission="android.permission.VIBRATE" />
+		<config:android permission="android.permission.CAPTURE_AUDIO_OUTPUT" />
+		<certificate path="bfdi-key.keystore" password="bfditeam" alias="objectshow" alias-password="bfditeam" if="android" unless="debug" />
+	</section>
 
 	<!--Enable the Flixel core recording system-->
 	<!--<haxedef name="FLX_RECORD" />-->
