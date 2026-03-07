@@ -20,8 +20,6 @@ import sys.io.Process;
  */
 class CopyState extends MusicBeatState
 {
-	final nextState:Null<NextState> = (!FlxG.save.data.modNotice ? funkin.states.BootFlashingState.new : Splash.new);
-	
 	private static final textFilesExtensions:Array<String> = ['ini', 'txt', 'xml', 'hxs', 'hx', 'lua', 'json', 'frag', 'vert'];
 	public static final IGNORE_FOLDER_FILE_NAME:String = "CopyState-Ignore.txt";
 	private static var directoriesToIgnore:Array<String> = [];
@@ -234,38 +232,34 @@ class CopyState extends MusicBeatState
 
 override function destroy()
 {
-	if (loadingBar != null)
-	{
-		remove(loadingBar);
-		@:privateAccess {
-			loadingBar.frontFrames = null;
-			loadingBar.backFrames = null;
-		}
-		loadingBar.destroy();
-		loadingBar = null;
-	}
-	
-	if (loadingImage != null)
-	{
-		remove(loadingImage);
-		loadingImage.destroy();
-		loadingImage = null;
-	}
+    if (loadingBar != null)
+    {
+        remove(loadingBar);
+        loadingBar.destroy();
+        loadingBar = null;
+    }
 
-	if (loadedText != null)
-	{
-		remove(loadedText);
-		loadedText.destroy();
-		loadedText = null;
-	}
+    if (loadingImage != null)
+    {
+        remove(loadingImage);
+        loadingImage.destroy();
+        loadingImage = null;
+    }
 
-	if (thread != null)
-	{
-		thread.doWork.removeAll();
-		thread = null;
-	}
+    if (loadedText != null)
+    {
+        remove(loadedText);
+        loadedText.destroy();
+        loadedText = null;
+    }
 
-	super.destroy();
+    if (thread != null)
+    {
+        thread.doWork.removeAll();
+        thread = null;
+    }
+
+    super.destroy();
 }
 }
 #end
