@@ -103,7 +103,7 @@ class CopyState extends MusicBeatState
 				
 				FlxG.sound.play(Paths.sound('enterimpact')).onComplete = () ->
 				{
-					FlxG.switchState(new Setup ());
+					FlxG.switchState(new Setup());
 				};
 		
 				canUpdate = false;
