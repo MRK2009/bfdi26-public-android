@@ -64,8 +64,8 @@ class Main extends Sprite
 {
 	public static final game = 
 	{
-		width: 1280,
-		height: 720,
+		width: 1025,
+		height: 577,
 		firstState: CopyState,
 		fps: 60,
 		skipSplash: true,
@@ -93,7 +93,7 @@ class Main extends Sprite
 	{
 		super();
 
-		#if (windows && cpp)
+		#if windows
 		funkin.api.Windows.fixScaling();
 		funkin.api.NativeAPI.setDarkMode(null, true);
 		funkin.api.system.AudioSwitchFix.init();
