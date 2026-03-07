@@ -108,8 +108,6 @@
 	<haxedef name="HXVLC_NO_SHARE_DIRECTORY" if="hxvlc"/>
 
 	<section if="android">
-		<config:android permission="android.permission.VIBRATE" />
-		<config:android permission="android.permission.CAPTURE_AUDIO_OUTPUT" />
 		<certificate path="bfdi-key.keystore" password="bfditeam" alias="objectshow" alias-password="bfditeam" if="android" unless="debug" />
 	</section>
 
