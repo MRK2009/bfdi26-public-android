@@ -1,4 +1,4 @@
-name: Android Build Test
+name: Android Release Build
 
 on:
   workflow_dispatch:
@@ -48,7 +48,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: android-build
-          name: Android Build
+          name: BFDI26 Android Build
           files: export/release/android/bin/app/build/outputs/apk/release/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
