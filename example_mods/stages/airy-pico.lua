@@ -104,7 +104,7 @@ setProperty('v.alpha',1)
 setObjectCamera('v','camHUD')
 addLuaSprite('v',true)
 
-makeLuaSprite('r', 'backgrounds/oneshot/overlay',0,0)
+makeLuaSprite('r', 'backgrounds/oneshot/overlay',100,0)
 setProperty('r.alpha',1)
 setObjectCamera('r','camHUD')
 setBlendMode('r','lighten')

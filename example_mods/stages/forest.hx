@@ -22,6 +22,7 @@ var amount = 50;
 var shakeAm = 40;
 var noteShakeAm = 15;
 
+var hitbox;
 var perc;
 var def;
 
@@ -29,6 +30,8 @@ function onCreate()
 {
     FlxG.camera.bgColor = FlxColor.BLACK;
     FlxG.camera.antialiasing = ClientPrefs.data.antialiasing;
+    
+    hitbox = cast(game.mobileControls, MobileHitbox);
 
     game.camGame.filters = [new ShaderFilter(shader)];
     game.camHUD.filters  = [new ShaderFilter(shader)];
@@ -269,6 +272,8 @@ function onEvent(ev,v1,v2)
                 leafy.playAnimation('evilerleafy');
 
                 trees.velocity.x -= 2000;
+                
+                hitbox.setColors([0xFF7EA1,0xFF7EA1,0xFF0000,0xFF0000]);
 
                 game.camGame.filters = game.camHUD.filters  = 
                 [
@@ -315,8 +320,6 @@ function quickFlick(nu = 0)
     if (nu > 0) 
     {
         num = num + nu;
-
-        //FlxG.camera.snapToTarget();
 
         game.camFollow.x = pos[num][0];
         game.camFollow.y = pos[num][1];
