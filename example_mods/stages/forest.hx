@@ -31,7 +31,7 @@ function onCreate()
     FlxG.camera.bgColor = FlxColor.BLACK;
     FlxG.camera.antialiasing = ClientPrefs.data.antialiasing;
     
-    hitbox = cast(game.mobileControls, MobileHitbox);
+    hitbox = cast(game.mobileControls, FlxHitbox);
 
     game.camGame.filters = [new ShaderFilter(shader)];
     game.camHUD.filters  = [new ShaderFilter(shader)];
@@ -272,10 +272,8 @@ function onEvent(ev,v1,v2)
                 leafy.playAnimation('evilerleafy');
 
                 trees.velocity.x -= 2000;
-                
-                hitbox.setColors([0xFF7EA1,0xFF7EA1,0xFF0000,0xFF0000]);
-
-                game.camGame.filters = game.camHUD.filters  = 
+				
+                hitbox.filters = game.camGame.filters = game.camHUD.filters  = 
                 [
                     new ShaderFilter(shader),
                     new ShaderFilter(red)
