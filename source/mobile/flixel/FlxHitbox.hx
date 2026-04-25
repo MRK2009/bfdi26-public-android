@@ -92,8 +92,7 @@ class FlxHitbox extends FlxMobileInputManager
 		
 		for (i in 0...btns.length)
 		{
-        if (colors[i] != null)
-            btns[i].color = colors[i];
+			btns[i].color = colors[i];
 		}
 	}
 
