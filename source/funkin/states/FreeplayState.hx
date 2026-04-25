@@ -175,11 +175,6 @@ class FreeplayState extends MusicBeatState
 	{
 		FlxTransitionableState.skipNextTransIn = FlxTransitionableState.skipNextTransOut = true;
 
-		#if mobile
-		if (controls.isInSubstate)
-            controls.isInSubstate = false;
-        #end
-
 		FlxG.camera.bgColor = ClientPrefs.data.lightMode ? 0xFFe0e0e0 : 0xFF121212;
 		FlxG.camera.antialiasing = ClientPrefs.data.antialiasing;
 
@@ -277,13 +272,6 @@ class FreeplayState extends MusicBeatState
 		blackbg.color = FlxColor.BLACK;
 		blackbg.alpha = 0;
 
-	    #if mobile
-		addVirtualPad(NONE, B);
-		addVirtualPadCamera();
-		#end
-
-		controls.isInSubstate = false;
-		
 		if (!skipIntro) 
 		{
 			superIntro(function () 
@@ -328,6 +316,14 @@ class FreeplayState extends MusicBeatState
 	{
 		canScroll = false;
 		selected = true;
+		
+		#if mobile
+		if (controls.isInSubstate)
+            controls.isInSubstate = false;
+            
+		addVirtualPad(NONE, FREEPLAY);
+		addVirtualPadCamera();
+		#end
 
 		bootUpSound = FlxG.sound.play(Paths.sound('bootup'), 0.4);
 
@@ -607,9 +603,6 @@ class SelectedThumb extends MusicBeatSubstate
 	var questionCam:Null<FlxCamera>;
 	var shutup:Bool = false;
 
-	var Movement:String = "NONE";
-	var Action:String = "B_T";
-
 	public function new(?parent:Null<FreeplayState> = null, ?cachedCursel:Null<Int> = null) 
 	{
 		this.parent = parent;
@@ -748,7 +741,7 @@ class SelectedThumb extends MusicBeatSubstate
 		bubbleAnim = FlxG.random.int(1,3);
 
 		var path = (songName == 'aldi' ? 'menus/freeplay/DB/DB-ALDI' : 'menus/freeplay/DB/DB$bubbleAnim');
-		bubble = new ModchartSprite(960,450).loadFrames(path);
+		bubble = new ModchartSprite(#if mobile 920 #else 960 #end,450).loadFrames(path);
 		bubble.addAnimByPrefix('idle', 'idle');
 		bubble.addAnimByPrefix('talk', 'talk');
 		bubble.playAnim('idle');
@@ -827,7 +820,7 @@ class SelectedThumb extends MusicBeatSubstate
 				{
 					boxhover = false;
 
-					FlxTween.tween(questionCam, {alpha: 1}, 0.6, {onComplete:Void -> { canAnswer = true; Movement = "LEFT_RIGHT"; virtualPad.cameras = [questionCam];}});
+					FlxTween.tween(questionCam, {alpha: 1}, 0.6, {onComplete:Void -> { canAnswer = true; addVirtualPad(LEFT_RIGHT, NONE); virtualPad.cameras = [questionCam];}});
 					box.arrowThing(false);
 				}
 
@@ -1027,7 +1020,8 @@ class SelectedThumb extends MusicBeatSubstate
 
         #if mobile
         controls.isInSubstate = true;
-		addVirtualPad(NONE, B_T);
+		if (canCycle || songUnlockable) addVirtualPad(NONE, B_T);
+		else addVirtualPad(NONE, B);
 		#end
 	}
 

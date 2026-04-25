@@ -1075,7 +1075,6 @@ class PlayState extends MusicBeatState
 
 		seenCutscene = true;
 		inCutscene = false;
-		#if mobile mobileControls.visible = true; #end
 		var ret:Dynamic = callOnScripts('onStartCountdown', null, true);
 		if(ret != LuaUtils.Function_Stop) {
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
@@ -1341,6 +1340,8 @@ class PlayState extends MusicBeatState
 		FlxG.sound.music.onComplete = finishSong.bind();
 		vocals.play();
 		opponentVocals.play();
+		
+		#if mobile mobileControls.visible = true; #end
 
 		if(startOnTime > 0) setSongTime(startOnTime - 500);
 		startOnTime = 0;
