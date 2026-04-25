@@ -76,8 +76,8 @@ class FlxHitbox extends FlxMobileInputManager
 	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
 	{
 		var shape:Shape = new Shape();
-		shape.graphics.beginFill(Color);
-		shape.graphics.lineStyle(10, Color, 1);
+		shape.graphics.beginFill(0xFFFFFF);
+		shape.graphics.lineStyle(10, 0xFFFFFF, 1);
 		shape.graphics.drawRect(0, 0, Width, Height);
 		shape.graphics.endFill();
 
@@ -86,10 +86,22 @@ class FlxHitbox extends FlxMobileInputManager
 		return bitmap;
 	}
 
+	public function setColors(colors:Array<Int>):Void
+	{
+		var btns = [buttonLeft, buttonDown, buttonUp, buttonRight];
+		
+		for (i in 0...btns.length)
+		{
+        if (colors[i] != null)
+            btns[i].color = colors[i];
+		}
+	}
+
 	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton
 	{
 		var hint:FlxButton = new FlxButton(X, Y);
 		hint.loadGraphic(createHintGraphic(Width, Height, Color));
+		hint.color = Color;
 		hint.solid = false;
 		hint.immovable = true;
 		hint.scrollFactor.set();
