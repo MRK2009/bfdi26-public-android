@@ -24,7 +24,14 @@ jobs:
           haxelib install hmm --quiet
           haxelib run hmm setup --quiet
           haxelib run hmm install --quiet
-          haxelib run lime rebuild hxcpp
+
+      - name: Compile hxcpp
+        run: |
+          cd .haxelib/hxcpp/git/tools/hxcpp
+          haxe compile.hxml
+
+      - name: Rebuild hxcpp
+        run: haxelib run lime rebuild hxcpp
 
       - name: Clean
         run: |
@@ -37,9 +44,10 @@ jobs:
       - name: Making ipa file
         run: |
           brew install ldid
+
           cd export/release/ios/build/Release-iphoneos
 
-          ldid -S../../../BFDI26/BFDI26.entitlements BFDI26.app/BFDI26
+          ldid -S BFDI26.app/BFDI26
 
           mkdir Payload
           mv BFDI26.app Payload
