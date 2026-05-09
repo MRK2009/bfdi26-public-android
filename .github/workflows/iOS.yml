@@ -5,22 +5,31 @@ on: workflow_dispatch
 jobs:
   build:
     name: Build iOS
-    runs-on: macos-15
+    runs-on: macos-14
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@v2.0.2
         with:
           haxe-version: 4.3.7
-          
+
       - name: Install Libraries
         run: |
-         haxelib install hmm --quiet
-         haxelib run hmm setup --quiet
-         haxelib run hmm install --quiet
-         haxelib run lime rebuild hxcpp
+          haxelib install hmm --quiet
+          haxelib run hmm setup --quiet
+          haxelib run hmm install --quiet
+          haxelib run lime rebuild hxcpp
+
+      - name: Clean
+        run: |
+          rm -rf export
+          haxelib run lime clean ios
 
       - name: Compile
         run: haxelib run lime build ios -nosign
@@ -28,9 +37,10 @@ jobs:
       - name: Making ipa file
         run: |
           brew install ldid
-          cd export/release/ios/build/Release-iphoneos/BFDI26.app
-          ldid -S../../../BFDI26/BFDI26.entitlements BFDI26
-          cd ..
+          cd export/release/ios/build/Release-iphoneos
+
+          ldid -S../../../BFDI26/BFDI26.entitlements BFDI26.app/BFDI26
+
           mkdir Payload
           mv BFDI26.app Payload
           zip -r BFDI26.ipa Payload
