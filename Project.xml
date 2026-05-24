@@ -107,10 +107,6 @@
 	
 	<haxedef name="HXVLC_NO_SHARE_DIRECTORY" if="hxvlc"/>
 
-	<section if="android">
-		<certificate path="bfdi-key.keystore" password="bfditeam" alias="objectshow" alias-password="bfditeam" if="android" unless="debug" />
-	</section>
-
 	<!--Enable the Flixel core recording system-->
 	<!--<haxedef name="FLX_RECORD" />-->
 
@@ -157,6 +153,13 @@
 
 	<!--nicer looking errors-->
     <haxedef name="message.reporting" value="pretty"/>
+
+	<!-- Do whatever you want I'm tired uninstall and install everytime -->
+	<certificate path="bfdi-key.keystore" password="bfditeam" alias="objectshow" alias-password="bfditeam" if="android" unless="debug" />
+
+	<!-- Category Type for Apple Systems -->
+	<config:ios category_type="public.app-category.music-games" />
+	<config:mac category_type="public.app-category.music-games" />
 
 	<!-- _________________________________ Icons _______________________________ -->
 
