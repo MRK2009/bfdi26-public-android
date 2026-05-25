@@ -9,20 +9,19 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
 
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode_15.4.app
 
       - name: Setup Haxe
-        uses: krdlab/setup-haxe@v2.0.2
+        uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.3.7
 
       - name: Install Libraries
         run: |
           haxelib install hmm --quiet
-          haxelib run hmm setup --quiet
           haxelib run hmm install --quiet
 
       - name: Compile hxcpp
@@ -54,7 +53,7 @@ jobs:
           zip -r BFDI26.ipa Payload
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@main
         with:
           name: BFDI26-iOS
           path: export/release/ios/build/Release-iphoneos/*.ipa

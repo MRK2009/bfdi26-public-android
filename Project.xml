@@ -92,7 +92,7 @@
 
 	<haxelib name="hxcpp-debug-server" if="debug"/>
 	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
-	<haxelib name="hxvlc" version="1.9.5" if="VIDEOS_ALLOWED"/>
+	<haxelib name="hxvlc" version="2.0.1" if="VIDEOS_ALLOWED"/>
 	<haxelib name="hxdiscord_rpc" if="DISCORD_ALLOWED"/>
 	<haxelib name="flxanimate"/>
 
@@ -106,10 +106,6 @@
 	<haxedef name="HXC_LIBVLC_LOGGING" if="VIDEOS_ALLOWED debug" />
 	
 	<haxedef name="HXVLC_NO_SHARE_DIRECTORY" if="hxvlc"/>
-
-	<section if="android">
-		<certificate path="bfdi-key.keystore" password="bfditeam" alias="objectshow" alias-password="bfditeam" if="android" unless="debug" />
-	</section>
 
 	<!--Enable the Flixel core recording system-->
 	<!--<haxedef name="FLX_RECORD" />-->
@@ -157,6 +153,13 @@
 
 	<!--nicer looking errors-->
     <haxedef name="message.reporting" value="pretty"/>
+
+	<!-- Do whatever you want I'm tired uninstall and install everytime -->
+	<certificate path="bfdi-key.keystore" password="bfditeam" alias="objectshow" alias-password="bfditeam" if="android" unless="debug" />
+
+	<!-- Category Type for Apple Systems -->
+	<config:ios category_type="public.app-category.music-games" />
+	<config:mac category_type="public.app-category.music-games" />
 
 	<!-- _________________________________ Icons _______________________________ -->
 
