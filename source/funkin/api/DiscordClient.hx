@@ -1,32 +1,35 @@
-package funkin.api;
-#if desktop
+package backend;
+#if DISCORD_ALLOWED
 import Sys.sleep;
 import lime.app.Application;
+#if !android
 import hxdiscord_rpc.Discord;
 import hxdiscord_rpc.Types;
+#else
+import mobile.android.DiscordAndroid;
+#end
 
 class DiscordClient
 {
 	public static var isInitialized:Bool = false;
-	private static final _defaultID:String = "1260051488265470014";
+	private static final _defaultID:String = "1265120427051712582";
 	public static var clientID(default, set):String = _defaultID;
-	private static var presence:DiscordRichPresence = new DiscordRichPresence();
-	public static var userId:String = null;
+	#if !android
+	private static var presence:DiscordRichPresence = DiscordRichPresence.create();
+	#end
 
 	public static function check()
 	{
-		#if DISCORD_ALLOWED
 		if(ClientPrefs.data.discordRPC) initialize();
 		else if(isInitialized) shutdown();
-		#end
 	}
 	
 	public static function prepare()
 	{
-		#if DISCORD_ALLOWED
 		if (!isInitialized && ClientPrefs.data.discordRPC)
 			initialize();
 
+        #if !android
 		Application.current.window.onClose.add(function() {
 			if(isInitialized) shutdown();
 		});
@@ -34,22 +37,24 @@ class DiscordClient
 	}
 
 	public dynamic static function shutdown() {
+		#if android
+		DiscordAndroid.shutdown();
+		#else
 		Discord.Shutdown();
+		#end
 		isInitialized = false;
 	}
 	
+	#if !android
 	private static function onReady(request:cpp.RawConstPointer<DiscordUser>):Void {
-		#if DISCORD_ALLOWED
 		var requestPtr:cpp.Star<DiscordUser> = cpp.ConstPointer.fromRaw(request).ptr;
-
-		userId = cast(requestPtr.userId, String);
 
 		if (Std.parseInt(cast(requestPtr.discriminator, String)) != 0) //New Discord IDs/Discriminator system
 			trace('(Discord) Connected to User (${cast(requestPtr.username, String)}#${cast(requestPtr.discriminator, String)})');
 		else //Old discriminators
 			trace('(Discord) Connected to User (${cast(requestPtr.username, String)})');
+
 		changePresence();
-		#end
 	}
 
 	private static function onError(errorCode:Int, message:cpp.ConstCharStar):Void {
@@ -59,15 +64,23 @@ class DiscordClient
 	private static function onDisconnected(errorCode:Int, message:cpp.ConstCharStar):Void {
 		trace('Discord: Disconnected ($errorCode: ${cast(message, String)})');
 	}
+	#end
 
 	public static function initialize()
 	{
-		#if DISCORD_ALLOWED
-		var discordHandlers:DiscordEventHandlers = new DiscordEventHandlers();
+	    #if android
+		if(!isInitialized) 
+		{
+			DiscordAndroid.initialize();
+			trace("Discord Client (Android) initialized");
+			isInitialized = true;
+		}
+		#else
+		var discordHandlers:DiscordEventHandlers = DiscordEventHandlers.create();
 		discordHandlers.ready = cpp.Function.fromStaticFunction(onReady);
 		discordHandlers.disconnected = cpp.Function.fromStaticFunction(onDisconnected);
 		discordHandlers.errored = cpp.Function.fromStaticFunction(onError);
-		Discord.Initialize(clientID, cpp.RawPointer.addressOf(discordHandlers), false, null);
+		Discord.Initialize(clientID, cpp.RawPointer.addressOf(discordHandlers), 1, null);
 
 		if(!isInitialized) trace("Discord Client initialized");
 
@@ -81,29 +94,84 @@ class DiscordClient
 				#end
 				Discord.RunCallbacks();
 
-				Sys.sleep(2);
+				// Wait 0.5 seconds until the next loop...
+				Sys.sleep(0.5);
 			}
 		});
 		isInitialized = true;
 		#end
 	}
 
-	public static function changePresence(?details:String = 'BFDI 26 - GREETINGS AND SALUATIONS', ?state:Null<String>, ?smallImageKey : String, ?hasStartTimestamp : Bool, ?endTimestamp: Float)
+	public static function changePresence(?details:String = 'In the Menus', ?state:Null<String>, ?smallImageKey : String, ?hasStartTimestamp : Bool, ?endTimestamp: Float)
 	{
-		#if DISCORD_ALLOWED
 		var startTimestamp:Float = 0;
 		if (hasStartTimestamp) startTimestamp = Date.now().getTime();
 		if (endTimestamp > 0) endTimestamp = startTimestamp + endTimestamp;
 
+        #if android
+		DiscordAndroid.update(details, state, smallImageKey);
+		#else
 		presence.details = details;
 		presence.state = state;
 		presence.largeImageKey = 'icon';
-		//presence.largeImageText = "Engine Version: " + states.MainMenuState.psychEngineVersion;
+		presence.largeImageText = "Engine Version: " + states.MainMenuState.psychEngineVersion;
 		presence.smallImageKey = smallImageKey;
 		// Obtained times are in milliseconds so they are divided so Discord can use it
 		presence.startTimestamp = Std.int(startTimestamp / 1000);
 		presence.endTimestamp = Std.int(endTimestamp / 1000);
 		updatePresence();
+		#end
+
+		//trace('Discord RPC Updated. Arguments: $details, $state, $smallImageKey, $hasStartTimestamp, $endTimestamp');
+	}
+
+	public static function updatePresence() {
+        #if !android Discord.UpdatePresence(cpp.RawConstPointer.addressOf(presence)); #end
+    }
+	
+	public static function resetClientID()
+		clientID = _defaultID;
+
+	private static function set_clientID(newID:String)
+	{
+		var change:Bool = (clientID != newID);
+		clientID = newID;
+
+		if(change && isInitialized)
+		{
+			shutdown();
+			initialize();
+			updatePresence();
+		}
+		return newID;
+	}
+
+	#if MODS_ALLOWED
+	public static function loadModRPC()
+	{
+		var pack:Dynamic = Mods.getPack();
+		if(pack != null && pack.discordRPC != null && pack.discordRPC != clientID)
+		{
+			clientID = pack.discordRPC;
+			//trace('Changing clientID! $clientID, $_defaultID');
+		}
+	}
+	#end
+
+	#if LUA_ALLOWED
+	public static function addLuaCallbacks(lua:State) {
+		Lua_helper.add_callback(lua, "changeDiscordPresence", function(details:String, state:Null<String>, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float) {
+			changePresence(details, state, smallImageKey, hasStartTimestamp, endTimestamp);
+		});
+
+		Lua_helper.add_callback(lua, "changeDiscordClientID", function(?newID:String = null) {
+			if(newID == null) newID = _defaultID;
+			clientID = newID;
+		});
+	}
+	#end
+}
+#end		updatePresence();
 		#end
 
 		//trace('Discord RPC Updated. Arguments: $details, $state, $smallImageKey, $hasStartTimestamp, $endTimestamp');
