@@ -12,7 +12,7 @@ import mobile.android.DiscordAndroid;
 class DiscordClient
 {
 	public static var isInitialized:Bool = false;
-	private static final _defaultID:String = "1265120427051712582";
+	private static final _defaultID:String = "1260051488265470014";
 	public static var clientID(default, set):String = _defaultID;
 	#if !android
 	private static var presence:DiscordRichPresence = DiscordRichPresence.create();
