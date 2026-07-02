@@ -6,7 +6,7 @@ import lime.app.Application;
 import hxdiscord_rpc.Discord;
 import hxdiscord_rpc.Types;
 #else
-import mobile.android.AndroidRPC;
+import mobile.android.DiscordAndroid;
 #end
 
 class DiscordClient
