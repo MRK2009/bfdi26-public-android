@@ -1,4 +1,4 @@
-package backend;
+package funkin.api;
 #if DISCORD_ALLOWED
 import Sys.sleep;
 import lime.app.Application;
@@ -102,7 +102,7 @@ class DiscordClient
 		#end
 	}
 
-	public static function changePresence(?details:String = 'In the Menus', ?state:Null<String>, ?smallImageKey : String, ?hasStartTimestamp : Bool, ?endTimestamp: Float)
+	public static function changePresence(?details:String = 'BFDI 26 - GREETINGS AND SALUATIONS', ?state:Null<String>, ?smallImageKey : String, ?hasStartTimestamp : Bool, ?endTimestamp: Float)
 	{
 		var startTimestamp:Float = 0;
 		if (hasStartTimestamp) startTimestamp = Date.now().getTime();
@@ -114,7 +114,7 @@ class DiscordClient
 		presence.details = details;
 		presence.state = state;
 		presence.largeImageKey = 'icon';
-		presence.largeImageText = "Engine Version: " + states.MainMenuState.psychEngineVersion;
+		//presence.largeImageText = "Engine Version: " + states.MainMenuState.psychEngineVersion;
 		presence.smallImageKey = smallImageKey;
 		// Obtained times are in milliseconds so they are divided so Discord can use it
 		presence.startTimestamp = Std.int(startTimestamp / 1000);
