@@ -10,7 +10,7 @@ import funkin.backend.Song;
 import funkin.backend.Section;
 import funkin.backend.Rating;
 import funkin.backend.PsychCamera;
-#if DISCORD_ALLOWED
+#if desktop
 import hxdiscord_rpc.Discord;
 #end
 import funkin.data.Highscore;
