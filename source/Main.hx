@@ -2,10 +2,6 @@ package;
 
 import Type;
 
-#if android
-//import android.content.Context;
-#end
-
 import funkin.api.FPSCounter;
 
 import flixel.addons.transition.FlxTransitionableState;
@@ -150,13 +146,11 @@ class Main extends Sprite
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
 		LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver;
 
-		//#if !mobile
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		fpsVar.visible = ClientPrefs.data.showFPS;
-		//#end
 
 		#if linux
 		var icon = Image.fromFile("icon.png");
@@ -173,7 +167,7 @@ class Main extends Sprite
 		//Lib.application.window.resizable = false;
 
 		loadBanList();
-
+/*
 		#if DISCORD_ALLOWED
 		if (banlist.contains(DiscordClient.userId))
 		{
@@ -183,7 +177,7 @@ class Main extends Sprite
 		} #if debug else trace('ur not banned'); #end
 		trace(banlist);
 		#end
-
+*/
 		// shader coords fix
 		FlxG.signals.focusGained.add(function() {
 			onResize();

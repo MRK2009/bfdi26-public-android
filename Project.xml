@@ -24,7 +24,7 @@
 	<define name="HSCRIPT_ALLOWED" if="desktop || mobile" />
 	<define name="VIDEOS_ALLOWED" if="desktop || mobile" />
 	<define name="LUA_ALLOWED" if="desktop || mobile" />
-	<define name="DISCORD_ALLOWED" if="desktop" />
+	<define name="DISCORD_ALLOWED" if="desktop || android" />
 
 	<!-- remove to disable dark mode -->
 	<define name="DARK_MODE_WINDOW" if="windows"/>
@@ -99,7 +99,7 @@
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
 	<!-- Disable Discord IO Thread -->
-	<haxedef name="DISCORD_DISABLE_IO_THREAD" if="hxdiscord_rpc" />
+	<haxedef name="DISCORD_DISABLE_IO_THREAD" if="desktop" />
 	<haxedef name="NO_PRECOMPILED_HEADERS" if="linux" />
 
 	<!-- Enables a terminal log prompt on debug builds -->
@@ -161,6 +161,10 @@
 	<!-- _________________________________ Icons _______________________________ -->
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
+
+	<!-- Basic Support For Kizzy -->
+	<java path="source/mobile/android/" if="android" />
+	<java path="mobile/android/" if="android" />
 
 	<assets path='art/iconn.png' rename='icon.png' if="linux" />
 	
