@@ -5,7 +5,8 @@
       "type": "git",
       "dir": null,
       "ref": "main",
-      "url": "https://github.com/kittycathy233/lime"
+      "url": "https://github.com/kittycathy233/lime",
+	  "version": "8.1.3"
 	},
     {
       "name": "flixel",
@@ -46,8 +47,8 @@
       "name": "hxcpp",
       "type": "git",
       "dir": null,
-      "ref": "main",
-      "url": "https://github.com/kittycathy233/hxcpp"
+      "ref": "v4.3.73",
+      "url": "https://github.com/HaxeFoundation/hxcpp"
     },
     {
       "name": "hxcpp-debug-server",
@@ -62,7 +63,7 @@
     {
       "name": "hxvlc",
       "type": "haxelib",
-      "version": "2.0.1"
+      "version": "1.9.5"
     },
     {
       "name": "hscript",
@@ -91,6 +92,13 @@
       "ref": "v4.0.0",
       "url": "https://github.com/Dot-Stuff/flxanimate"
     },
+	{
+      "name": "extension-androidtools",
+      "type": "git",
+      "dir": null,
+	  "ref": "main",
+	  "url": "https://github.com/MAJigsaw77/extension-androidtools"
+	},
     {
       "name": "linc_luajit",
       "type": "git",
