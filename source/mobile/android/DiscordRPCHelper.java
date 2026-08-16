@@ -59,7 +59,7 @@ public class DiscordRPCHelper extends Extension {
     /**
      * Updates the Media status
      */
-    public static void updateStatus(final String title, final String artist, final String imagePath) {
+    public static void updateStatus(final String activityName, final String artist, final String imagePath) {
         if (Extension.mainActivity == null) return;
 
         new Thread(new Runnable() {
@@ -110,7 +110,7 @@ public class DiscordRPCHelper extends Extension {
                             if (mediaSession == null) { initialize(); return; }
 
                             MediaMetadata metadata = new MediaMetadata.Builder()
-                                    .putString(MediaMetadata.METADATA_KEY_TITLE, title)
+                                    .putString(MediaMetadata.METADATA_KEY_TITLE, activityName)
                                     .putString(MediaMetadata.METADATA_KEY_ARTIST, artist)
                                     .putBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART, finalAlbumArt)
                                     .build();
@@ -122,7 +122,7 @@ public class DiscordRPCHelper extends Extension {
                                     .build();
                             mediaSession.setPlaybackState(state);
 
-                            showNotification(title, artist, finalAlbumArt);
+                            showNotification(activityName, artist, finalAlbumArt);
 
                         } catch (Exception e) {
                             Log.e(TAG, "UPDATE ERROR: " + e.getMessage());
@@ -133,7 +133,7 @@ public class DiscordRPCHelper extends Extension {
         }).start();
     }
 
-    private static void showNotification(String title, String artist, Bitmap art) {
+    private static void showNotification(String activityName, String artist, Bitmap art) {
         Context context = Extension.mainContext;
         Notification.Builder builder;
 
@@ -155,7 +155,7 @@ public class DiscordRPCHelper extends Extension {
         builder.setVisibility(Notification.VISIBILITY_SECRET)
                 .setSmallIcon(iconResId)
                 .setLargeIcon(art)
-                .setContentTitle(title)
+                .setContentTitle(activityName)
                 .setContentText(artist)
                 .setStyle(style)
                 .setOngoing(true);
