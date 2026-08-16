@@ -26,26 +26,30 @@ class DiscordAndroid {
 		}
 	}
 
-	public static function update(details:String, state:String, ?smallImageKey:String) {
+	public static function update(activityName:String, details:String, ?smallImageKey:String) {
 		try {
 			if (!initialized) initialize();
-
+			
 			if (_update == null) {
-				_update = JNI.createStaticMethod("network/discord/DiscordRPCHelper", "updateStatus", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+				_update = JNI.createStaticMethod(
+					"network/discord/DiscordRPCHelper",
+					"updateStatus",
+					"(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V"
+				);
 			}
-
+			
+			var safeActivityName:String = (activityName != null) ? activityName : "";
 			var safeDetails:String = (details != null) ? details : "";
-			var safeState:String = (state != null) ? state : "";
 			var safeImage:String = (smallImageKey != null) ? smallImageKey : "";
-
+			
 			if (_update != null) {
-				_update(safeDetails, safeState, safeImage); 
+				_update(safeActivityName, safeDetails, safeImage);
 			}
-		} catch(e:Dynamic) { 
-			trace("JNI Update Error: " + e); 
+		} catch(e:Dynamic) {
+			trace("JNI Update Error: " + e);
 		}
 	}
-
+	
 	public static function shutdown() {
 		try {
 			if (_shutdown == null)
