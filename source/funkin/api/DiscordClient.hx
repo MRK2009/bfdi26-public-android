@@ -102,14 +102,14 @@ class DiscordClient
 		#end
 	}
 
-	public static function changePresence(?details:String = 'BFDI 26 - GREETINGS AND SALUATIONS', ?state:Null<String>, ?smallImageKey : String, ?hasStartTimestamp : Bool, ?endTimestamp: Float)
+	public static function changePresence(?details:String = 'BFDI 26 - GREETINGS AND SALUATIONS', ?activityName:String = 'BFDI 26', ?state:Null<String>, ?smallImageKey : String, ?hasStartTimestamp : Bool, ?endTimestamp: Float)
 	{
 		var startTimestamp:Float = 0;
 		if (hasStartTimestamp) startTimestamp = Date.now().getTime();
 		if (endTimestamp > 0) endTimestamp = startTimestamp + endTimestamp;
 
         #if android
-		DiscordAndroid.update(details, state, smallImageKey);
+		DiscordAndroid.update(activityName, details, state, smallImageKey);
 		#else
 		presence.details = details;
 		presence.state = state;
