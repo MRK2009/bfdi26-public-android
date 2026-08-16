@@ -721,7 +721,7 @@ class PlayState extends MusicBeatState
 			if (PlayState.SONG.song.toLowerCase() == '${list[i][0]}') {
 				DiscordClient.clientID = list[i][1];
 				new FlxTimer().start(3,Void->{
-					DiscordClient.changePresence('BFDI26 - ${list[i][2]}');
+					DiscordClient.changePresence('BFDI26 - ${list[i][2]}', PlayState.SONG.song.toUpperCase());
 				});
 			}
 		}
