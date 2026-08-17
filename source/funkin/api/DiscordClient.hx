@@ -109,7 +109,7 @@ class DiscordClient
 		if (endTimestamp > 0) endTimestamp = startTimestamp + endTimestamp;
 
         #if android
-		DiscordAndroid.update(activityName, details, state, smallImageKey);
+		DiscordAndroid.update(activityName, details, smallImageKey);
 		#else
 		presence.details = details;
 		presence.state = state;
